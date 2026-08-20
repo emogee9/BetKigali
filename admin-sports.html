@@ -1,1 +1,1157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <title>BetKigali - Sports & Matches</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      color: #111827;
+    }
+
+    .header {
+      background: #111827;
+      color: white;
+      padding: 20px;
+    }
+
+    .header-inner {
+      max-width: 1150px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+
+    .header p {
+      margin: 6px 0 0;
+      color: #cbd5e1;
+    }
+
+    .back-btn {
+      background: #f5c542;
+      color: #111827;
+      text-decoration: none;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 13px;
+    }
+
+    .container {
+      padding: 20px;
+      max-width: 1150px;
+      margin: auto;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .tab-btn {
+      background: white;
+      color: #111827;
+      border: 1px solid #d1d5db;
+      padding: 11px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .tab-btn.active {
+      background: #111827;
+      color: white;
+      border-color: #111827;
+    }
+
+    .section {
+      display: none;
+    }
+
+    .section.active {
+      display: block;
+    }
+
+    .top-card {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.08);
+    }
+
+    .top-card h2 {
+      margin-top: 0;
+      margin-bottom: 15px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 15px;
+      flex-wrap: wrap;
+    }
+
+    .section-header h2 {
+      margin: 0;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      font-size: 15px;
+      background: white;
+    }
+
+    button {
+      border: none;
+      border-radius: 8px;
+      padding: 11px 16px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .add-btn {
+      background: #16a34a;
+      color: white;
+      margin-top: 15px;
+    }
+
+    .refresh-btn {
+      background: #2563eb;
+      color: white;
+    }
+
+    .danger-btn {
+      background: #dc2626;
+      color: white;
+    }
+
+    .matches {
+      display: grid;
+      gap: 15px;
+    }
+
+    .match {
+      background: white;
+      padding: 18px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.08);
+      border-left: 4px solid #2563eb;
+    }
+
+    .match.live-match {
+      border-left-color: #dc2626;
+    }
+
+    .league {
+      color: #2563eb;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .teams {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .vs {
+      color: #64748b;
+      font-size: 14px;
+    }
+
+    .match-info {
+      margin-top: 12px;
+      color: #64748b;
+      font-size: 14px;
+    }
+
+    .actions {
+      margin-top: 15px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .live-btn {
+      background: #dc2626;
+      color: white;
+    }
+
+    .delete-btn {
+      background: #e5e7eb;
+      color: #111827;
+    }
+
+    .status {
+      display: inline-block;
+      padding: 5px 9px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    .status.live {
+      background: #fee2e2;
+      color: #b91c1c;
+    }
+
+    .status.upcoming {
+      background: #dbeafe;
+      color: #1d4ed8;
+    }
+
+    .empty {
+      color: #64748b;
+      padding: 10px 0;
+    }
+
+    .info-box {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      color: #1e40af;
+      padding: 14px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-size: 14px;
+    }
+
+    .api-status {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 14px;
+      margin-top: 15px;
+      color: #475569;
+    }
+
+    .league-grid,
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+
+    .league-card,
+    .team-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      padding: 16px;
+      border-radius: 10px;
+    }
+
+    .league-card strong,
+    .team-card strong {
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .small {
+      color: #64748b;
+      font-size: 13px;
+    }
+
+    @media (max-width: 800px) {
+      .league-grid,
+      .team-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 700px) {
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .teams {
+        font-size: 15px;
+      }
+
+      .header-inner {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 500px) {
+      .league-grid,
+      .team-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="header">
+    <div class="header-inner">
+
+      <div>
+        <h1>BetKigali Admin</h1>
+        <p>Sports & Matches</p>
+      </div>
+
+      <a class="back-btn" href="admin.html">
+        ← Dashboard
+      </a>
+
+    </div>
+  </div>
+
+  <div class="container">
+
+    <!-- TABS -->
+
+    <div class="tabs">
+
+      <button class="tab-btn active" onclick="showSection('matchesSection', this)">
+        📅 Matches
+      </button>
+
+      <button class="tab-btn" onclick="showSection('liveSection', this)">
+        🔴 Live Matches
+      </button>
+
+      <button class="tab-btn" onclick="showSection('leaguesSection', this)">
+        🏆 Leagues
+      </button>
+
+      <button class="tab-btn" onclick="showSection('teamsSection', this)">
+        👥 Teams
+      </button>
+
+    </div>
+
+
+    <!-- API INFORMATION -->
+
+    <div class="info-box">
+
+      <strong>Sports Data:</strong>
+
+      API-Football integration will be connected through a secure backend.
+
+      Your API key should never be placed directly inside this HTML file.
+
+      <div class="api-status">
+        🔒 API status:
+        <strong id="apiStatus">Backend connection not configured yet</strong>
+      </div>
+
+    </div>
+
+
+    <!-- MATCHES -->
+
+    <div id="matchesSection" class="section active">
+
+      <div class="top-card">
+
+        <div class="section-header">
+
+          <h2>Add Match</h2>
+
+          <button class="refresh-btn" onclick="refreshMatches()">
+            🔄 Refresh
+          </button>
+
+        </div>
+
+        <div class="form-grid">
+
+          <input
+            type="text"
+            id="league"
+            placeholder="League name"
+          >
+
+          <input
+            type="date"
+            id="matchDate"
+          >
+
+          <input
+            type="time"
+            id="matchTime"
+          >
+
+          <input
+            type="text"
+            id="homeTeam"
+            placeholder="Home team"
+          >
+
+          <input
+            type="text"
+            id="awayTeam"
+            placeholder="Away team"
+          >
+
+        </div>
+
+        <button class="add-btn" onclick="addMatch()">
+          + Add Match
+        </button>
+
+      </div>
+
+
+      <div class="top-card">
+
+        <div class="section-header">
+          <h2>Matches</h2>
+        </div>
+
+        <div id="matches" class="matches"></div>
+
+      </div>
+
+    </div>
+
+
+    <!-- LIVE MATCHES -->
+
+    <div id="liveSection" class="section">
+
+      <div class="top-card">
+
+        <div class="section-header">
+
+          <h2>🔴 Live Matches</h2>
+
+          <button class="refresh-btn" onclick="refreshMatches()">
+            🔄 Refresh
+          </button>
+
+        </div>
+
+        <div id="liveMatches" class="matches"></div>
+
+      </div>
+
+    </div>
+
+
+    <!-- LEAGUES -->
+
+    <div id="leaguesSection" class="section">
+
+      <div class="top-card">
+
+        <div class="section-header">
+
+          <h2>🏆 Leagues</h2>
+
+          <button class="refresh-btn" onclick="loadLeagues()">
+            🔄 Refresh
+          </button>
+
+        </div>
+
+        <div id="leagues" class="league-grid"></div>
+
+      </div>
+
+    </div>
+
+
+    <!-- TEAMS -->
+
+    <div id="teamsSection" class="section">
+
+      <div class="top-card">
+
+        <div class="section-header">
+
+          <h2>👥 Teams</h2>
+
+          <button class="refresh-btn" onclick="loadTeams()">
+            🔄 Refresh
+          </button>
+
+        </div>
+
+        <div id="teams" class="team-grid"></div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <script>
+
+    /*
+      ==========================================
+      BETKIGALI SPORTS ADMIN
+      ==========================================
+
+      IMPORTANT:
+
+      API-Football API key is NOT stored here.
+
+      Later we will connect:
+
+      admin-sports.html
+              ↓
+          Secure backend
+              ↓
+        API-Football
+              ↓
+        Leagues / Teams / Matches
+
+    */
+
+
+    let matches =
+      JSON.parse(
+        localStorage.getItem("betkigaliMatches")
+      ) || [];
+
+
+    /*
+      TAB SYSTEM
+    */
+
+    function showSection(sectionId, button) {
+
+      document
+        .querySelectorAll(".section")
+        .forEach(section => {
+          section.classList.remove("active");
+        });
+
+      document
+        .querySelectorAll(".tab-btn")
+        .forEach(btn => {
+          btn.classList.remove("active");
+        });
+
+      document
+        .getElementById(sectionId)
+        .classList.add("active");
+
+      button.classList.add("active");
+
+      if (sectionId === "liveSection") {
+        renderLiveMatches();
+      }
+
+    }
+
+
+    /*
+      SAVE MATCHES
+    */
+
+    function saveMatches() {
+
+      localStorage.setItem(
+        "betkigaliMatches",
+        JSON.stringify(matches)
+      );
+
+    }
+
+
+    /*
+      ADD MATCH
+    */
+
+    function addMatch() {
+
+      const league =
+        document
+          .getElementById("league")
+          .value
+          .trim();
+
+      const date =
+        document
+          .getElementById("matchDate")
+          .value;
+
+      const time =
+        document
+          .getElementById("matchTime")
+          .value;
+
+      const homeTeam =
+        document
+          .getElementById("homeTeam")
+          .value
+          .trim();
+
+      const awayTeam =
+        document
+          .getElementById("awayTeam")
+          .value
+          .trim();
+
+
+      if (
+        !league ||
+        !date ||
+        !time ||
+        !homeTeam ||
+        !awayTeam
+      ) {
+
+        alert(
+          "Please fill in all fields."
+        );
+
+        return;
+
+      }
+
+
+      const match = {
+
+        id: Date.now(),
+
+        league,
+
+        date,
+
+        time,
+
+        homeTeam,
+
+        awayTeam,
+
+        live: false,
+
+        homeScore: 0,
+
+        awayScore: 0,
+
+        minute: 0,
+
+        status: "Upcoming"
+
+      };
+
+
+      matches.push(match);
+
+      saveMatches();
+
+      renderMatches();
+
+      renderLiveMatches();
+
+
+      document
+        .getElementById("league")
+        .value = "";
+
+      document
+        .getElementById("matchDate")
+        .value = "";
+
+      document
+        .getElementById("matchTime")
+        .value = "";
+
+      document
+        .getElementById("homeTeam")
+        .value = "";
+
+      document
+        .getElementById("awayTeam")
+        .value = "";
+
+    }
+
+
+    /*
+      TOGGLE LIVE
+    */
+
+    function toggleLive(id) {
+
+      matches =
+        matches.map(match => {
+
+          if (match.id === id) {
+
+            match.live =
+              !match.live;
+
+            match.status =
+              match.live
+                ? "Live"
+                : "Upcoming";
+
+          }
+
+          return match;
+
+        });
+
+
+      saveMatches();
+
+      renderMatches();
+
+      renderLiveMatches();
+
+    }
+
+
+    /*
+      DELETE MATCH
+    */
+
+    function deleteMatch(id) {
+
+      const confirmed =
+        confirm(
+          "Delete this match?"
+        );
+
+      if (!confirmed) {
+        return;
+      }
+
+
+      matches =
+        matches.filter(
+          match => match.id !== id
+        );
+
+
+      saveMatches();
+
+      renderMatches();
+
+      renderLiveMatches();
+
+    }
+
+
+    /*
+      RENDER MATCHES
+    */
+
+    function renderMatches() {
+
+      const container =
+        document.getElementById(
+          "matches"
+        );
+
+
+      if (matches.length === 0) {
+
+        container.innerHTML = `
+          <p class="empty">
+            No matches added yet.
+          </p>
+        `;
+
+        return;
+
+      }
+
+
+      container.innerHTML =
+
+        matches
+          .map(match => `
+
+            <div class="match ${
+              match.live
+                ? "live-match"
+                : ""
+            }">
+
+              <div class="league">
+                🏆 ${escapeHtml(match.league)}
+              </div>
+
+              <div class="teams">
+
+                <span>
+                  ${escapeHtml(match.homeTeam)}
+                </span>
+
+                <span class="vs">
+                  VS
+                </span>
+
+                <span>
+                  ${escapeHtml(match.awayTeam)}
+                </span>
+
+              </div>
+
+              <div class="match-info">
+
+                📅 ${escapeHtml(match.date)}
+
+                &nbsp;
+
+                ⏰ ${escapeHtml(match.time)}
+
+              </div>
+
+              <div>
+
+                <span class="status ${
+                  match.live
+                    ? "live"
+                    : "upcoming"
+                }">
+
+                  ${
+                    match.live
+                      ? "🔴 LIVE"
+                      : "UPCOMING"
+                  }
+
+                </span>
+
+              </div>
+
+              <div class="actions">
+
+                <button
+                  class="live-btn"
+                  onclick="toggleLive(${match.id})"
+                >
+
+                  ${
+                    match.live
+                      ? "⏹ Stop LIVE"
+                      : "▶ Make LIVE"
+                  }
+
+                </button>
+
+
+                <button
+                  class="delete-btn"
+                  onclick="deleteMatch(${match.id})"
+                >
+                  Delete
+                </button>
+
+              </div>
+
+            </div>
+
+          `)
+          .join("");
+
+    }
+
+
+    /*
+      RENDER LIVE MATCHES
+    */
+
+    function renderLiveMatches() {
+
+      const container =
+        document.getElementById(
+          "liveMatches"
+        );
+
+
+      const liveMatches =
+        matches.filter(
+          match => match.live
+        );
+
+
+      if (liveMatches.length === 0) {
+
+        container.innerHTML = `
+          <p class="empty">
+            🔴 No live matches at the moment.
+          </p>
+        `;
+
+        return;
+
+      }
+
+
+      container.innerHTML =
+
+        liveMatches
+          .map(match => `
+
+            <div class="match live-match">
+
+              <div class="league">
+                🏆 ${escapeHtml(match.league)}
+              </div>
+
+              <div class="teams">
+
+                <span>
+                  ${escapeHtml(match.homeTeam)}
+                  <br>
+                  <small>
+                    ${match.homeScore || 0}
+                  </small>
+                </span>
+
+                <span class="vs">
+                  LIVE
+                </span>
+
+                <span>
+                  ${escapeHtml(match.awayTeam)}
+                  <br>
+                  <small>
+                    ${match.awayScore || 0}
+                  </small>
+                </span>
+
+              </div>
+
+              <div class="match-info">
+
+                🔴 LIVE
+
+                ${
+                  match.minute
+                    ? " • " + match.minute + "'"
+                    : ""
+                }
+
+              </div>
+
+            </div>
+
+          `)
+          .join("");
+
+    }
+
+
+    /*
+      LEAGUES
+
+      Temporary local display.
+
+      API-Football will replace this
+      after backend connection.
+    */
+
+    function loadLeagues() {
+
+      const leagues =
+        document.getElementById(
+          "leagues"
+        );
+
+
+      leagues.innerHTML = `
+
+        <div class="league-card">
+          <strong>Premier League</strong>
+          <span class="small">
+            England
+          </span>
+        </div>
+
+        <div class="league-card">
+          <strong>La Liga</strong>
+          <span class="small">
+            Spain
+          </span>
+        </div>
+
+        <div class="league-card">
+          <strong>UEFA Champions League</strong>
+          <span class="small">
+            Europe
+          </span>
+        </div>
+
+        <div class="league-card">
+          <strong>Ligue 1</strong>
+          <span class="small">
+            France
+          </span>
+        </div>
+
+      `;
+
+    }
+
+
+    /*
+      TEAMS
+
+      Temporary local display.
+
+      API-Football will replace this
+      after backend connection.
+    */
+
+    function loadTeams() {
+
+      const teams =
+        document.getElementById(
+          "teams"
+        );
+
+
+      teams.innerHTML = `
+
+        <div class="team-card">
+          <strong>Arsenal</strong>
+          <span class="small">
+            England
+          </span>
+        </div>
+
+        <div class="team-card">
+          <strong>Chelsea</strong>
+          <span class="small">
+            England
+          </span>
+        </div>
+
+        <div class="team-card">
+          <strong>Real Madrid</strong>
+          <span class="small">
+            Spain
+          </span>
+        </div>
+
+        <div class="team-card">
+          <strong>Barcelona</strong>
+          <span class="small">
+            Spain
+          </span>
+        </div>
+
+        <div class="team-card">
+          <strong>PSG</strong>
+          <span class="small">
+            France
+          </span>
+        </div>
+
+      `;
+
+    }
+
+
+    /*
+      REFRESH
+
+      For now this refreshes the local
+      admin data.
+
+      Later it will call our backend.
+    */
+
+    function refreshMatches() {
+
+      renderMatches();
+
+      renderLiveMatches();
+
+      alert(
+        "Matches refreshed."
+      );
+
+    }
+
+
+    /*
+      BASIC HTML SAFETY
+    */
+
+    function escapeHtml(value) {
+
+      return String(value)
+
+        .replace(
+          /&/g,
+          "&amp;"
+        )
+
+        .replace(
+          /</g,
+          "&lt;"
+        )
+
+        .replace(
+          />/g,
+          "&gt;"
+        )
+
+        .replace(
+          /"/g,
+          "&quot;"
+        )
+
+        .replace(
+          /'/g,
+          "&#039;"
+        );
+
+    }
+
+
+    /*
+      INITIAL LOAD
+    */
+
+    renderMatches();
+
+    renderLiveMatches();
+
+    loadLeagues();
+
+    loadTeams();
+
+  </script>
+
+</body>
+</html>
