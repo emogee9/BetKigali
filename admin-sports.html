@@ -140,6 +140,11 @@
       font-weight: bold;
     }
 
+    button:disabled {
+      opacity: .6;
+      cursor: not-allowed;
+    }
+
     .add-btn {
       background: #16a34a;
       color: white;
@@ -151,9 +156,14 @@
       color: white;
     }
 
-    .danger-btn {
+    .live-btn {
       background: #dc2626;
       color: white;
+    }
+
+    .delete-btn {
+      background: #e5e7eb;
+      color: #111827;
     }
 
     .matches {
@@ -188,9 +198,24 @@
       font-weight: bold;
     }
 
+    .team {
+      flex: 1;
+    }
+
+    .team.away {
+      text-align: right;
+    }
+
     .vs {
       color: #64748b;
       font-size: 14px;
+      white-space: nowrap;
+    }
+
+    .score {
+      font-size: 20px;
+      font-weight: 900;
+      margin-top: 5px;
     }
 
     .match-info {
@@ -204,16 +229,6 @@
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
-    }
-
-    .live-btn {
-      background: #dc2626;
-      color: white;
-    }
-
-    .delete-btn {
-      background: #e5e7eb;
-      color: #111827;
     }
 
     .status {
@@ -233,6 +248,11 @@
     .status.upcoming {
       background: #dbeafe;
       color: #1d4ed8;
+    }
+
+    .status.finished {
+      background: #dcfce7;
+      color: #15803d;
     }
 
     .empty {
@@ -259,6 +279,18 @@
       color: #475569;
     }
 
+    .api-ok {
+      color: #15803d;
+    }
+
+    .api-error {
+      color: #dc2626;
+    }
+
+    .api-loading {
+      color: #2563eb;
+    }
+
     .league-grid,
     .team-grid {
       display: grid;
@@ -283,6 +315,40 @@
     .small {
       color: #64748b;
       font-size: 13px;
+    }
+
+    .error-box {
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      color: #991b1b;
+      padding: 14px;
+      border-radius: 8px;
+      margin-top: 10px;
+      line-height: 1.5;
+    }
+
+    .success-box {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      color: #166534;
+      padding: 14px;
+      border-radius: 8px;
+      margin-top: 10px;
+    }
+
+    .api-match {
+      position: relative;
+    }
+
+    .source-badge {
+      display: inline-block;
+      background: #e0e7ff;
+      color: #3730a3;
+      font-size: 10px;
+      font-weight: bold;
+      padding: 4px 7px;
+      border-radius: 12px;
+      margin-top: 8px;
     }
 
     @media (max-width: 800px) {
@@ -312,6 +378,14 @@
       .team-grid {
         grid-template-columns: 1fr;
       }
+
+      .container {
+        padding: 12px;
+      }
+
+      .top-card {
+        padding: 15px;
+      }
     }
   </style>
 </head>
@@ -333,25 +407,38 @@
     </div>
   </div>
 
+
   <div class="container">
 
     <!-- TABS -->
 
     <div class="tabs">
 
-      <button class="tab-btn active" onclick="showSection('matchesSection', this)">
+      <button
+        class="tab-btn active"
+        onclick="showSection('matchesSection', this)"
+      >
         📅 Matches
       </button>
 
-      <button class="tab-btn" onclick="showSection('liveSection', this)">
+      <button
+        class="tab-btn"
+        onclick="showSection('liveSection', this)"
+      >
         🔴 Live Matches
       </button>
 
-      <button class="tab-btn" onclick="showSection('leaguesSection', this)">
+      <button
+        class="tab-btn"
+        onclick="showSection('leaguesSection', this)"
+      >
         🏆 Leagues
       </button>
 
-      <button class="tab-btn" onclick="showSection('teamsSection', this)">
+      <button
+        class="tab-btn"
+        onclick="showSection('teamsSection', this)"
+      >
         👥 Teams
       </button>
 
@@ -364,14 +451,20 @@
 
       <strong>Sports Data:</strong>
 
-      API-Football integration will be connected through a secure backend.
-
-      Your API key should never be placed directly inside this HTML file.
+      BetKigali is connected to the secure Cloudflare Worker.
+      The API key is kept on the server and is never stored in this HTML file.
 
       <div class="api-status">
+
         🔒 API status:
-        <strong id="apiStatus">Backend connection not configured yet</strong>
+
+        <strong id="apiStatus" class="api-loading">
+          Checking backend...
+        </strong>
+
       </div>
+
+      <div id="apiMessage"></div>
 
     </div>
 
@@ -384,12 +477,34 @@
 
         <div class="section-header">
 
-          <h2>Add Match</h2>
+          <h2>⚽ Matches</h2>
 
-          <button class="refresh-btn" onclick="refreshMatches()">
-            🔄 Refresh
+          <button
+            class="refresh-btn"
+            onclick="loadFixtures(true)"
+          >
+            🔄 Load Today's Matches
           </button>
 
+        </div>
+
+        <div id="apiMatches" class="matches">
+
+          <p class="empty">
+            Click "Load Today's Matches" to load matches.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <!-- MANUAL MATCH -->
+
+      <div class="top-card">
+
+        <div class="section-header">
+          <h2>➕ Add Manual Match</h2>
         </div>
 
         <div class="form-grid">
@@ -424,27 +539,32 @@
 
         </div>
 
-        <button class="add-btn" onclick="addMatch()">
+        <button
+          class="add-btn"
+          onclick="addManualMatch()"
+        >
           + Add Match
         </button>
 
       </div>
 
 
+      <!-- MANUAL MATCHES -->
+
       <div class="top-card">
 
         <div class="section-header">
-          <h2>Matches</h2>
+          <h2>📌 My Matches</h2>
         </div>
 
-        <div id="matches" class="matches"></div>
+        <div id="manualMatches" class="matches"></div>
 
       </div>
 
     </div>
 
 
-    <!-- LIVE MATCHES -->
+    <!-- LIVE -->
 
     <div id="liveSection" class="section">
 
@@ -454,13 +574,22 @@
 
           <h2>🔴 Live Matches</h2>
 
-          <button class="refresh-btn" onclick="refreshMatches()">
-            🔄 Refresh
+          <button
+            class="refresh-btn"
+            onclick="loadLiveMatches(true)"
+          >
+            🔄 Refresh Live
           </button>
 
         </div>
 
-        <div id="liveMatches" class="matches"></div>
+        <div id="liveMatches" class="matches">
+
+          <p class="empty">
+            Click "Refresh Live" to load live matches.
+          </p>
+
+        </div>
 
       </div>
 
@@ -477,13 +606,22 @@
 
           <h2>🏆 Leagues</h2>
 
-          <button class="refresh-btn" onclick="loadLeagues()">
-            🔄 Refresh
+          <button
+            class="refresh-btn"
+            onclick="loadLeagues(true)"
+          >
+            🔄 Refresh Leagues
           </button>
 
         </div>
 
-        <div id="leagues" class="league-grid"></div>
+        <div id="leagues" class="league-grid">
+
+          <p class="empty">
+            Click Refresh Leagues.
+          </p>
+
+        </div>
 
       </div>
 
@@ -500,13 +638,22 @@
 
           <h2>👥 Teams</h2>
 
-          <button class="refresh-btn" onclick="loadTeams()">
-            🔄 Refresh
+          <button
+            class="refresh-btn"
+            onclick="loadTeams()"
+          >
+            🔄 Load Teams
           </button>
 
         </div>
 
-        <div id="teams" class="team-grid"></div>
+        <div id="teams" class="team-grid">
+
+          <p class="empty">
+            Teams will be collected from today's fixtures.
+          </p>
+
+        </div>
 
       </div>
 
@@ -518,109 +665,1196 @@
   <script>
 
     /*
-      ==========================================
+    =====================================================
       BETKIGALI SPORTS ADMIN
-      ==========================================
+    =====================================================
 
-      IMPORTANT:
+      Frontend
+          ↓
+      Cloudflare Worker
+          ↓
+      API-Football
 
-      API-Football API key is NOT stored here.
-
-      Later we will connect:
-
-      admin-sports.html
-              ↓
-          Secure backend
-              ↓
-        API-Football
-              ↓
-        Leagues / Teams / Matches
-
+      API KEY NEVER GOES IN THIS FILE.
     */
 
 
-    let matches =
+    const API_BASE =
+      "https://betkigali.geekemo226.workers.dev";
+
+
+    let apiFixtures = [];
+
+    let liveFixtures = [];
+
+    let manualMatches =
       JSON.parse(
-        localStorage.getItem("betkigaliMatches")
+        localStorage.getItem(
+          "betkigaliMatches"
+        )
       ) || [];
 
 
     /*
-      TAB SYSTEM
+    =====================================================
+      DATE HELPER
+    =====================================================
     */
 
-    function showSection(sectionId, button) {
+    function todayDate() {
 
-      document
-        .querySelectorAll(".section")
-        .forEach(section => {
-          section.classList.remove("active");
-        });
+      const now = new Date();
 
-      document
-        .querySelectorAll(".tab-btn")
-        .forEach(btn => {
-          btn.classList.remove("active");
-        });
+      const year =
+        now.getFullYear();
 
-      document
-        .getElementById(sectionId)
-        .classList.add("active");
+      const month =
+        String(
+          now.getMonth() + 1
+        ).padStart(2, "0");
 
-      button.classList.add("active");
+      const day =
+        String(
+          now.getDate()
+        ).padStart(2, "0");
 
-      if (sectionId === "liveSection") {
-        renderLiveMatches();
+      return `${year}-${month}-${day}`;
+    }
+
+
+    /*
+    =====================================================
+      API STATUS
+    =====================================================
+    */
+
+    async function checkBackend() {
+
+      const status =
+        document.getElementById(
+          "apiStatus"
+        );
+
+      try {
+
+        status.textContent =
+          "Checking...";
+
+        status.className =
+          "api-loading";
+
+        const response =
+          await fetch(
+            API_BASE + "/"
+          );
+
+        const data =
+          await response.json();
+
+        if (
+          response.ok &&
+          data.success
+        ) {
+
+          status.textContent =
+            "Backend connected ✓";
+
+          status.className =
+            "api-ok";
+
+          return true;
+        }
+
+        throw new Error(
+          "Backend returned an error."
+        );
+
+      } catch (error) {
+
+        status.textContent =
+          "Backend connection failed";
+
+        status.className =
+          "api-error";
+
+        showApiMessage(
+          "Could not connect to the BetKigali backend.",
+          "error"
+        );
+
+        return false;
+      }
+    }
+
+
+    /*
+    =====================================================
+      API MESSAGE
+    =====================================================
+    */
+
+    function showApiMessage(
+      message,
+      type = "error"
+    ) {
+
+      const box =
+        document.getElementById(
+          "apiMessage"
+        );
+
+      if (!message) {
+
+        box.innerHTML = "";
+
+        return;
+      }
+
+      if (type === "success") {
+
+        box.innerHTML = `
+          <div class="success-box">
+            ${escapeHtml(message)}
+          </div>
+        `;
+
+      } else {
+
+        box.innerHTML = `
+          <div class="error-box">
+            ${escapeHtml(message)}
+          </div>
+        `;
       }
 
     }
 
 
     /*
-      SAVE MATCHES
+    =====================================================
+      TAB SYSTEM
+    =====================================================
     */
 
-    function saveMatches() {
+    function showSection(
+      sectionId,
+      button
+    ) {
 
-      localStorage.setItem(
-        "betkigaliMatches",
-        JSON.stringify(matches)
-      );
+      document
+        .querySelectorAll(".section")
+        .forEach(section => {
+
+          section.classList.remove(
+            "active"
+          );
+
+        });
+
+
+      document
+        .querySelectorAll(".tab-btn")
+        .forEach(btn => {
+
+          btn.classList.remove(
+            "active"
+          );
+
+        });
+
+
+      document
+        .getElementById(sectionId)
+        .classList.add("active");
+
+
+      button.classList.add("active");
+
+
+      if (
+        sectionId ===
+        "liveSection"
+      ) {
+
+        if (
+          liveFixtures.length === 0
+        ) {
+
+          loadLiveMatches();
+
+        } else {
+
+          renderLiveMatches();
+
+        }
+
+      }
+
+
+      if (
+        sectionId ===
+        "teamsSection"
+      ) {
+
+        loadTeams();
+
+      }
 
     }
 
 
     /*
-      ADD MATCH
+    =====================================================
+      LOAD TODAY'S FIXTURES
+    =====================================================
     */
 
-    function addMatch() {
+    async function loadFixtures(
+      force = false
+    ) {
+
+      const container =
+        document.getElementById(
+          "apiMatches"
+        );
+
+      const date =
+        todayDate();
+
+
+      container.innerHTML = `
+        <p class="empty">
+          ⏳ Loading football matches...
+        </p>
+      `;
+
+      showApiMessage(
+        "",
+        "success"
+      );
+
+
+      try {
+
+        const response =
+          await fetch(
+            `${API_BASE}/api/fixtures?date=${date}`
+          );
+
+
+        const data =
+          await response.json();
+
+
+        /*
+          API-Football rate limit
+        */
+
+        if (
+          data &&
+          data.errors &&
+          data.errors.rateLimit
+        ) {
+
+          container.innerHTML = `
+            <div class="error-box">
+              ⚠️ API-Football rate limit reached.
+              <br><br>
+              The backend is working, but API-Football
+              is temporarily refusing new requests.
+              <br><br>
+              Please wait before trying again.
+            </div>
+          `;
+
+          document.getElementById(
+            "apiStatus"
+          ).textContent =
+            "API-Football rate limit";
+
+          document.getElementById(
+            "apiStatus"
+          ).className =
+            "api-error";
+
+          return;
+        }
+
+
+        if (
+          !response.ok
+        ) {
+
+          throw new Error(
+            data.message ||
+            "Fixtures request failed."
+          );
+
+        }
+
+
+        apiFixtures =
+          Array.isArray(
+            data.response
+          )
+            ? data.response
+            : [];
+
+
+        renderFixtures();
+
+        loadTeams();
+
+
+        document.getElementById(
+          "apiStatus"
+        ).textContent =
+          `Connected ✓ (${apiFixtures.length} matches)`;
+
+        document.getElementById(
+          "apiStatus"
+        ).className =
+          "api-ok";
+
+
+        showApiMessage(
+          `Loaded ${apiFixtures.length} football matches for ${date}.`,
+          "success"
+        );
+
+
+      } catch (error) {
+
+        container.innerHTML = `
+          <div class="error-box">
+            ⚠️ Unable to load football matches.
+            <br><br>
+            ${escapeHtml(error.message)}
+          </div>
+        `;
+
+        document.getElementById(
+          "apiStatus"
+        ).textContent =
+          "Request failed";
+
+        document.getElementById(
+          "apiStatus"
+        ).className =
+          "api-error";
+
+      }
+
+    }
+
+
+    /*
+    =====================================================
+      RENDER FIXTURES
+    =====================================================
+    */
+
+    function renderFixtures() {
+
+      const container =
+        document.getElementById(
+          "apiMatches"
+        );
+
+
+      if (
+        apiFixtures.length === 0
+      ) {
+
+        container.innerHTML = `
+          <p class="empty">
+            No football matches found for today.
+          </p>
+        `;
+
+        return;
+      }
+
+
+      container.innerHTML =
+        apiFixtures
+          .map(
+            fixture =>
+              createApiMatchHtml(
+                fixture
+              )
+          )
+          .join("");
+
+    }
+
+
+    /*
+    =====================================================
+      API MATCH CARD
+    =====================================================
+    */
+
+    function createApiMatchHtml(
+      fixture
+    ) {
+
+      const teams =
+        fixture.teams || {};
+
+      const league =
+        fixture.league || {};
+
+      const goals =
+        fixture.goals || {};
+
+      const status =
+        fixture.fixture &&
+        fixture.fixture.status
+          ? fixture.fixture.status
+          : {};
+
+
+      const home =
+        teams.home &&
+        teams.home.name
+          ? teams.home.name
+          : "Home";
+
+      const away =
+        teams.away &&
+        teams.away.name
+          ? teams.away.name
+          : "Away";
+
+
+      const leagueName =
+        league.name ||
+        "Football";
+
+
+      const country =
+        league.country ||
+        "";
+
+
+      const homeScore =
+        goals.home ??
+        0;
+
+      const awayScore =
+        goals.away ??
+        0;
+
+
+      const shortStatus =
+        status.short ||
+        "NS";
+
+
+      const elapsed =
+        status.elapsed;
+
+
+      const isLive =
+        [
+          "1H",
+          "2H",
+          "ET",
+          "P",
+          "LIVE"
+        ].includes(
+          shortStatus
+        );
+
+
+      let statusText =
+        "UPCOMING";
+
+
+      let statusClass =
+        "upcoming";
+
+
+      if (isLive) {
+
+        statusText =
+          elapsed
+            ? `🔴 LIVE ${elapsed}'`
+            : "🔴 LIVE";
+
+        statusClass =
+          "live";
+
+      } else if (
+        [
+          "FT",
+          "AET",
+          "PEN"
+        ].includes(
+          shortStatus
+        )
+      ) {
+
+        statusText =
+          "FINISHED";
+
+        statusClass =
+          "finished";
+
+      }
+
+
+      let timeText = "";
+
+
+      if (
+        fixture.fixture &&
+        fixture.fixture.date
+      ) {
+
+        const date =
+          new Date(
+            fixture.fixture.date
+          );
+
+        timeText =
+          date.toLocaleTimeString(
+            [],
+            {
+              hour: "2-digit",
+              minute: "2-digit"
+            }
+          );
+
+      }
+
+
+      return `
+
+        <div class="match ${
+          isLive
+            ? "live-match"
+            : ""
+        } api-match">
+
+          <div class="league">
+
+            🏆
+            ${escapeHtml(
+              leagueName
+            )}
+
+            ${
+              country
+                ? " • " +
+                  escapeHtml(
+                    country
+                  )
+                : ""
+            }
+
+          </div>
+
+
+          <div class="teams">
+
+            <div class="team">
+
+              ${escapeHtml(
+                home
+              )}
+
+              <div class="score">
+
+                ${
+                  goals.home !== null &&
+                  goals.home !== undefined
+                    ? homeScore
+                    : "-"
+                }
+
+              </div>
+
+            </div>
+
+
+            <div class="vs">
+
+              ${
+                isLive
+                  ? "LIVE"
+                  : "VS"
+              }
+
+            </div>
+
+
+            <div class="team away">
+
+              ${escapeHtml(
+                away
+              )}
+
+              <div class="score">
+
+                ${
+                  goals.away !== null &&
+                  goals.away !== undefined
+                    ? awayScore
+                    : "-"
+                }
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="match-info">
+
+            📅
+            ${
+              fixture.fixture &&
+              fixture.fixture.date
+                ? new Date(
+                    fixture.fixture.date
+                  ).toLocaleDateString()
+                : "-"
+            }
+
+            &nbsp;
+
+            ⏰
+            ${timeText || "-"}
+
+          </div>
+
+
+          <span class="status ${statusClass}">
+
+            ${statusText}
+
+          </span>
+
+
+          <div>
+
+            <span class="source-badge">
+              API-FOOTBALL
+            </span>
+
+          </div>
+
+        </div>
+
+      `;
+
+    }
+
+
+    /*
+    =====================================================
+      LIVE MATCHES
+    =====================================================
+    */
+
+    async function loadLiveMatches(
+      force = false
+    ) {
+
+      const container =
+        document.getElementById(
+          "liveMatches"
+        );
+
+
+      container.innerHTML = `
+        <p class="empty">
+          ⏳ Loading live matches...
+        </p>
+      `;
+
+
+      try {
+
+        const response =
+          await fetch(
+            API_BASE +
+            "/api/live"
+          );
+
+
+        const data =
+          await response.json();
+
+
+        if (
+          data &&
+          data.errors &&
+          data.errors.rateLimit
+        ) {
+
+          container.innerHTML = `
+            <div class="error-box">
+              ⚠️ API-Football rate limit reached.
+              <br><br>
+              Live data is temporarily unavailable.
+            </div>
+          `;
+
+          return;
+        }
+
+
+        if (
+          !response.ok
+        ) {
+
+          throw new Error(
+            data.message ||
+            "Live request failed."
+          );
+
+        }
+
+
+        liveFixtures =
+          Array.isArray(
+            data.response
+          )
+            ? data.response
+            : [];
+
+
+        renderLiveMatches();
+
+
+      } catch (error) {
+
+        container.innerHTML = `
+          <div class="error-box">
+            ⚠️ Could not load live matches.
+            <br><br>
+            ${escapeHtml(
+              error.message
+            )}
+          </div>
+        `;
+
+      }
+
+    }
+
+
+    /*
+    =====================================================
+      RENDER LIVE
+    =====================================================
+    */
+
+    function renderLiveMatches() {
+
+      const container =
+        document.getElementById(
+          "liveMatches"
+        );
+
+
+      if (
+        liveFixtures.length === 0
+      ) {
+
+        container.innerHTML = `
+          <p class="empty">
+            🔴 No live matches at the moment.
+          </p>
+        `;
+
+        return;
+      }
+
+
+      container.innerHTML =
+        liveFixtures
+          .map(
+            fixture =>
+              createApiMatchHtml(
+                fixture
+              )
+          )
+          .join("");
+
+    }
+
+
+    /*
+    =====================================================
+      LOAD LEAGUES
+    =====================================================
+    */
+
+    async function loadLeagues(
+      force = false
+    ) {
+
+      const container =
+        document.getElementById(
+          "leagues"
+        );
+
+
+      container.innerHTML = `
+        <p class="empty">
+          ⏳ Loading leagues...
+        </p>
+      `;
+
+
+      try {
+
+        const response =
+          await fetch(
+            API_BASE +
+            "/api/leagues"
+          );
+
+
+        const data =
+          await response.json();
+
+
+        if (
+          data &&
+          data.errors &&
+          data.errors.rateLimit
+        ) {
+
+          container.innerHTML = `
+            <div class="error-box">
+              ⚠️ API-Football rate limit reached.
+              <br><br>
+              Leagues are temporarily unavailable.
+            </div>
+          `;
+
+          return;
+        }
+
+
+        if (
+          !response.ok
+        ) {
+
+          throw new Error(
+            data.message ||
+            "Leagues request failed."
+          );
+
+        }
+
+
+        const leagues =
+          Array.isArray(
+            data.response
+          )
+            ? data.response
+            : [];
+
+
+        if (
+          leagues.length === 0
+        ) {
+
+          container.innerHTML = `
+            <p class="empty">
+              No leagues returned by API.
+            </p>
+          `;
+
+          return;
+        }
+
+
+        container.innerHTML =
+          leagues
+            .slice(0, 100)
+            .map(
+              item => {
+
+                const league =
+                  item.league || {};
+
+                const country =
+                  item.country || {};
+
+
+                return `
+
+                  <div class="league-card">
+
+                    <strong>
+                      ${escapeHtml(
+                        league.name ||
+                        "Unknown League"
+                      )}
+                    </strong>
+
+                    <span class="small">
+
+                      ${
+                        country.name
+                          ? escapeHtml(
+                              country.name
+                            )
+                          : "International"
+                      }
+
+                    </span>
+
+                  </div>
+
+                `;
+
+              }
+            )
+            .join("");
+
+
+      } catch (error) {
+
+        container.innerHTML = `
+          <div class="error-box">
+            ⚠️ Could not load leagues.
+            <br><br>
+            ${escapeHtml(
+              error.message
+            )}
+          </div>
+        `;
+
+      }
+
+    }
+
+
+    /*
+    =====================================================
+      TEAMS
+      Teams are collected from fixtures.
+    =====================================================
+    */
+
+    function loadTeams() {
+
+      const container =
+        document.getElementById(
+          "teams"
+        );
+
+
+      const teamMap =
+        new Map();
+
+
+      apiFixtures.forEach(
+        fixture => {
+
+          const teams =
+            fixture.teams || {};
+
+
+          if (
+            teams.home &&
+            teams.home.name
+          ) {
+
+            teamMap.set(
+              teams.home.id ||
+              teams.home.name,
+              {
+                name:
+                  teams.home.name,
+
+                logo:
+                  teams.home.logo ||
+                  "",
+
+                country:
+                  fixture.league &&
+                  fixture.league.country
+                    ? fixture.league.country
+                    : ""
+              }
+            );
+
+          }
+
+
+          if (
+            teams.away &&
+            teams.away.name
+          ) {
+
+            teamMap.set(
+              teams.away.id ||
+              teams.away.name,
+              {
+                name:
+                  teams.away.name,
+
+                logo:
+                  teams.away.logo ||
+                  "",
+
+                country:
+                  fixture.league &&
+                  fixture.league.country
+                    ? fixture.league.country
+                    : ""
+              }
+            );
+
+          }
+
+        }
+      );
+
+
+      const teams =
+        Array.from(
+          teamMap.values()
+        );
+
+
+      if (
+        teams.length === 0
+      ) {
+
+        container.innerHTML = `
+          <p class="empty">
+            No teams available yet.
+            Load today's matches first.
+          </p>
+        `;
+
+        return;
+      }
+
+
+      container.innerHTML =
+        teams
+          .slice(0, 100)
+          .map(
+            team => `
+
+              <div class="team-card">
+
+                ${
+                  team.logo
+                    ? `
+                      <img
+                        src="${escapeHtml(
+                          team.logo
+                        )}"
+                        alt=""
+                        width="35"
+                        height="35"
+                        style="
+                          object-fit:contain;
+                          vertical-align:middle;
+                          margin-bottom:8px;
+                        "
+                      >
+                    `
+                    : ""
+                }
+
+                <strong>
+                  ${escapeHtml(
+                    team.name
+                  )}
+                </strong>
+
+                <span class="small">
+                  ${
+                    team.country
+                      ? escapeHtml(
+                          team.country
+                        )
+                      : "Football"
+                  }
+                </span>
+
+              </div>
+
+            `
+          )
+          .join("");
+
+    }
+
+
+    /*
+    =====================================================
+      MANUAL MATCHES
+    =====================================================
+    */
+
+    function saveManualMatches() {
+
+      localStorage.setItem(
+        "betkigaliMatches",
+        JSON.stringify(
+          manualMatches
+        )
+      );
+
+    }
+
+
+    function addManualMatch() {
 
       const league =
         document
-          .getElementById("league")
+          .getElementById(
+            "league"
+          )
           .value
           .trim();
+
 
       const date =
         document
-          .getElementById("matchDate")
+          .getElementById(
+            "matchDate"
+          )
           .value;
+
 
       const time =
         document
-          .getElementById("matchTime")
+          .getElementById(
+            "matchTime"
+          )
           .value;
+
 
       const homeTeam =
         document
-          .getElementById("homeTeam")
+          .getElementById(
+            "homeTeam"
+          )
           .value
           .trim();
 
+
       const awayTeam =
         document
-          .getElementById("awayTeam")
+          .getElementById(
+            "awayTeam"
+          )
           .value
           .trim();
 
@@ -642,7 +1876,7 @@
       }
 
 
-      const match = {
+      manualMatches.push({
 
         id: Date.now(),
 
@@ -656,134 +1890,117 @@
 
         awayTeam,
 
-        live: false,
+        live: false
 
-        homeScore: 0,
-
-        awayScore: 0,
-
-        minute: 0,
-
-        status: "Upcoming"
-
-      };
+      });
 
 
-      matches.push(match);
+      saveManualMatches();
 
-      saveMatches();
-
-      renderMatches();
-
-      renderLiveMatches();
+      renderManualMatches();
 
 
-      document
-        .getElementById("league")
-        .value = "";
+      document.getElementById(
+        "league"
+      ).value = "";
 
-      document
-        .getElementById("matchDate")
-        .value = "";
 
-      document
-        .getElementById("matchTime")
-        .value = "";
+      document.getElementById(
+        "matchDate"
+      ).value = "";
 
-      document
-        .getElementById("homeTeam")
-        .value = "";
 
-      document
-        .getElementById("awayTeam")
-        .value = "";
+      document.getElementById(
+        "matchTime"
+      ).value = "";
+
+
+      document.getElementById(
+        "homeTeam"
+      ).value = "";
+
+
+      document.getElementById(
+        "awayTeam"
+      ).value = "";
 
     }
 
 
-    /*
-      TOGGLE LIVE
-    */
+    function toggleManualLive(
+      id
+    ) {
 
-    function toggleLive(id) {
+      manualMatches =
+        manualMatches.map(
+          match => {
 
-      matches =
-        matches.map(match => {
+            if (
+              match.id === id
+            ) {
 
-          if (match.id === id) {
+              match.live =
+                !match.live;
 
-            match.live =
-              !match.live;
+            }
 
-            match.status =
-              match.live
-                ? "Live"
-                : "Upcoming";
+            return match;
 
           }
-
-          return match;
-
-        });
+        );
 
 
-      saveMatches();
+      saveManualMatches();
 
-      renderMatches();
-
-      renderLiveMatches();
+      renderManualMatches();
 
     }
 
 
-    /*
-      DELETE MATCH
-    */
+    function deleteManualMatch(
+      id
+    ) {
 
-    function deleteMatch(id) {
-
-      const confirmed =
-        confirm(
+      if (
+        !confirm(
           "Delete this match?"
-        );
+        )
+      ) {
 
-      if (!confirmed) {
         return;
+
       }
 
 
-      matches =
-        matches.filter(
-          match => match.id !== id
+      manualMatches =
+        manualMatches.filter(
+          match =>
+            match.id !== id
         );
 
 
-      saveMatches();
+      saveManualMatches();
 
-      renderMatches();
-
-      renderLiveMatches();
+      renderManualMatches();
 
     }
 
 
-    /*
-      RENDER MATCHES
-    */
-
-    function renderMatches() {
+    function renderManualMatches() {
 
       const container =
         document.getElementById(
-          "matches"
+          "manualMatches"
         );
 
 
-      if (matches.length === 0) {
+      if (
+        manualMatches.length === 0
+      ) {
 
         container.innerHTML = `
           <p class="empty">
-            No matches added yet.
+            No manual matches added yet.
           </p>
         `;
 
@@ -793,47 +2010,58 @@
 
 
       container.innerHTML =
+        manualMatches
+          .map(
+            match => `
 
-        matches
-          .map(match => `
+              <div class="match ${
+                match.live
+                  ? "live-match"
+                  : ""
+              }">
 
-            <div class="match ${
-              match.live
-                ? "live-match"
-                : ""
-            }">
+                <div class="league">
+                  🏆 ${escapeHtml(
+                    match.league
+                  )}
+                </div>
 
-              <div class="league">
-                🏆 ${escapeHtml(match.league)}
-              </div>
 
-              <div class="teams">
+                <div class="teams">
 
-                <span>
-                  ${escapeHtml(match.homeTeam)}
-                </span>
+                  <div class="team">
+                    ${escapeHtml(
+                      match.homeTeam
+                    )}
+                  </div>
 
-                <span class="vs">
-                  VS
-                </span>
+                  <div class="vs">
+                    VS
+                  </div>
 
-                <span>
-                  ${escapeHtml(match.awayTeam)}
-                </span>
+                  <div class="team away">
+                    ${escapeHtml(
+                      match.awayTeam
+                    )}
+                  </div>
 
-              </div>
+                </div>
 
-              <div class="match-info">
 
-                📅 ${escapeHtml(match.date)}
+                <div class="match-info">
 
-                &nbsp;
+                  📅 ${escapeHtml(
+                    match.date
+                  )}
 
-                ⏰ ${escapeHtml(match.time)}
+                  &nbsp;
 
-              </div>
+                  ⏰ ${escapeHtml(
+                    match.time
+                  )}
 
-              <div>
+                </div>
+
 
                 <span class="status ${
                   match.live
@@ -849,267 +2077,58 @@
 
                 </span>
 
+
+                <div class="actions">
+
+                  <button
+                    class="live-btn"
+                    onclick="toggleManualLive(
+                      ${match.id}
+                    )"
+                  >
+
+                    ${
+                      match.live
+                        ? "⏹ Stop LIVE"
+                        : "▶ Make LIVE"
+                    }
+
+                  </button>
+
+
+                  <button
+                    class="delete-btn"
+                    onclick="deleteManualMatch(
+                      ${match.id}
+                    )"
+                  >
+                    Delete
+                  </button>
+
+                </div>
+
               </div>
 
-              <div class="actions">
-
-                <button
-                  class="live-btn"
-                  onclick="toggleLive(${match.id})"
-                >
-
-                  ${
-                    match.live
-                      ? "⏹ Stop LIVE"
-                      : "▶ Make LIVE"
-                  }
-
-                </button>
-
-
-                <button
-                  class="delete-btn"
-                  onclick="deleteMatch(${match.id})"
-                >
-                  Delete
-                </button>
-
-              </div>
-
-            </div>
-
-          `)
+            `
+          )
           .join("");
 
     }
 
 
     /*
-      RENDER LIVE MATCHES
+    =====================================================
+      HTML SAFETY
+    =====================================================
     */
 
-    function renderLiveMatches() {
-
-      const container =
-        document.getElementById(
-          "liveMatches"
-        );
-
-
-      const liveMatches =
-        matches.filter(
-          match => match.live
-        );
-
-
-      if (liveMatches.length === 0) {
-
-        container.innerHTML = `
-          <p class="empty">
-            🔴 No live matches at the moment.
-          </p>
-        `;
-
-        return;
-
-      }
-
-
-      container.innerHTML =
-
-        liveMatches
-          .map(match => `
-
-            <div class="match live-match">
-
-              <div class="league">
-                🏆 ${escapeHtml(match.league)}
-              </div>
-
-              <div class="teams">
-
-                <span>
-                  ${escapeHtml(match.homeTeam)}
-                  <br>
-                  <small>
-                    ${match.homeScore || 0}
-                  </small>
-                </span>
-
-                <span class="vs">
-                  LIVE
-                </span>
-
-                <span>
-                  ${escapeHtml(match.awayTeam)}
-                  <br>
-                  <small>
-                    ${match.awayScore || 0}
-                  </small>
-                </span>
-
-              </div>
-
-              <div class="match-info">
-
-                🔴 LIVE
-
-                ${
-                  match.minute
-                    ? " • " + match.minute + "'"
-                    : ""
-                }
-
-              </div>
-
-            </div>
-
-          `)
-          .join("");
-
-    }
-
-
-    /*
-      LEAGUES
-
-      Temporary local display.
-
-      API-Football will replace this
-      after backend connection.
-    */
-
-    function loadLeagues() {
-
-      const leagues =
-        document.getElementById(
-          "leagues"
-        );
-
-
-      leagues.innerHTML = `
-
-        <div class="league-card">
-          <strong>Premier League</strong>
-          <span class="small">
-            England
-          </span>
-        </div>
-
-        <div class="league-card">
-          <strong>La Liga</strong>
-          <span class="small">
-            Spain
-          </span>
-        </div>
-
-        <div class="league-card">
-          <strong>UEFA Champions League</strong>
-          <span class="small">
-            Europe
-          </span>
-        </div>
-
-        <div class="league-card">
-          <strong>Ligue 1</strong>
-          <span class="small">
-            France
-          </span>
-        </div>
-
-      `;
-
-    }
-
-
-    /*
-      TEAMS
-
-      Temporary local display.
-
-      API-Football will replace this
-      after backend connection.
-    */
-
-    function loadTeams() {
-
-      const teams =
-        document.getElementById(
-          "teams"
-        );
-
-
-      teams.innerHTML = `
-
-        <div class="team-card">
-          <strong>Arsenal</strong>
-          <span class="small">
-            England
-          </span>
-        </div>
-
-        <div class="team-card">
-          <strong>Chelsea</strong>
-          <span class="small">
-            England
-          </span>
-        </div>
-
-        <div class="team-card">
-          <strong>Real Madrid</strong>
-          <span class="small">
-            Spain
-          </span>
-        </div>
-
-        <div class="team-card">
-          <strong>Barcelona</strong>
-          <span class="small">
-            Spain
-          </span>
-        </div>
-
-        <div class="team-card">
-          <strong>PSG</strong>
-          <span class="small">
-            France
-          </span>
-        </div>
-
-      `;
-
-    }
-
-
-    /*
-      REFRESH
-
-      For now this refreshes the local
-      admin data.
-
-      Later it will call our backend.
-    */
-
-    function refreshMatches() {
-
-      renderMatches();
-
-      renderLiveMatches();
-
-      alert(
-        "Matches refreshed."
-      );
-
-    }
-
-
-    /*
-      BASIC HTML SAFETY
-    */
-
-    function escapeHtml(value) {
-
-      return String(value)
+    function escapeHtml(
+      value
+    ) {
+
+      return String(
+        value ?? ""
+      )
 
         .replace(
           /&/g,
@@ -1140,16 +2159,14 @@
 
 
     /*
+    =====================================================
       INITIAL LOAD
+    =====================================================
     */
 
-    renderMatches();
+    renderManualMatches();
 
-    renderLiveMatches();
-
-    loadLeagues();
-
-    loadTeams();
+    checkBackend();
 
   </script>
 
