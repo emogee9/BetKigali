@@ -1,622 +1,90 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>BetKigali</title>
-
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: Arial, sans-serif;
-      background: #080b0f;
-      color: white;
-      overflow-x: hidden;
-    }
-
-    /* HEADER */
-    header {
-      min-height: 72px;
-      background: #0d1218;
-      border-bottom: 1px solid #202832;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 12px 25px;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      gap: 20px;
-    }
-
-    /* LOGO */
-    .logo {
-      flex-shrink: 0;
-      display: flex;
-      align-items: center;
-    }
-
-    .logo img {
-      width: 145px;
-      height: auto;
-      max-width: 100%;
-      display: block;
-    }
-
-    /* NAVIGATION */
-    nav {
-      display: flex;
-      align-items: center;
-      gap: 22px;
-      overflow-x: auto;
-      scrollbar-width: none;
-      flex: 1;
-    }
-
-    nav::-webkit-scrollbar {
-      display: none;
-    }
-
-    nav a {
-      color: #c9d0d8;
-      text-decoration: none;
-      font-size: 14px;
-      font-weight: 600;
-      white-space: nowrap;
-      cursor: pointer;
-      transition: color 0.2s ease;
-    }
-
-    nav a:hover,
-    nav a.active {
-      color: #f5c542;
-    }
-
-    /* AUTH */
-    .auth {
-      display: flex;
-      gap: 8px;
-      flex-shrink: 0;
-    }
-
-    .auth button {
-      border: none;
-      padding: 10px 15px;
-      border-radius: 7px;
-      font-weight: 700;
-      cursor: pointer;
-    }
-
-    .login {
-      background: transparent;
-      color: white;
-      border: 1px solid #39434e !important;
-    }
-
-    .register {
-      background: #f5c542;
-      color: #080b0f;
-    }
-
-    /* HERO */
-    .hero {
-      min-height: 360px;
-      padding: 70px 25px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      background:
-        radial-gradient(
-          circle at center,
-          #17242c 0%,
-          #080b0f 65%
-        );
-    }
-
-    .hero-content {
-      max-width: 800px;
-    }
-
-    .hero h1 {
-      font-size: 52px;
-      margin-bottom: 15px;
-    }
-
-    .hero h1 span {
-      color: #f5c542;
-    }
-
-    .hero p {
-      color: #aeb7c0;
-      font-size: 18px;
-      line-height: 1.6;
-      margin-bottom: 28px;
-    }
-
-    .hero-buttons {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .hero-buttons button {
-      padding: 14px 25px;
-      border: none;
-      border-radius: 8px;
-      font-weight: 800;
-      cursor: pointer;
-    }
-
-    .start-btn {
-      background: #f5c542;
-      color: #080b0f;
-    }
-
-    .deposit-btn {
-      background: #172029;
-      color: white;
-      border: 1px solid #34404c !important;
-    }
-
-    /* PROMOTION */
-    .promotion {
-      margin: 25px;
-      padding: 25px;
-      border-radius: 12px;
-      background:
-        linear-gradient(
-          135deg,
-          #151c24,
-          #10151b
-        );
-      border: 1px solid #28323d;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-    }
-
-    .promotion h2 {
-      margin-bottom: 7px;
-    }
-
-    .promotion p {
-      color: #aeb7c0;
-    }
-
-    .promotion strong {
-      color: #f5c542;
-    }
-
-    .promotion button {
-      background: #f5c542;
-      color: #080b0f;
-      border: none;
-      padding: 12px 20px;
-      border-radius: 7px;
-      font-weight: 800;
-      cursor: pointer;
-      white-space: nowrap;
-    }
-
-    /* SPORTS SECTION */
-    .section {
-      padding: 20px 25px;
-    }
-
-    .section h2 {
-      margin-bottom: 18px;
-    }
-
-    .sports {
-      display: grid;
-      grid-template-columns:
-        repeat(auto-fit, minmax(130px, 1fr));
-      gap: 12px;
-    }
-
-    /* SPORT CARD */
-    .sport-card {
-      background: #11171e;
-      border: 1px solid #242d37;
-      border-radius: 10px;
-      padding: 25px 15px;
-      text-align: center;
-      cursor: pointer;
-
-      /* IMPORTANT */
-      display: block;
-      text-decoration: none;
-      color: inherit;
-
-      transition:
-        border-color 0.2s ease,
-        transform 0.2s ease,
-        background 0.2s ease;
-    }
-
-    .sport-card:hover {
-      border-color: #f5c542;
-      transform: translateY(-2px);
-      background: #151c24;
-    }
-
-    .sport-card:active {
-      transform: scale(0.98);
-    }
-
-    .sport-icon {
-      font-size: 30px;
-      margin-bottom: 10px;
-    }
-
-    .sport-card span {
-      color: #d6dce2;
-      font-weight: 700;
-    }
-
-    /* FOOTER */
-    footer {
-      margin-top: 50px;
-      padding: 30px 25px;
-      background: #0d1218;
-      border-top: 1px solid #202832;
-      text-align: center;
-      color: #7f8a96;
-      font-size: 13px;
-    }
-
-    /* TABLET */
-    @media (max-width: 900px) {
-
-      header {
-        height: auto;
-        padding: 15px;
-        flex-wrap: wrap;
-        gap: 15px;
-      }
-
-      nav {
-        order: 3;
-        width: 100%;
-        flex-basis: 100%;
-        padding-bottom: 5px;
-      }
-
-      .auth {
-        margin-left: auto;
-      }
-
-      .hero h1 {
-        font-size: 40px;
-      }
-
-      .promotion {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-    }
-
-    /* MOBILE */
-    @media (max-width: 500px) {
-
-      header {
-        padding: 12px;
-      }
-
-      .logo img {
-        width: 125px;
-      }
-
-      nav {
-        gap: 18px;
-      }
-
-      nav a {
-        font-size: 13px;
-      }
-
-      .auth {
-        gap: 5px;
-      }
-
-      .auth button {
-        padding: 8px 11px;
-        font-size: 12px;
-      }
-
-      .hero {
-        min-height: 330px;
-        padding: 50px 20px;
-      }
-
-      .hero h1 {
-        font-size: 34px;
-      }
-
-      .hero p {
-        font-size: 15px;
-      }
-
-      .section {
-        padding: 20px 12px;
-      }
-
-      .promotion {
-        margin-left: 12px;
-        margin-right: 12px;
-        padding: 20px;
-      }
-
-      .sports {
-        grid-template-columns:
-          repeat(2, 1fr);
-      }
-    }
-  </style>
-</head>
-
-<body>
-
-  <!-- HEADER -->
-  <header>
-
-    <a href="index.html" class="logo">
-      <img
-        src="betkigali-logo.png"
-        alt="BetKigali Logo"
-      >
-    </a>
-
-    <nav>
-
-      <a
-        href="index.html"
-        class="active">
-        Home
-      </a>
-
-      <a href="football.html">
-        Sports
-      </a>
-
-      <a href="football.html">
-        Live
-      </a>
-
-      <a href="#">
-        My Bets
-      </a>
-
-      <a href="#">
-        Casino
-      </a>
-
-      <a href="#">
-        Promotion
-      </a>
-
-      <a href="#">
-        Balance
-      </a>
-
-      <a href="#">
-        Bonus Balance
-      </a>
-
-      <a href="#">
-        Deposit
-      </a>
-
-      <a href="#">
-        Withdraw
-      </a>
-
-    </nav>
-
-    <div class="auth">
-
-      <button class="login">
-        Login
-      </button>
-
-      <button class="register">
-        Register
-      </button>
-
-    </div>
-
-  </header>
-
-
-  <!-- MAIN -->
-  <main>
-
-    <!-- HERO -->
-    <section class="hero">
-
-      <div class="hero-content">
-
-        <h1>
-          Welcome to
-          <span>BetKigali</span>
-        </h1>
-
-        <p>
-          Bet on your favorite sports, follow live matches,
-          and enjoy an exciting betting experience.
-        </p>
-
-        <div class="hero-buttons">
-
-          <button class="start-btn">
-            START BETTING
-          </button>
-
-          <button class="deposit-btn">
-            DEPOSIT NOW
-          </button>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- PROMOTION -->
-    <section class="promotion">
-
-      <div>
-
-        <h2>
-          🎁 Deposit Bonus
-        </h2>
-
-        <p>
-          Deposit over
-          <strong>5,000 RWF</strong>
-          and get
-          <strong>40% bonus</strong>.
-        </p>
-
-      </div>
-
-      <button>
-        DEPOSIT NOW
-      </button>
-
-    </section>
-
-
-    <!-- SPORTS -->
-    <section class="section">
-
-      <h2>
-        Sports
-      </h2>
-
-      <div class="sports">
-
-
-        <!-- FOOTBALL -->
-        <a
-          href="football.html"
-          class="sport-card">
-
-          <div class="sport-icon">
-            ⚽
-          </div>
-
-          <span>
-            Football
-          </span>
-
-        </a>
-
-
-        <!-- BASKETBALL -->
-        <a
-          href="#"
-          class="sport-card">
-
-          <div class="sport-icon">
-            🏀
-          </div>
-
-          <span>
-            Basketball
-          </span>
-
-        </a>
-
-
-        <!-- TENNIS -->
-        <a
-          href="#"
-          class="sport-card">
-
-          <div class="sport-icon">
-            🎾
-          </div>
-
-          <span>
-            Tennis
-          </span>
-
-        </a>
-
-
-        <!-- BOXING -->
-        <a
-          href="#"
-          class="sport-card">
-
-          <div class="sport-icon">
-            🥊
-          </div>
-
-          <span>
-            Boxing
-          </span>
-
-        </a>
-
-
-        <!-- FORMULA 1 -->
-        <a
-          href="#"
-          class="sport-card">
-
-          <div class="sport-icon">
-            🏎️
-          </div>
-
-          <span>
-            Formula 1
-          </span>
-
-        </a>
-
-
-        <!-- ESPORTS -->
-        <a
-          href="#"
-          class="sport-card">
-
-          <div class="sport-icon">
-            🎮
-          </div>
-
-          <span>
-            Esports
-          </span>
-
-        </a>
-
-      </div>
-
-    </section>
-
-  </main>
-
-
-  <!-- FOOTER -->
-  <footer>
-
-    © 2026 BetKigali.
-    All rights reserved.
-
-  </footer>
-
-
-</body>
-</html>
+<header>
+  <a href="index.html" class="logo">
+    <img src="betkigali-logo.png" alt="BetKigali Logo">
+  </a>
+
+  <nav>
+    <a href="index.html" class="active">Home</a>
+    <a href="casino.html">Casino</a>
+    <a href="balance.html">Balance</a>
+    <a href="bonus-balance.html">Bonus Balance</a>
+    <a href="deposit.html">Deposit</a>
+    <a href="withdraw.html">Withdraw</a>
+  </nav>
+
+  <div class="auth">
+    <button class="login">Login</button>
+    <button class="register">Register</button>
+  </div>
+</header>
+header {
+  min-height: 72px;
+  background: #0d1218;
+  border-bottom: 1px solid #202832;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 25px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  gap: 25px;
+}
+
+.logo {
+  flex-shrink: 0;
+}
+
+.logo img {
+  width: 145px;
+  height: auto;
+  display: block;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  flex: 1;
+  overflow-x: auto;
+}
+
+nav a {
+  color: #c9d0d8;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+nav a:hover,
+nav a.active {
+  color: #f5c542;
+}
+
+.auth {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.auth button {
+  border: none;
+  padding: 10px 15px;
+  border-radius: 7px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.login {
+  background: transparent;
+  color: white;
+  border: 1px solid #39434e !important;
+}
+
+.register {
+  background: #f5c542;
+  color: #080b0f;
+}
