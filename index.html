@@ -1,90 +1,1034 @@
-<header>
-  <a href="index.html" class="logo">
-    <img src="betkigali-logo.png" alt="BetKigali Logo">
-  </a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <nav>
-    <a href="index.html" class="active">Home</a>
-    <a href="casino.html">Casino</a>
-    <a href="balance.html">Balance</a>
-    <a href="bonus-balance.html">Bonus Balance</a>
-    <a href="deposit.html">Deposit</a>
-    <a href="withdraw.html">Withdraw</a>
-  </nav>
+  <title>BetKigali - Bet. Win. Enjoy.</title>
 
-  <div class="auth">
-    <button class="login">Login</button>
-    <button class="register">Register</button>
-  </div>
-</header>
-header {
-  min-height: 72px;
-  background: #0d1218;
-  border-bottom: 1px solid #202832;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 25px;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  gap: 25px;
-}
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-.logo {
-  flex-shrink: 0;
-}
+    :root {
+      --black: #07090d;
+      --black2: #0d1117;
+      --card: #11161d;
+      --border: #242c35;
+      --gold: #f5c542;
+      --gold2: #ffd966;
+      --white: #ffffff;
+      --muted: #9ca7b3;
+      --green: #16a34a;
+      --red: #dc2626;
+    }
 
-.logo img {
-  width: 145px;
-  height: auto;
-  display: block;
-}
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--black);
+      color: var(--white);
+      min-height: 100vh;
+    }
 
-nav {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 22px;
-  flex: 1;
-  overflow-x: auto;
-}
+    /* =========================
+       HEADER
+    ========================= */
 
-nav a {
-  color: #c9d0d8;
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: 700;
-  white-space: nowrap;
-  cursor: pointer;
-}
+    header {
+      background: #090d12;
+      border-bottom: 1px solid var(--border);
+      min-height: 86px;
+      padding: 10px 28px;
 
-nav a:hover,
-nav a.active {
-  color: #f5c542;
-}
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
 
-.auth {
-  display: flex;
-  gap: 8px;
-  flex-shrink: 0;
-}
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
 
-.auth button {
-  border: none;
-  padding: 10px 15px;
-  border-radius: 7px;
-  font-weight: 700;
-  cursor: pointer;
-}
+    .logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
 
-.login {
-  background: transparent;
-  color: white;
-  border: 1px solid #39434e !important;
-}
+    .logo img {
+      width: 125px;
+      max-height: 70px;
+      object-fit: contain;
+      display: block;
+    }
 
-.register {
-  background: #f5c542;
-  color: #080b0f;
-}
+    /* =========================
+       NAVBAR
+    ========================= */
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+    }
+
+    nav a {
+      color: #d8dee6;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: bold;
+      white-space: nowrap;
+      transition: .2s;
+    }
+
+    nav a:hover {
+      color: var(--gold);
+    }
+
+    .nav-btn {
+      padding: 9px 14px;
+      border-radius: 7px;
+      border: 1px solid var(--border);
+    }
+
+    .login-btn {
+      color: var(--white);
+      background: transparent;
+    }
+
+    .register-btn {
+      background: var(--gold);
+      color: #111 !important;
+      border-color: var(--gold);
+    }
+
+    .register-btn:hover {
+      background: var(--gold2);
+    }
+
+    /* =========================
+       MAIN
+    ========================= */
+
+    .container {
+      width: min(1100px, 94%);
+      margin: auto;
+    }
+
+    /* =========================
+       PROMO
+    ========================= */
+
+    .promo {
+      margin-top: 22px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #17130a,
+          #0e1116
+        );
+
+      border: 1px solid #5e4b19;
+      border-radius: 12px;
+
+      padding: 18px 22px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 15px;
+
+      box-shadow:
+        0 5px 20px rgba(0,0,0,.25);
+    }
+
+    .promo-content {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+    }
+
+    .promo-icon {
+      width: 42px;
+      height: 42px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      background: rgba(245,197,66,.12);
+      border: 1px solid rgba(245,197,66,.35);
+
+      border-radius: 50%;
+
+      font-size: 21px;
+    }
+
+    .promo h3 {
+      color: var(--gold);
+      font-size: 17px;
+      margin-bottom: 4px;
+    }
+
+    .promo p {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .promo-btn {
+      background: var(--gold);
+      color: #111;
+
+      border: none;
+      text-decoration: none;
+
+      padding: 10px 16px;
+
+      border-radius: 7px;
+
+      font-size: 13px;
+      font-weight: bold;
+
+      white-space: nowrap;
+    }
+
+    .promo-btn:hover {
+      background: var(--gold2);
+    }
+
+    /* =========================
+       HERO
+    ========================= */
+
+    .hero {
+      padding: 55px 0 35px;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 38px;
+      margin-bottom: 12px;
+    }
+
+    .hero h1 span {
+      color: var(--gold);
+    }
+
+    .hero p {
+      color: var(--muted);
+      max-width: 650px;
+      margin: auto;
+      line-height: 1.6;
+      font-size: 15px;
+    }
+
+    .hero-buttons {
+      margin-top: 25px;
+
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+
+      flex-wrap: wrap;
+    }
+
+    .hero-btn {
+      padding: 12px 22px;
+      border-radius: 8px;
+
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .primary {
+      background: var(--gold);
+      color: #111;
+    }
+
+    .secondary {
+      background: transparent;
+      color: white;
+      border: 1px solid var(--border);
+    }
+
+    .primary:hover {
+      background: var(--gold2);
+    }
+
+    .secondary:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    /* =========================
+       CARDS
+    ========================= */
+
+    .section-title {
+      margin: 25px 0 15px;
+      font-size: 21px;
+    }
+
+    .section-title span {
+      color: var(--gold);
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      padding-bottom: 35px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 22px;
+
+      transition: .2s;
+    }
+
+    .card:hover {
+      border-color: #5d4b1d;
+      transform: translateY(-2px);
+    }
+
+    .card-icon {
+      font-size: 30px;
+      margin-bottom: 13px;
+    }
+
+    .card h3 {
+      font-size: 17px;
+      margin-bottom: 8px;
+    }
+
+    .card p {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .card a {
+      display: inline-block;
+      margin-top: 15px;
+
+      color: var(--gold);
+      text-decoration: none;
+
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    /* =========================
+       ACCOUNT AREA
+    ========================= */
+
+    .account-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 35px;
+    }
+
+    .account-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+
+    .account-title h2 {
+      font-size: 19px;
+    }
+
+    .balance {
+      color: var(--gold);
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .account-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .account-actions a {
+      text-decoration: none;
+      padding: 10px 15px;
+      border-radius: 7px;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    .deposit {
+      background: var(--green);
+      color: white;
+    }
+
+    .withdraw {
+      background: var(--red);
+      color: white;
+    }
+
+    /* =========================
+       FOOTER
+    ========================= */
+
+    footer {
+      border-top: 1px solid var(--border);
+      background: #090d12;
+      margin-top: 25px;
+      padding: 28px 0;
+    }
+
+    .footer-inner {
+      width: min(1100px, 94%);
+      margin: auto;
+
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .footer-logo {
+      color: var(--gold);
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .footer-text {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 6px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: #aeb7c2;
+      text-decoration: none;
+      font-size: 12px;
+    }
+
+    .footer-links a:hover {
+      color: var(--gold);
+    }
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media (max-width: 750px) {
+
+      header {
+        padding: 10px 15px;
+        min-height: auto;
+
+        flex-wrap: wrap;
+      }
+
+      .logo img {
+        width: 105px;
+        max-height: 58px;
+      }
+
+      nav {
+        width: 100%;
+        justify-content: center;
+        gap: 12px;
+
+        padding: 8px 0 4px;
+
+        overflow-x: auto;
+      }
+
+      nav a {
+        font-size: 12px;
+      }
+
+      .promo {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .promo-btn {
+        width: 100%;
+        text-align: center;
+      }
+
+      .hero {
+        padding: 40px 0 25px;
+      }
+
+      .hero h1 {
+        font-size: 29px;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .account-title {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 430px) {
+
+      .container {
+        width: 92%;
+      }
+
+      .hero h1 {
+        font-size: 26px;
+      }
+
+      nav {
+        justify-content: flex-start;
+      }
+
+      .promo h3 {
+        font-size: 15px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- =========================
+       HEADER / NAVBAR
+  ========================== -->
+
+  <header>
+
+    <a href="index.html" class="logo">
+      <img
+        src="betkigali-logo.png"
+        alt="BetKigali"
+      >
+    </a>
+
+    <nav id="navbar">
+
+      <a href="index.html">
+        Home
+      </a>
+
+      <a href="casino.html">
+        Casino
+      </a>
+
+      <!-- Logged OUT -->
+      <span id="loggedOutNav">
+
+        <a
+          href="login.html"
+          class="nav-btn login-btn"
+        >
+          Login
+        </a>
+
+        <a
+          href="register.html"
+          class="nav-btn register-btn"
+        >
+          Register
+        </a>
+
+      </span>
+
+      <!-- Logged IN -->
+      <span
+        id="loggedInNav"
+        style="display:none;"
+      >
+
+        <a href="balance.html">
+          Balance
+        </a>
+
+        <a href="deposit.html">
+          Deposit
+        </a>
+
+        <a href="withdraw.html">
+          Withdraw
+        </a>
+
+      </span>
+
+    </nav>
+
+  </header>
+
+
+  <main class="container">
+
+    <!-- =========================
+         PROMOTION
+    ========================== -->
+
+    <section class="promo">
+
+      <div class="promo-content">
+
+        <div class="promo-icon">
+          🎁
+        </div>
+
+        <div>
+
+          <h3>
+            Deposit over 5,000 RWF and get 40% bonus
+          </h3>
+
+          <p>
+            Boost your balance and enjoy more with BetKigali.
+          </p>
+
+        </div>
+
+      </div>
+
+      <a
+        href="deposit.html"
+        class="promo-btn"
+      >
+        Claim Bonus
+      </a>
+
+    </section>
+
+
+    <!-- =========================
+         HERO
+    ========================== -->
+
+    <section class="hero">
+
+      <h1>
+        Welcome to <span>BetKigali</span>
+      </h1>
+
+      <p>
+        Your entertainment platform for betting,
+        casino games and exciting rewards.
+        Bet. Win. Enjoy.
+      </p>
+
+      <div class="hero-buttons">
+
+        <a
+          href="register.html"
+          class="hero-btn primary"
+          id="registerHero"
+        >
+          Create Account
+        </a>
+
+        <a
+          href="casino.html"
+          class="hero-btn secondary"
+        >
+          Explore Casino
+        </a>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         ACCOUNT AREA
+         ONLY VISIBLE WHEN LOGGED IN
+    ========================== -->
+
+    <section
+      id="accountArea"
+      class="account-box"
+      style="display:none;"
+    >
+
+      <div class="account-title">
+
+        <h2>
+          💰 Your Balance
+        </h2>
+
+        <div
+          class="balance"
+          id="userBalance"
+        >
+          0 RWF
+        </div>
+
+      </div>
+
+      <div class="account-actions">
+
+        <a
+          href="deposit.html"
+          class="deposit"
+        >
+          + Deposit
+        </a>
+
+        <a
+          href="withdraw.html"
+          class="withdraw"
+        >
+          Withdraw
+        </a>
+
+        <a
+          href="balance.html"
+          class="secondary"
+        >
+          View Balance
+        </a>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         MAIN SERVICES
+    ========================== -->
+
+    <h2 class="section-title">
+      <span>BetKigali</span> Services
+    </h2>
+
+    <section class="cards">
+
+      <div class="card">
+
+        <div class="card-icon">
+          🎰
+        </div>
+
+        <h3>
+          Casino
+        </h3>
+
+        <p>
+          Enjoy exciting casino games
+          and discover new ways to play.
+        </p>
+
+        <a href="casino.html">
+          Enter Casino →
+        </a>
+
+      </div>
+
+
+      <div class="card">
+
+        <div class="card-icon">
+          💰
+        </div>
+
+        <h3>
+          Easy Deposits
+        </h3>
+
+        <p>
+          Deposit funds easily and securely
+          and start enjoying BetKigali.
+        </p>
+
+        <a href="deposit.html">
+          Deposit Now →
+        </a>
+
+      </div>
+
+
+      <div class="card">
+
+        <div class="card-icon">
+          🎁
+        </div>
+
+        <h3>
+          Bonuses & Rewards
+        </h3>
+
+        <p>
+          Deposit over 5,000 RWF and get
+          a 40% bonus according to the promotion.
+        </p>
+
+        <a href="deposit.html">
+          Get Bonus →
+        </a>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- =========================
+       FOOTER
+  ========================== -->
+
+  <footer>
+
+    <div class="footer-inner">
+
+      <div>
+
+        <div class="footer-logo">
+          BetKigali
+        </div>
+
+        <div class="footer-text">
+          Bet • Win • Enjoy
+        </div>
+
+      </div>
+
+      <div class="footer-links">
+
+        <a href="index.html">
+          Home
+        </a>
+
+        <a href="casino.html">
+          Casino
+        </a>
+
+        <a href="login.html">
+          Login
+        </a>
+
+        <a href="register.html">
+          Register
+        </a>
+
+        <a href="#">
+          Terms
+        </a>
+
+        <a href="#">
+          Privacy
+        </a>
+
+      </div>
+
+    </div>
+
+  </footer>
+
+
+  <script>
+
+    /*
+    ==========================================
+      BETKIGALI LOGIN STATE
+    ==========================================
+
+      This checks common localStorage keys.
+
+      If your login system saves the user under
+      another key, we can change it later.
+    ==========================================
+    */
+
+    function getLoggedInUser() {
+
+      const possibleKeys = [
+        "betkigaliUser",
+        "currentUser",
+        "loggedInUser",
+        "user"
+      ];
+
+      for (const key of possibleKeys) {
+
+        const value =
+          localStorage.getItem(key);
+
+        if (!value) {
+          continue;
+        }
+
+        try {
+
+          return JSON.parse(value);
+
+        } catch {
+
+          return {
+            loggedIn: true,
+            balance: value
+          };
+
+        }
+
+      }
+
+      return null;
+    }
+
+
+    /*
+    ==========================================
+      UPDATE NAVBAR
+    ==========================================
+    */
+
+    function updateNavigation() {
+
+      const user =
+        getLoggedInUser();
+
+      const loggedOut =
+        document.getElementById(
+          "loggedOutNav"
+        );
+
+      const loggedIn =
+        document.getElementById(
+          "loggedInNav"
+        );
+
+      const accountArea =
+        document.getElementById(
+          "accountArea"
+        );
+
+      const registerHero =
+        document.getElementById(
+          "registerHero"
+        );
+
+
+      if (user) {
+
+        /*
+          USER IS LOGGED IN
+        */
+
+        loggedOut.style.display =
+          "none";
+
+        loggedIn.style.display =
+          "inline-flex";
+
+        loggedIn.style.alignItems =
+          "center";
+
+        loggedIn.style.gap =
+          "22px";
+
+        accountArea.style.display =
+          "block";
+
+        registerHero.style.display =
+          "none";
+
+
+        /*
+          BALANCE
+        */
+
+        let balance = 0;
+
+        if (
+          typeof user === "object" &&
+          user !== null
+        ) {
+
+          balance =
+            user.balance ??
+            user.wallet ??
+            user.amount ??
+            0;
+
+        } else {
+
+          balance = user || 0;
+
+        }
+
+        document.getElementById(
+          "userBalance"
+        ).textContent =
+          Number(balance).toLocaleString() +
+          " RWF";
+
+      } else {
+
+        /*
+          USER IS NOT LOGGED IN
+        */
+
+        loggedOut.style.display =
+          "inline-flex";
+
+        loggedOut.style.alignItems =
+          "center";
+
+        loggedOut.style.gap =
+          "10px";
+
+        loggedIn.style.display =
+          "none";
+
+        accountArea.style.display =
+          "none";
+
+        registerHero.style.display =
+          "inline-block";
+
+      }
+
+    }
+
+
+    /*
+    ==========================================
+      START
+    ==========================================
+    */
+
+    updateNavigation();
+
+
+    /*
+      If another page changes login state
+      and comes back to index.html.
+    */
+
+    window.addEventListener(
+      "storage",
+      updateNavigation
+    );
+
+  </script>
+
+</body>
+</html>
