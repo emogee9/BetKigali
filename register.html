@@ -1,3 +1,6 @@
+# register.html
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,214 +16,116 @@
       padding: 0;
     }
 
-    :root {
-      --black: #07090d;
-      --black2: #0d1117;
-      --card: #11161d;
-      --border: #242c35;
-      --gold: #f5c542;
-      --gold2: #ffd966;
-      --white: #ffffff;
-      --muted: #9ca7b3;
-      --green: #16a34a;
-      --red: #dc2626;
-    }
-
     body {
-      font-family: Arial, Helvetica, sans-serif;
-      background: var(--black);
-      color: var(--white);
       min-height: 100vh;
-    }
-
-    /* =========================
-       HEADER
-    ========================= */
-
-    header {
-      height: 82px;
-      background: #090d12;
-      border-bottom: 1px solid var(--border);
-
+      font-family: Arial, sans-serif;
+      background: #080b0f;
+      color: white;
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: center;
+      padding: 20px;
+    }
 
-      padding: 10px 28px;
+    .register-box {
+      width: 100%;
+      max-width: 430px;
+      background: #11171e;
+      border: 1px solid #242d37;
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 10px 35px rgba(0,0,0,.35);
+    }
+
+    .logo {
+      text-align: center;
+      margin-bottom: 25px;
     }
 
     .logo img {
-      width: 120px;
-      max-height: 62px;
-      object-fit: contain;
-      display: block;
+      width: 150px;
+      max-width: 100%;
+      height: auto;
     }
 
-    .back-home {
-      color: var(--gold);
-      text-decoration: none;
-      font-size: 14px;
-      font-weight: bold;
-    }
-
-    .back-home:hover {
-      color: var(--gold2);
-    }
-
-    /* =========================
-       PAGE
-    ========================= */
-
-    .page {
-      width: min(500px, 92%);
-      margin: 45px auto;
-    }
-
-    .register-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 30px;
-      box-shadow: 0 12px 35px rgba(0,0,0,.3);
-    }
-
-    .title {
+    h1 {
       text-align: center;
-      margin-bottom: 28px;
-    }
-
-    .title h1 {
-      color: var(--gold);
-      font-size: 28px;
+      color: #f5c542;
       margin-bottom: 8px;
+      font-size: 27px;
     }
 
-    .title p {
-      color: var(--muted);
+    .subtitle {
+      text-align: center;
+      color: #9ca7b3;
       font-size: 14px;
-      line-height: 1.5;
+      margin-bottom: 25px;
     }
-
-    /* =========================
-       FORM
-    ========================= */
 
     .form-group {
-      margin-bottom: 18px;
+      margin-bottom: 17px;
     }
 
     label {
       display: block;
-      color: #dce2e8;
-      font-size: 13px;
+      margin-bottom: 7px;
+      color: #d7dde5;
+      font-size: 14px;
       font-weight: bold;
-      margin-bottom: 8px;
     }
 
     input {
       width: 100%;
       padding: 13px 14px;
-
-      background: #090d12;
+      border-radius: 9px;
+      border: 1px solid #303a46;
+      background: #080b0f;
       color: white;
-
-      border: 1px solid var(--border);
-      border-radius: 8px;
-
       outline: none;
       font-size: 15px;
     }
 
     input:focus {
-      border-color: var(--gold);
-      box-shadow: 0 0 0 2px rgba(245,197,66,.08);
+      border-color: #f5c542;
     }
 
-    .phone-wrapper {
+    .phone-wrap {
       display: flex;
       gap: 8px;
     }
 
     .country-code {
-      width: 82px;
+      width: 85px;
       flex-shrink: 0;
       display: flex;
       align-items: center;
       justify-content: center;
-
-      background: #090d12;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-
-      color: var(--gold);
+      border: 1px solid #303a46;
+      border-radius: 9px;
+      background: #080b0f;
+      color: #f5c542;
       font-weight: bold;
-      font-size: 14px;
     }
 
-    .phone-wrapper input {
+    .phone-wrap input {
       flex: 1;
     }
 
-    .hint {
-      color: #727d89;
-      font-size: 11px;
-      margin-top: 6px;
-    }
-
-    /* =========================
-       TERMS
-    ========================= */
-
-    .terms {
-      display: flex;
-      align-items: flex-start;
-      gap: 9px;
-      margin: 20px 0;
-    }
-
-    .terms input {
-      width: 16px;
-      height: 16px;
-      margin-top: 1px;
-      accent-color: var(--gold);
-    }
-
-    .terms label {
-      margin: 0;
-      color: var(--muted);
-      font-size: 12px;
-      line-height: 1.5;
-      font-weight: normal;
-    }
-
-    .terms a {
-      color: var(--gold);
-      text-decoration: none;
-    }
-
-    /* =========================
-       BUTTON
-    ========================= */
-
     .register-btn {
       width: 100%;
+      margin-top: 8px;
       padding: 14px;
-
-      background: var(--gold);
-      color: #111;
-
       border: none;
-      border-radius: 8px;
-
-      font-size: 15px;
+      border-radius: 9px;
+      background: #f5c542;
+      color: #080b0f;
+      font-size: 16px;
       font-weight: bold;
-
       cursor: pointer;
-      transition: .2s;
     }
 
     .register-btn:hover {
-      background: var(--gold2);
+      background: #ffd75e;
     }
 
     .register-btn:disabled {
@@ -228,97 +133,57 @@
       cursor: not-allowed;
     }
 
-    /* =========================
-       MESSAGE
-    ========================= */
-
     .message {
       display: none;
-
-      padding: 11px 13px;
-      border-radius: 7px;
-
-      margin-bottom: 16px;
-
-      font-size: 13px;
-      line-height: 1.4;
+      padding: 12px;
+      margin-bottom: 18px;
+      border-radius: 8px;
+      font-size: 14px;
+      text-align: center;
     }
 
     .message.error {
       display: block;
-      background: rgba(220,38,38,.12);
-      border: 1px solid rgba(220,38,38,.35);
-      color: #fca5a5;
+      background: #3a1515;
+      border: 1px solid #7f1d1d;
+      color: #fecaca;
     }
 
     .message.success {
       display: block;
-      background: rgba(22,163,74,.12);
-      border: 1px solid rgba(22,163,74,.35);
-      color: #86efac;
+      background: #12351f;
+      border: 1px solid #166534;
+      color: #bbf7d0;
     }
-
-    /* =========================
-       LOGIN LINK
-    ========================= */
 
     .login-link {
       text-align: center;
       margin-top: 22px;
-
-      color: var(--muted);
-      font-size: 13px;
+      color: #9ca7b3;
+      font-size: 14px;
     }
 
     .login-link a {
-      color: var(--gold);
+      color: #f5c542;
       text-decoration: none;
       font-weight: bold;
     }
 
-    /* =========================
-       SECURITY
-    ========================= */
-
-    .security {
-      margin-top: 20px;
-      padding-top: 17px;
-
-      border-top: 1px solid var(--border);
-
-      text-align: center;
-      color: #687380;
-      font-size: 11px;
+    .login-link a:hover {
+      text-decoration: underline;
     }
 
-    /* =========================
-       MOBILE
-    ========================= */
+    .note {
+      margin-top: 18px;
+      color: #64748b;
+      font-size: 12px;
+      text-align: center;
+      line-height: 1.5;
+    }
 
-    @media (max-width: 500px) {
-
-      header {
-        padding: 10px 16px;
-      }
-
-      .logo img {
-        width: 105px;
-      }
-
-      .page {
-        margin: 25px auto;
-      }
-
-      .register-card {
+    @media (max-width: 450px) {
+      .register-box {
         padding: 23px 18px;
-      }
-
-      .title h1 {
-        font-size: 25px;
-      }
-
-      .country-code {
-        width: 72px;
       }
     }
   </style>
@@ -326,213 +191,117 @@
 
 <body>
 
-  <!-- =========================
-       HEADER
-  ========================== -->
+  <div class="register-box">
 
-  <header>
-
-    <a href="index.html" class="logo">
-      <img
-        src="betkigali-logo.png"
-        alt="BetKigali"
-      >
-    </a>
-
-    <a
-      href="index.html"
-      class="back-home"
-    >
-      ← Home
-    </a>
-
-  </header>
-
-
-  <!-- =========================
-       REGISTER
-  ========================== -->
-
-  <main class="page">
-
-    <div class="register-card">
-
-      <div class="title">
-
-        <h1>
-          Create Account
-        </h1>
-
-        <p>
-          Join BetKigali and start enjoying
-          our services.
-        </p>
-
-      </div>
-
-
-      <div
-        id="message"
-        class="message"
-      ></div>
-
-
-      <form
-        id="registerForm"
-        autocomplete="off"
-      >
-
-        <!-- PHONE -->
-
-        <div class="form-group">
-
-          <label for="phone">
-            Phone Number
-          </label>
-
-          <div class="phone-wrapper">
-
-            <div class="country-code">
-              +250
-            </div>
-
-            <input
-              type="tel"
-              id="phone"
-              name="phone"
-              placeholder="7XXXXXXXX"
-              maxlength="9"
-              inputmode="numeric"
-              required
-            >
-
-          </div>
-
-          <div class="hint">
-            Enter your Rwanda mobile number.
-          </div>
-
-        </div>
-
-
-        <!-- PASSWORD -->
-
-        <div class="form-group">
-
-          <label for="password">
-            Password
-          </label>
-
-          <input
-            type="password"
-            id="password"
-            name="password"
-            placeholder="Create a password"
-            minlength="6"
-            required
-          >
-
-        </div>
-
-
-        <!-- CONFIRM PASSWORD -->
-
-        <div class="form-group">
-
-          <label for="confirmPassword">
-            Confirm Password
-          </label>
-
-          <input
-            type="password"
-            id="confirmPassword"
-            name="confirmPassword"
-            placeholder="Repeat your password"
-            minlength="6"
-            required
-          >
-
-        </div>
-
-
-        <!-- TERMS -->
-
-        <div class="terms">
-
-          <input
-            type="checkbox"
-            id="terms"
-            required
-          >
-
-          <label for="terms">
-
-            I agree to the
-            <a href="#">
-              Terms & Conditions
-            </a>
-            and understand the
-            BetKigali rules.
-
-          </label>
-
-        </div>
-
-
-        <!-- BUTTON -->
-
-        <button
-          type="submit"
-          class="register-btn"
-          id="registerButton"
+    <div class="logo">
+      <a href="index.html">
+        <img
+          src="betkigali-logo.png"
+          alt="BetKigali"
         >
-          Create Account
-        </button>
-
-      </form>
-
-
-      <!-- LOGIN -->
-
-      <div class="login-link">
-
-        Already have an account?
-
-        <a href="login.html">
-          Login
-        </a>
-
-      </div>
-
-
-      <div class="security">
-        🔒 Your account information is kept secure.
-      </div>
-
+      </a>
     </div>
 
-  </main>
+    <h1>Create Account</h1>
+
+    <p class="subtitle">
+      Register with your phone number
+    </p>
+
+    <div id="message" class="message"></div>
+
+    <form id="registerForm">
+
+      <div class="form-group">
+
+        <label for="phone">
+          Phone Number
+        </label>
+
+        <div class="phone-wrap">
+
+          <div class="country-code">
+            +250
+          </div>
+
+          <input
+            type="tel"
+            id="phone"
+            placeholder="7XXXXXXXX"
+            inputmode="numeric"
+            autocomplete="tel"
+            maxlength="9"
+            required
+          >
+
+        </div>
+
+      </div>
+
+      <div class="form-group">
+
+        <label for="password">
+          Password
+        </label>
+
+        <input
+          type="password"
+          id="password"
+          placeholder="At least 6 characters"
+          autocomplete="new-password"
+          minlength="6"
+          required
+        >
+
+      </div>
+
+      <div class="form-group">
+
+        <label for="confirmPassword">
+          Confirm Password
+        </label>
+
+        <input
+          type="password"
+          id="confirmPassword"
+          placeholder="Repeat your password"
+          autocomplete="new-password"
+          minlength="6"
+          required
+        >
+
+      </div>
+
+      <button
+        type="submit"
+        id="registerBtn"
+        class="register-btn"
+      >
+        Register
+      </button>
+
+    </form>
+
+    <div class="login-link">
+      Already have an account?
+      <a href="login.html">Login</a>
+    </div>
+
+    <div class="note">
+      By registering, you agree to use BetKigali responsibly.
+    </div>
+
+  </div>
 
 
   <script>
 
     /*
-    ==========================================
-       BETKIGALI REGISTER
-    ==========================================
-
-       PHONE ONLY
-       NO EMAIL
-
-       After successful registration:
-       → save customer session
-       → redirect directly to index.html
-
-       IMPORTANT:
-       This customer account is separate
-       from the admin account.
-    ==========================================
+      BetKigali Worker
     */
+
+    const API_URL =
+      "https://betkigali.geekemo226.workers.dev";
 
 
     const form =
@@ -545,17 +314,11 @@
         "message"
       );
 
-    const button =
+    const registerBtn =
       document.getElementById(
-        "registerButton"
+        "registerBtn"
       );
 
-
-    /*
-    ==========================================
-       SHOW MESSAGE
-    ==========================================
-    */
 
     function showMessage(
       text,
@@ -570,46 +333,20 @@
     }
 
 
-    /*
-    ==========================================
-       PHONE VALIDATION
-    ==========================================
-    */
-
-    function validRwandaPhone(phone) {
-
-      /*
-        Accepted local format:
-        7XXXXXXXX
-
-        Example:
-        788123456
-      */
-
-      return /^7\d{8}$/.test(phone);
-
-    }
-
-
-    /*
-    ==========================================
-       REGISTER
-    ==========================================
-    */
-
     form.addEventListener(
       "submit",
       async function(event) {
 
         event.preventDefault();
 
-        showMessage("", "");
+        message.className =
+          "message";
 
-        const phone =
+        const phoneInput =
           document
             .getElementById("phone")
             .value
-            .replace(/\D/g, "");
+            .trim();
 
         const password =
           document
@@ -618,52 +355,61 @@
 
         const confirmPassword =
           document
-            .getElementById("confirmPassword")
+            .getElementById(
+              "confirmPassword"
+            )
             .value;
 
-        const terms =
-          document
-            .getElementById("terms")
-            .checked;
-
 
         /*
-        PHONE
+          Phone validation
         */
 
-        if (!validRwandaPhone(phone)) {
+        const phone =
+          phoneInput.replace(
+            /\D/g,
+            ""
+          );
+
+
+        if (
+          !/^7\d{8}$/.test(phone)
+        ) {
 
           showMessage(
-            "Please enter a valid Rwanda phone number.",
+            "Enter a valid Rwanda phone number, e.g. 781234567.",
             "error"
           );
 
           return;
-
         }
 
 
         /*
-        PASSWORD
+          Password validation
         */
 
-        if (password.length < 6) {
+        if (
+          password.length < 6
+        ) {
 
           showMessage(
-            "Password must contain at least 6 characters.",
+            "Password must be at least 6 characters.",
             "error"
           );
 
           return;
-
         }
 
 
         /*
-        CONFIRM PASSWORD
+          Confirm password
         */
 
-        if (password !== confirmPassword) {
+        if (
+          password !==
+          confirmPassword
+        ) {
 
           showMessage(
             "Passwords do not match.",
@@ -671,103 +417,97 @@
           );
 
           return;
-
         }
 
 
         /*
-        TERMS
+          Full phone number
         */
 
-        if (!terms) {
-
-          showMessage(
-            "Please accept the Terms & Conditions.",
-            "error"
-          );
-
-          return;
-
-        }
+        const fullPhone =
+          "+250" + phone;
 
 
         /*
-        DISABLE BUTTON
+          Disable button
         */
 
-        button.disabled = true;
+        registerBtn.disabled =
+          true;
 
-        button.textContent =
-          "Creating Account...";
+        registerBtn.textContent =
+          "Creating account...";
 
-
-        /*
-        ======================================
-          TEMPORARY CUSTOMER REGISTRATION
-        ======================================
-
-          This allows us to test the complete
-          frontend flow before connecting the
-          real backend/database.
-
-          IMPORTANT:
-          We do NOT store the password here.
-        ======================================
-        */
 
         try {
 
-          const customer = {
+          const response =
+            await fetch(
+              API_URL +
+              "/api/register",
+              {
+                method: "POST",
 
-            role: "customer",
+                headers: {
+                  "Content-Type":
+                    "application/json"
+                },
 
-            phone:
-              "+250" + phone,
+                body:
+                  JSON.stringify({
+                    phone:
+                      fullPhone,
 
-            balance: 0,
+                    password:
+                      password
+                  })
+              }
+            );
 
-            bonusBalance: 0,
 
-            profilePicture: "",
+          const data =
+            await response.json();
 
-            createdAt:
-              new Date().toISOString()
 
-          };
+          if (
+            !response.ok ||
+            !data.success
+          ) {
+
+            throw new Error(
+              data.message ||
+              "Registration failed."
+            );
+
+          }
 
 
           /*
-          SAVE CUSTOMER SESSION
+            Save login session
           */
+
+          localStorage.setItem(
+            "betkigaliToken",
+            data.token
+          );
+
 
           localStorage.setItem(
             "betkigaliUser",
-            JSON.stringify(customer)
+            JSON.stringify(
+              data.user
+            )
           );
 
-
-          /*
-          MARK CUSTOMER AS LOGGED IN
-          */
-
-          localStorage.setItem(
-            "betkigaliLoggedIn",
-            "true"
-          );
-
-
-          /*
-          SUCCESS
-          */
 
           showMessage(
-            "Account created successfully. Welcome to BetKigali!",
+            "Account created successfully. Redirecting...",
             "success"
           );
 
 
           /*
-          GO DIRECTLY TO REAL HOME PAGE
+            Go to main page
           */
 
           setTimeout(
@@ -777,23 +517,28 @@
                 "index.html";
 
             },
-            700
+            800
           );
 
 
         } catch (error) {
 
-          console.error(error);
+          console.error(
+            "Registration error:",
+            error
+          );
 
           showMessage(
-            "Unable to create your account. Please try again.",
+            error.message ||
+            "Unable to create account. Please try again.",
             "error"
           );
 
-          button.disabled = false;
+          registerBtn.disabled =
+            false;
 
-          button.textContent =
-            "Create Account";
+          registerBtn.textContent =
+            "Register";
 
         }
 
@@ -804,3 +549,4 @@
 
 </body>
 </html>
+```
