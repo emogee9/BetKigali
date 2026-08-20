@@ -13,73 +13,50 @@
       padding: 0;
     }
 
-    html,
-    body {
-      width: 100%;
-      min-height: 100%;
-      overflow-x: hidden;
-    }
-
     body {
       font-family: Arial, sans-serif;
       background: #080b0f;
       color: white;
+      overflow-x: hidden;
     }
 
     /* HEADER */
-
     header {
       min-height: 72px;
-      width: 100%;
       background: #0d1218;
       border-bottom: 1px solid #202832;
-
       display: flex;
       align-items: center;
       justify-content: space-between;
-
-      padding: 0 25px;
-
+      padding: 12px 25px;
       position: sticky;
       top: 0;
       z-index: 1000;
-
       gap: 20px;
     }
 
     /* LOGO */
-
     .logo {
-      flex: 0 0 auto;
-      width: 145px;
-      max-width: 30vw;
-      overflow: hidden;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
     }
 
     .logo img {
       width: 145px;
-      max-width: 100%;
       height: auto;
+      max-width: 100%;
       display: block;
-      object-fit: contain;
     }
 
     /* NAVIGATION */
-
     nav {
-      flex: 1 1 auto;
-      min-width: 0;
-
       display: flex;
       align-items: center;
-      justify-content: center;
-
       gap: 22px;
-
       overflow-x: auto;
-      overflow-y: hidden;
-
       scrollbar-width: none;
+      flex: 1;
     }
 
     nav::-webkit-scrollbar {
@@ -87,16 +64,13 @@
     }
 
     nav a {
-      flex: 0 0 auto;
-
       color: #c9d0d8;
       text-decoration: none;
-
       font-size: 14px;
       font-weight: 600;
-
       white-space: nowrap;
       cursor: pointer;
+      transition: color 0.2s ease;
     }
 
     nav a:hover,
@@ -105,22 +79,18 @@
     }
 
     /* AUTH */
-
     .auth {
-      flex: 0 0 auto;
-
       display: flex;
       gap: 8px;
+      flex-shrink: 0;
     }
 
     .auth button {
       border: none;
       padding: 10px 15px;
       border-radius: 7px;
-
       font-weight: 700;
       cursor: pointer;
-      white-space: nowrap;
     }
 
     .login {
@@ -135,19 +105,13 @@
     }
 
     /* HERO */
-
     .hero {
-      width: 100%;
       min-height: 360px;
-
       padding: 70px 25px;
-
       display: flex;
       align-items: center;
       justify-content: center;
-
       text-align: center;
-
       background:
         radial-gradient(
           circle at center,
@@ -157,7 +121,6 @@
     }
 
     .hero-content {
-      width: 100%;
       max-width: 800px;
     }
 
@@ -188,7 +151,6 @@
       padding: 14px 25px;
       border: none;
       border-radius: 8px;
-
       font-weight: 800;
       cursor: pointer;
     }
@@ -205,29 +167,20 @@
     }
 
     /* PROMOTION */
-
     .promotion {
-      width: calc(100% - 50px);
-
       margin: 25px;
-
       padding: 25px;
-
       border-radius: 12px;
-
       background:
         linear-gradient(
           135deg,
           #151c24,
           #10151b
         );
-
       border: 1px solid #28323d;
-
       display: flex;
       align-items: center;
       justify-content: space-between;
-
       gap: 20px;
     }
 
@@ -246,23 +199,16 @@
     .promotion button {
       background: #f5c542;
       color: #080b0f;
-
       border: none;
-
       padding: 12px 20px;
-
       border-radius: 7px;
-
       font-weight: 800;
       cursor: pointer;
-
       white-space: nowrap;
     }
 
-    /* SPORTS */
-
+    /* SPORTS SECTION */
     .section {
-      width: 100%;
       padding: 20px 25px;
     }
 
@@ -271,37 +217,40 @@
     }
 
     .sports {
-      width: 100%;
-
       display: grid;
-
       grid-template-columns:
-        repeat(
-          auto-fit,
-          minmax(130px, 1fr)
-        );
-
+        repeat(auto-fit, minmax(130px, 1fr));
       gap: 12px;
     }
 
+    /* SPORT CARD */
     .sport-card {
-      min-width: 0;
-
       background: #11171e;
-
       border: 1px solid #242d37;
-
       border-radius: 10px;
-
       padding: 25px 15px;
-
       text-align: center;
-
       cursor: pointer;
+
+      /* IMPORTANT */
+      display: block;
+      text-decoration: none;
+      color: inherit;
+
+      transition:
+        border-color 0.2s ease,
+        transform 0.2s ease,
+        background 0.2s ease;
     }
 
     .sport-card:hover {
       border-color: #f5c542;
+      transform: translateY(-2px);
+      background: #151c24;
+    }
+
+    .sport-card:active {
+      transform: scale(0.98);
     }
 
     .sport-icon {
@@ -315,54 +264,30 @@
     }
 
     /* FOOTER */
-
     footer {
-      width: 100%;
-
       margin-top: 50px;
-
       padding: 30px 25px;
-
       background: #0d1218;
-
       border-top: 1px solid #202832;
-
       text-align: center;
-
       color: #7f8a96;
-
       font-size: 13px;
     }
 
     /* TABLET */
-
     @media (max-width: 900px) {
 
       header {
-        min-height: auto;
-
+        height: auto;
         padding: 15px;
-
         flex-wrap: wrap;
-
         gap: 15px;
-      }
-
-      .logo {
-        width: 130px;
-        max-width: 40vw;
-      }
-
-      .logo img {
-        width: 130px;
       }
 
       nav {
         order: 3;
         width: 100%;
-
-        justify-content: flex-start;
-
+        flex-basis: 100%;
         padding-bottom: 5px;
       }
 
@@ -381,30 +306,14 @@
     }
 
     /* MOBILE */
-
     @media (max-width: 500px) {
 
       header {
         padding: 12px;
-        gap: 12px;
-      }
-
-      .logo {
-        width: 105px;
-        max-width: 32vw;
       }
 
       .logo img {
-        width: 105px;
-      }
-
-      .auth {
-        gap: 5px;
-      }
-
-      .auth button {
-        padding: 8px 10px;
-        font-size: 12px;
+        width: 125px;
       }
 
       nav {
@@ -413,6 +322,15 @@
 
       nav a {
         font-size: 13px;
+      }
+
+      .auth {
+        gap: 5px;
+      }
+
+      .auth button {
+        padding: 8px 11px;
+        font-size: 12px;
       }
 
       .hero {
@@ -428,82 +346,49 @@
         font-size: 15px;
       }
 
-      .promotion {
-        width: calc(100% - 24px);
-
-        margin-left: 12px;
-        margin-right: 12px;
-
-        padding: 18px;
+      .section {
+        padding: 20px 12px;
       }
 
-      .section {
-        padding-left: 12px;
-        padding-right: 12px;
+      .promotion {
+        margin-left: 12px;
+        margin-right: 12px;
+        padding: 20px;
       }
 
       .sports {
         grid-template-columns:
-          repeat(2, minmax(0, 1fr));
+          repeat(2, 1fr);
       }
     }
-
-    /* VERY SMALL PHONES */
-
-    @media (max-width: 360px) {
-
-      .logo {
-        width: 90px;
-      }
-
-      .logo img {
-        width: 90px;
-      }
-
-      .auth button {
-        padding: 7px 8px;
-        font-size: 11px;
-      }
-
-      .hero h1 {
-        font-size: 29px;
-      }
-
-      .sports {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-
   </style>
 </head>
 
 <body>
 
   <!-- HEADER -->
-
   <header>
 
-    <div class="logo">
+    <a href="index.html" class="logo">
       <img
         src="betkigali-logo.png"
         alt="BetKigali Logo"
       >
-    </div>
+    </a>
 
     <nav>
 
       <a
         href="index.html"
-        class="active"
-      >
+        class="active">
         Home
       </a>
 
-      <a href="#">
+      <a href="football.html">
         Sports
       </a>
 
-      <a href="#">
+      <a href="football.html">
         Live
       </a>
 
@@ -553,11 +438,9 @@
 
 
   <!-- MAIN -->
-
   <main>
 
     <!-- HERO -->
-
     <section class="hero">
 
       <div class="hero-content">
@@ -568,8 +451,7 @@
         </h1>
 
         <p>
-          Bet on your favorite sports,
-          follow live matches,
+          Bet on your favorite sports, follow live matches,
           and enjoy an exciting betting experience.
         </p>
 
@@ -591,7 +473,6 @@
 
 
     <!-- PROMOTION -->
-
     <section class="promotion">
 
       <div>
@@ -617,7 +498,6 @@
 
 
     <!-- SPORTS -->
-
     <section class="section">
 
       <h2>
@@ -626,7 +506,11 @@
 
       <div class="sports">
 
-        <div class="sport-card">
+
+        <!-- FOOTBALL -->
+        <a
+          href="football.html"
+          class="sport-card">
 
           <div class="sport-icon">
             ⚽
@@ -636,10 +520,13 @@
             Football
           </span>
 
-        </div>
+        </a>
 
 
-        <div class="sport-card">
+        <!-- BASKETBALL -->
+        <a
+          href="#"
+          class="sport-card">
 
           <div class="sport-icon">
             🏀
@@ -649,10 +536,13 @@
             Basketball
           </span>
 
-        </div>
+        </a>
 
 
-        <div class="sport-card">
+        <!-- TENNIS -->
+        <a
+          href="#"
+          class="sport-card">
 
           <div class="sport-icon">
             🎾
@@ -662,10 +552,13 @@
             Tennis
           </span>
 
-        </div>
+        </a>
 
 
-        <div class="sport-card">
+        <!-- BOXING -->
+        <a
+          href="#"
+          class="sport-card">
 
           <div class="sport-icon">
             🥊
@@ -675,10 +568,13 @@
             Boxing
           </span>
 
-        </div>
+        </a>
 
 
-        <div class="sport-card">
+        <!-- FORMULA 1 -->
+        <a
+          href="#"
+          class="sport-card">
 
           <div class="sport-icon">
             🏎️
@@ -688,10 +584,13 @@
             Formula 1
           </span>
 
-        </div>
+        </a>
 
 
-        <div class="sport-card">
+        <!-- ESPORTS -->
+        <a
+          href="#"
+          class="sport-card">
 
           <div class="sport-icon">
             🎮
@@ -701,7 +600,7 @@
             Esports
           </span>
 
-        </div>
+        </a>
 
       </div>
 
@@ -711,7 +610,6 @@
 
 
   <!-- FOOTER -->
-
   <footer>
 
     © 2026 BetKigali.
@@ -719,6 +617,6 @@
 
   </footer>
 
+
 </body>
 </html>
-```
