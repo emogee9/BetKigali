@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,6 +14,13 @@
       padding: 0;
     }
 
+    html,
+    body {
+      width: 100%;
+      min-height: 100%;
+      overflow-x: hidden;
+    }
+
     body {
       font-family: Arial, sans-serif;
       background: #080b0f;
@@ -20,47 +28,74 @@
     }
 
     /* HEADER */
+
     header {
-      height: 72px;
+      min-height: 72px;
+      width: 100%;
       background: #0d1218;
       border-bottom: 1px solid #202832;
+
       display: flex;
       align-items: center;
       justify-content: space-between;
+
       padding: 0 25px;
+
       position: sticky;
       top: 0;
       z-index: 1000;
+
+      gap: 20px;
     }
+
+    /* LOGO */
 
     .logo {
-     .logo img {
-  width: 145px;
-  height: auto;
-  display: block;
-} 
-      font-size: 28px;
-      font-weight: 900;
-      letter-spacing: -1px;
+      flex: 0 0 auto;
+      width: 145px;
+      max-width: 30vw;
+      overflow: hidden;
     }
 
-    .logo span {
-      color: #f5c542;
+    .logo img {
+      width: 145px;
+      max-width: 100%;
+      height: auto;
+      display: block;
+      object-fit: contain;
     }
 
     /* NAVIGATION */
+
     nav {
+      flex: 1 1 auto;
+      min-width: 0;
+
       display: flex;
       align-items: center;
+      justify-content: center;
+
       gap: 22px;
+
       overflow-x: auto;
+      overflow-y: hidden;
+
+      scrollbar-width: none;
+    }
+
+    nav::-webkit-scrollbar {
+      display: none;
     }
 
     nav a {
+      flex: 0 0 auto;
+
       color: #c9d0d8;
       text-decoration: none;
+
       font-size: 14px;
       font-weight: 600;
+
       white-space: nowrap;
       cursor: pointer;
     }
@@ -71,18 +106,22 @@
     }
 
     /* AUTH */
+
     .auth {
+      flex: 0 0 auto;
+
       display: flex;
       gap: 8px;
-      margin-left: 20px;
     }
 
     .auth button {
       border: none;
       padding: 10px 15px;
       border-radius: 7px;
+
       font-weight: 700;
       cursor: pointer;
+      white-space: nowrap;
     }
 
     .login {
@@ -97,18 +136,29 @@
     }
 
     /* HERO */
+
     .hero {
+      width: 100%;
       min-height: 360px;
+
       padding: 70px 25px;
+
       display: flex;
       align-items: center;
       justify-content: center;
+
       text-align: center;
+
       background:
-        radial-gradient(circle at center, #17242c 0%, #080b0f 65%);
+        radial-gradient(
+          circle at center,
+          #17242c 0%,
+          #080b0f 65%
+        );
     }
 
     .hero-content {
+      width: 100%;
       max-width: 800px;
     }
 
@@ -139,6 +189,7 @@
       padding: 14px 25px;
       border: none;
       border-radius: 8px;
+
       font-weight: 800;
       cursor: pointer;
     }
@@ -155,15 +206,29 @@
     }
 
     /* PROMOTION */
+
     .promotion {
+      width: calc(100% - 50px);
+
       margin: 25px;
+
       padding: 25px;
+
       border-radius: 12px;
-      background: linear-gradient(135deg, #151c24, #10151b);
+
+      background:
+        linear-gradient(
+          135deg,
+          #151c24,
+          #10151b
+        );
+
       border: 1px solid #28323d;
+
       display: flex;
       align-items: center;
       justify-content: space-between;
+
       gap: 20px;
     }
 
@@ -182,16 +247,23 @@
     .promotion button {
       background: #f5c542;
       color: #080b0f;
+
       border: none;
+
       padding: 12px 20px;
+
       border-radius: 7px;
+
       font-weight: 800;
       cursor: pointer;
+
       white-space: nowrap;
     }
 
     /* SPORTS */
+
     .section {
+      width: 100%;
       padding: 20px 25px;
     }
 
@@ -200,17 +272,32 @@
     }
 
     .sports {
+      width: 100%;
+
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+
+      grid-template-columns:
+        repeat(
+          auto-fit,
+          minmax(130px, 1fr)
+        );
+
       gap: 12px;
     }
 
     .sport-card {
+      min-width: 0;
+
       background: #11171e;
+
       border: 1px solid #242d37;
+
       border-radius: 10px;
+
       padding: 25px 15px;
+
       text-align: center;
+
       cursor: pointer;
     }
 
@@ -229,28 +316,54 @@
     }
 
     /* FOOTER */
+
     footer {
+      width: 100%;
+
       margin-top: 50px;
+
       padding: 30px 25px;
+
       background: #0d1218;
+
       border-top: 1px solid #202832;
+
       text-align: center;
+
       color: #7f8a96;
+
       font-size: 13px;
     }
 
-    /* MOBILE */
+    /* TABLET */
+
     @media (max-width: 900px) {
+
       header {
-        height: auto;
+        min-height: auto;
+
         padding: 15px;
+
         flex-wrap: wrap;
+
         gap: 15px;
+      }
+
+      .logo {
+        width: 130px;
+        max-width: 40vw;
+      }
+
+      .logo img {
+        width: 130px;
       }
 
       nav {
         order: 3;
         width: 100%;
+
+        justify-content: flex-start;
+
         padding-bottom: 5px;
       }
 
@@ -268,14 +381,39 @@
       }
     }
 
+    /* MOBILE */
+
     @media (max-width: 500px) {
+
+      header {
+        padding: 12px;
+        gap: 12px;
+      }
+
       .logo {
-        font-size: 23px;
+        width: 105px;
+        max-width: 32vw;
+      }
+
+      .logo img {
+        width: 105px;
+      }
+
+      .auth {
+        gap: 5px;
       }
 
       .auth button {
-        padding: 8px 11px;
+        padding: 8px 10px;
         font-size: 12px;
+      }
+
+      nav {
+        gap: 18px;
+      }
+
+      nav a {
+        font-size: 13px;
       }
 
       .hero {
@@ -291,121 +429,279 @@
         font-size: 15px;
       }
 
-      .section,
       .promotion {
+        width: calc(100% - 24px);
+
         margin-left: 12px;
         margin-right: 12px;
+
+        padding: 18px;
+      }
+
+      .section {
         padding-left: 12px;
         padding-right: 12px;
       }
+
+      .sports {
+        grid-template-columns:
+          repeat(2, minmax(0, 1fr));
+      }
     }
+
+    /* VERY SMALL PHONES */
+
+    @media (max-width: 360px) {
+
+      .logo {
+        width: 90px;
+      }
+
+      .logo img {
+        width: 90px;
+      }
+
+      .auth button {
+        padding: 7px 8px;
+        font-size: 11px;
+      }
+
+      .hero h1 {
+        font-size: 29px;
+      }
+
+      .sports {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
   </style>
 </head>
 
 <body>
 
+  <!-- HEADER -->
+
   <header>
 
     <div class="logo">
-  <img src="betkigali-logo.png" alt="BetKigali Logo">
-</div>
+      <img
+        src="betkigali-logo.png"
+        alt="BetKigali Logo"
+      >
+    </div>
 
     <nav>
-      <a href="index.html" class="active">Home</a>
-      <a href="#">Sports</a>
-      <a href="#">Live</a>
-      <a href="#">My Bets</a>
-      <a href="#">Casino</a>
-      <a href="#">Promotion</a>
-      <a href="#">Balance</a>
-      <a href="#">Bonus Balance</a>
-      <a href="#">Deposit</a>
-      <a href="#">Withdraw</a>
+
+      <a
+        href="index.html"
+        class="active"
+      >
+        Home
+      </a>
+
+      <a href="#">
+        Sports
+      </a>
+
+      <a href="#">
+        Live
+      </a>
+
+      <a href="#">
+        My Bets
+      </a>
+
+      <a href="#">
+        Casino
+      </a>
+
+      <a href="#">
+        Promotion
+      </a>
+
+      <a href="#">
+        Balance
+      </a>
+
+      <a href="#">
+        Bonus Balance
+      </a>
+
+      <a href="#">
+        Deposit
+      </a>
+
+      <a href="#">
+        Withdraw
+      </a>
+
     </nav>
 
     <div class="auth">
-      <button class="login">Login</button>
-      <button class="register">Register</button>
+
+      <button class="login">
+        Login
+      </button>
+
+      <button class="register">
+        Register
+      </button>
+
     </div>
 
   </header>
 
 
+  <!-- MAIN -->
+
   <main>
+
+    <!-- HERO -->
 
     <section class="hero">
 
       <div class="hero-content">
 
         <h1>
-          Welcome to <span>BetKigali</span>
+          Welcome to
+          <span>BetKigali</span>
         </h1>
 
         <p>
-          Bet on your favorite sports, follow live matches,
+          Bet on your favorite sports,
+          follow live matches,
           and enjoy an exciting betting experience.
         </p>
 
         <div class="hero-buttons">
-          <button class="start-btn">START BETTING</button>
-          <button class="deposit-btn">DEPOSIT NOW</button>
+
+          <button class="start-btn">
+            START BETTING
+          </button>
+
+          <button class="deposit-btn">
+            DEPOSIT NOW
+          </button>
+
         </div>
 
       </div>
 
     </section>
 
+
+    <!-- PROMOTION -->
 
     <section class="promotion">
 
       <div>
-        <h2>🎁 Deposit Bonus</h2>
+
+        <h2>
+          🎁 Deposit Bonus
+        </h2>
 
         <p>
-          Deposit over <strong>5,000 RWF</strong>
-          and get <strong>40% bonus</strong>.
+          Deposit over
+          <strong>5,000 RWF</strong>
+          and get
+          <strong>40% bonus</strong>.
         </p>
+
       </div>
 
-      <button>DEPOSIT NOW</button>
+      <button>
+        DEPOSIT NOW
+      </button>
 
     </section>
 
 
+    <!-- SPORTS -->
+
     <section class="section">
 
-      <h2>Sports</h2>
+      <h2>
+        Sports
+      </h2>
 
       <div class="sports">
 
         <div class="sport-card">
-          <div class="sport-icon">⚽</div>
-          <span>Football</span>
+
+          <div class="sport-icon">
+            ⚽
+          </div>
+
+          <span>
+            Football
+          </span>
+
         </div>
 
-        <div class="sport-card">
-          <div class="sport-icon">🏀</div>
-          <span>Basketball</span>
-        </div>
 
         <div class="sport-card">
-          <div class="sport-icon">🎾</div>
-          <span>Tennis</span>
+
+          <div class="sport-icon">
+            🏀
+          </div>
+
+          <span>
+            Basketball
+          </span>
+
         </div>
 
-        <div class="sport-card">
-          <div class="sport-icon">🥊</div>
-          <span>Boxing</span>
-        </div>
 
         <div class="sport-card">
-          <div class="sport-icon">🏎️</div>
-          <span>Formula 1</span>
+
+          <div class="sport-icon">
+            🎾
+          </div>
+
+          <span>
+            Tennis
+          </span>
+
         </div>
 
+
         <div class="sport-card">
-          <div class="sport-icon">🎮</div>
-          <span>Esports</span>
+
+          <div class="sport-icon">
+            🥊
+          </div>
+
+          <span>
+            Boxing
+          </span>
+
+        </div>
+
+
+        <div class="sport-card">
+
+          <div class="sport-icon">
+            🏎️
+          </div>
+
+          <span>
+            Formula 1
+          </span>
+
+        </div>
+
+
+        <div class="sport-card">
+
+          <div class="sport-icon">
+            🎮
+          </div>
+
+          <span>
+            Esports
+          </span>
+
         </div>
 
       </div>
@@ -415,9 +711,15 @@
   </main>
 
 
+  <!-- FOOTER -->
+
   <footer>
-    © 2026 BetKigali. All rights reserved.
+
+    © 2026 BetKigali.
+    All rights reserved.
+
   </footer>
 
 </body>
 </html>
+```
