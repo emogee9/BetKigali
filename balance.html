@@ -1,0 +1,701 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>BetKigali - Balance</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --black: #07090d;
+      --black2: #0d1117;
+      --card: #11161d;
+      --border: #242c35;
+      --gold: #f5c542;
+      --gold2: #ffd966;
+      --white: #ffffff;
+      --muted: #9ca7b3;
+      --green: #16a34a;
+      --red: #dc2626;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--black);
+      color: var(--white);
+      min-height: 100vh;
+    }
+
+    /* HEADER */
+
+    header {
+      background: #090d12;
+      border-bottom: 1px solid var(--border);
+      min-height: 86px;
+      padding: 10px 28px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    .logo img {
+      width: 125px;
+      max-height: 70px;
+      object-fit: contain;
+      display: block;
+    }
+
+    /* NAVBAR */
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      overflow-x: auto;
+    }
+
+    nav a {
+      color: #d8dee6;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    nav a:hover {
+      color: var(--gold);
+    }
+
+    nav .active {
+      color: var(--gold);
+    }
+
+    /* CONTAINER */
+
+    .container {
+      width: min(850px, 94%);
+      margin: auto;
+      padding: 35px 0 50px;
+    }
+
+    .title {
+      margin-bottom: 25px;
+    }
+
+    .title h1 {
+      color: var(--gold);
+      font-size: 29px;
+      margin-bottom: 7px;
+    }
+
+    .title p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* BALANCE CARDS */
+
+    .balances {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .balance-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 25px;
+    }
+
+    .balance-card:hover {
+      border-color: #5d4b1d;
+    }
+
+    .balance-icon {
+      font-size: 32px;
+      margin-bottom: 15px;
+    }
+
+    .balance-label {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 9px;
+    }
+
+    .balance-amount {
+      color: var(--gold);
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    /* TOTAL */
+
+    .total-card {
+      margin-top: 16px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #17130a,
+          #0e1116
+        );
+
+      border: 1px solid #5e4b19;
+      border-radius: 14px;
+      padding: 23px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .total-label {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 7px;
+    }
+
+    .total-amount {
+      color: var(--gold2);
+      font-size: 25px;
+      font-weight: bold;
+    }
+
+    /* ACTIONS */
+
+    .actions {
+      margin-top: 22px;
+
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .action {
+      display: block;
+      text-align: center;
+
+      padding: 13px;
+
+      border-radius: 8px;
+      text-decoration: none;
+
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .deposit {
+      background: var(--green);
+      color: white;
+    }
+
+    .deposit:hover {
+      opacity: .9;
+    }
+
+    .withdraw {
+      background: var(--red);
+      color: white;
+    }
+
+    .withdraw:hover {
+      opacity: .9;
+    }
+
+    /* STATUS */
+
+    #status {
+      margin-top: 18px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 750px) {
+
+      header {
+        padding: 10px 15px;
+        flex-wrap: wrap;
+      }
+
+      .logo img {
+        width: 105px;
+        max-height: 58px;
+      }
+
+      nav {
+        width: 100%;
+        justify-content: flex-start;
+        padding-top: 8px;
+        gap: 14px;
+      }
+
+      nav a {
+        font-size: 12px;
+      }
+
+      .balances {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 500px) {
+
+      .total-card {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .actions {
+        grid-template-columns: 1fr;
+      }
+
+      .balance-amount {
+        font-size: 25px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+
+  <a href="index.html" class="logo">
+    <img
+      src="betkigali-logo.png"
+      alt="BetKigali"
+    >
+  </a>
+
+  <nav>
+
+    <a href="profile.html">
+      Profile
+    </a>
+
+    <a href="index.html">
+      Home
+    </a>
+
+    <a href="casino.html">
+      Casino
+    </a>
+
+    <a
+      href="balance.html"
+      class="active"
+    >
+      Balance
+    </a>
+
+    <a href="bonus.html">
+      Bonus Balance
+    </a>
+
+    <a href="deposit.html">
+      Deposit
+    </a>
+
+    <a href="withdraw.html">
+      Withdraw
+    </a>
+
+  </nav>
+
+</header>
+
+
+<main class="container">
+
+  <div class="title">
+
+    <h1>
+      💰 My Balance
+    </h1>
+
+    <p>
+      View your available balance and bonus balance.
+    </p>
+
+  </div>
+
+
+  <!-- BALANCES -->
+
+  <section class="balances">
+
+    <!-- MAIN BALANCE -->
+
+    <div class="balance-card">
+
+      <div class="balance-icon">
+        💰
+      </div>
+
+      <div class="balance-label">
+        Main Balance
+      </div>
+
+      <div
+        class="balance-amount"
+        id="mainBalance"
+      >
+        0 RWF
+      </div>
+
+    </div>
+
+
+    <!-- BONUS BALANCE -->
+
+    <div class="balance-card">
+
+      <div class="balance-icon">
+        🎁
+      </div>
+
+      <div class="balance-label">
+        Bonus Balance
+      </div>
+
+      <div
+        class="balance-amount"
+        id="bonusBalance"
+      >
+        0 RWF
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- TOTAL -->
+
+  <section class="total-card">
+
+    <div>
+
+      <div class="total-label">
+        Total Balance
+      </div>
+
+      <div
+        class="total-amount"
+        id="totalBalance"
+      >
+        0 RWF
+      </div>
+
+    </div>
+
+    <div>
+      💎
+    </div>
+
+  </section>
+
+
+  <!-- ACTIONS -->
+
+  <section class="actions">
+
+    <a
+      href="deposit.html"
+      class="action deposit"
+    >
+      + Deposit
+    </a>
+
+    <a
+      href="withdraw.html"
+      class="action withdraw"
+    >
+      Withdraw
+    </a>
+
+  </section>
+
+
+  <div id="status">
+    Loading balance...
+  </div>
+
+</main>
+
+
+<script>
+
+  /*
+  ==========================================
+    BETKIGALI SUPABASE
+  ==========================================
+  */
+
+  const SUPABASE_URL =
+    "https://nezgaxfisytlgkhdgzvf.supabase.co";
+
+  /*
+    Shyiramo hano Publishable key ya
+    Supabase project ya BetKigali.
+  */
+
+  const SUPABASE_KEY =
+    "YOUR_SUPABASE_PUBLISHABLE_KEY";
+
+
+  /*
+  ==========================================
+    GET LOGGED-IN USER
+  ==========================================
+  */
+
+  function getLoggedInUser() {
+
+    const possibleKeys = [
+      "betkigaliUser",
+      "currentUser",
+      "loggedInUser",
+      "user"
+    ];
+
+    for (const key of possibleKeys) {
+
+      const value =
+        localStorage.getItem(key);
+
+      if (!value) {
+        continue;
+      }
+
+      try {
+
+        const user =
+          JSON.parse(value);
+
+        if (
+          user &&
+          (
+            user.id ||
+            user.user_id
+          )
+        ) {
+          return user;
+        }
+
+      } catch (error) {
+
+        console.log(error);
+
+      }
+
+    }
+
+    return null;
+  }
+
+
+  /*
+  ==========================================
+    FORMAT MONEY
+  ==========================================
+  */
+
+  function formatMoney(amount) {
+
+    return Number(
+      amount || 0
+    ).toLocaleString() + " RWF";
+
+  }
+
+
+  /*
+  ==========================================
+    LOAD BALANCE
+  ==========================================
+  */
+
+  async function loadBalance() {
+
+    const status =
+      document.getElementById("status");
+
+    const user =
+      getLoggedInUser();
+
+
+    /*
+      USER MUST BE LOGGED IN
+    */
+
+    if (!user) {
+
+      window.location.href =
+        "login.html";
+
+      return;
+
+    }
+
+
+    const userId =
+      user.id ||
+      user.user_id;
+
+
+    if (!userId) {
+
+      status.textContent =
+        "Your login session is incomplete.";
+
+      return;
+
+    }
+
+
+    try {
+
+      const response =
+        await fetch(
+          `${SUPABASE_URL}/rest/v1/profiles?id=eq.${encodeURIComponent(userId)}&select=balance,bonus_balance`,
+          {
+            method: "GET",
+
+            headers: {
+              "apikey": SUPABASE_KEY,
+              "Authorization":
+                `Bearer ${SUPABASE_KEY}`,
+              "Content-Type":
+                "application/json"
+            }
+          }
+        );
+
+
+      if (!response.ok) {
+
+        throw new Error(
+          "Could not load balance."
+        );
+
+      }
+
+
+      const data =
+        await response.json();
+
+
+      if (
+        !Array.isArray(data) ||
+        data.length === 0
+      ) {
+
+        status.textContent =
+          "Your balance information was not found.";
+
+        return;
+
+      }
+
+
+      const profile =
+        data[0];
+
+
+      const balance =
+        Number(
+          profile.balance || 0
+        );
+
+      const bonusBalance =
+        Number(
+          profile.bonus_balance || 0
+        );
+
+      const total =
+        balance + bonusBalance;
+
+
+      /*
+        DISPLAY MAIN BALANCE
+      */
+
+      document.getElementById(
+        "mainBalance"
+      ).textContent =
+        formatMoney(balance);
+
+
+      /*
+        DISPLAY BONUS BALANCE
+      */
+
+      document.getElementById(
+        "bonusBalance"
+      ).textContent =
+        formatMoney(bonusBalance);
+
+
+      /*
+        DISPLAY TOTAL
+      */
+
+      document.getElementById(
+        "totalBalance"
+      ).textContent =
+        formatMoney(total);
+
+
+      status.textContent =
+        "Balance updated successfully.";
+
+    } catch (error) {
+
+      console.error(error);
+
+      status.textContent =
+        "Unable to load your balance. Please try again.";
+
+    }
+
+  }
+
+
+  /*
+  ==========================================
+    START
+  ==========================================
+  */
+
+  loadBalance();
+
+</script>
+
+</body>
+</html>
+```
