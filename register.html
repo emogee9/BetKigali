@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -148,6 +149,14 @@
       color: #bbf7d0;
     }
 
+    .loading {
+      display: none;
+      text-align: center;
+      color: #f5c542;
+      margin-top: 12px;
+      font-size: 13px;
+    }
+
     .login-link {
       text-align: center;
       margin-top: 20px;
@@ -165,6 +174,21 @@
       text-decoration: underline;
     }
 
+    .back-home {
+      text-align: center;
+      margin-top: 15px;
+    }
+
+    .back-home a {
+      color: #64748b;
+      text-decoration: none;
+      font-size: 13px;
+    }
+
+    .back-home a:hover {
+      color: #f5c542;
+    }
+
     .note {
       margin-top: 15px;
       color: #64748b;
@@ -172,575 +196,649 @@
       font-size: 12px;
       line-height: 1.5;
     }
-
-    .loading {
-      display: none;
-      text-align: center;
-      color: #f5c542;
-      margin-top: 12px;
-      font-size: 13px;
-    }
   </style>
 </head>
 
 <body>
 
-  <div class="register-box">
+<div class="register-box">
 
-    <div class="logo">
-      <a href="index.html">
-        <img
-          src="betkigali-logo.png"
-          alt="BetKigali"
-        >
-      </a>
-    </div>
-
-    <h1>Create Account</h1>
-
-    <p class="subtitle">
-      Register your BetKigali account
-    </p>
-
-    <div id="message" class="message"></div>
-
-    <form id="registerForm">
-
-      <div class="field">
-
-        <label for="phone">
-          Phone Number
-        </label>
-
-        <input
-          type="tel"
-          id="phone"
-          placeholder="e.g. 0781234567"
-          autocomplete="tel"
-          required
-        >
-
-      </div>
-
-      <div class="field">
-
-        <label for="password">
-          Password
-        </label>
-
-        <input
-          type="password"
-          id="password"
-          placeholder="At least 6 characters"
-          autocomplete="new-password"
-          minlength="6"
-          required
-        >
-
-      </div>
-
-      <div class="field">
-
-        <label for="confirmPassword">
-          Confirm Password
-        </label>
-
-        <input
-          type="password"
-          id="confirmPassword"
-          placeholder="Repeat your password"
-          autocomplete="new-password"
-          minlength="6"
-          required
-        >
-
-      </div>
-
-      <button
-        type="submit"
-        id="registerBtn"
-        class="register-btn"
+  <div class="logo">
+    <a href="index.html">
+      <img
+        src="betkigali-logo.png"
+        alt="BetKigali"
       >
-        Create Account
-      </button>
+    </a>
+  </div>
 
-      <div
-        id="loading"
-        class="loading"
+  <h1>Create Account</h1>
+
+  <p class="subtitle">
+    Register your BetKigali account
+  </p>
+
+  <div id="message" class="message"></div>
+
+  <form id="registerForm">
+
+    <div class="field">
+
+      <label for="phone">
+        Phone Number
+      </label>
+
+      <input
+        type="tel"
+        id="phone"
+        placeholder="e.g. 0781234567"
+        autocomplete="tel"
+        required
       >
-        Creating your account...
-      </div>
 
-    </form>
-
-    <div class="login-link">
-      Already have an account?
-      <a href="login.html">Login</a>
     </div>
 
-    <div class="note">
-      Your account starts with 0 FRW balance
-      and 0 FRW bonus balance.
+
+    <div class="field">
+
+      <label for="password">
+        Password
+      </label>
+
+      <input
+        type="password"
+        id="password"
+        placeholder="At least 6 characters"
+        autocomplete="new-password"
+        minlength="6"
+        required
+      >
+
     </div>
 
+
+    <div class="field">
+
+      <label for="confirmPassword">
+        Confirm Password
+      </label>
+
+      <input
+        type="password"
+        id="confirmPassword"
+        placeholder="Repeat your password"
+        autocomplete="new-password"
+        minlength="6"
+        required
+      >
+
+    </div>
+
+
+    <button
+      type="submit"
+      id="registerBtn"
+      class="register-btn"
+    >
+      Create Account
+    </button>
+
+
+    <div id="loading" class="loading">
+      Creating your account...
+    </div>
+
+  </form>
+
+
+  <div class="login-link">
+    Already have an account?
+    <a href="login.html">
+      Login
+    </a>
   </div>
 
 
-  <script>
-
-    // ==================================================
-    // SUPABASE CONFIGURATION
-    // ==================================================
-
-    const SUPABASE_URL =
-      "https://nezgaxfisytlgkhdgzvf.supabase.co";
-
-    /*
-      PASTE YOUR SUPABASE PUBLISHABLE KEY BELOW.
-
-      Example:
-
-      const SUPABASE_KEY = "sb_publishable_H1N6DRzZ0t25MARQP5yaPQ_l6mRsrVG";
-
-      Do NOT put the service_role key here.
-    */
-
-    const SUPABASE_KEY =
-      "sb_publishable_H1N6DRzZ0t25MARQP5yaPQ_l6mRsrVG";
+  <div class="back-home">
+    <a href="index.html">
+      ← Back to Home
+    </a>
+  </div>
 
 
-    // ==================================================
-    // CREATE SUPABASE CLIENT
-    // ==================================================
+  <div class="note">
+    Your account starts with 0 FRW balance
+    and 0 FRW bonus balance.
+  </div>
 
-    const {
-      createClient
-    } = window.supabase;
-
-    const supabase =
-      createClient(
-        SUPABASE_URL,
-        SUPABASE_KEY
-      );
+</div>
 
 
-    // ==================================================
-    // ELEMENTS
-    // ==================================================
+<script>
 
-    const form =
-      document.getElementById(
-        "registerForm"
-      );
+/* =========================================
+   SUPABASE
+========================================= */
 
-    const phoneInput =
-      document.getElementById(
-        "phone"
-      );
+const SUPABASE_URL =
+  "https://nezgaxfisytlgkhdgzvf.supabase.co";
 
-    const passwordInput =
-      document.getElementById(
-        "password"
-      );
-
-    const confirmPasswordInput =
-      document.getElementById(
-        "confirmPassword"
-      );
-
-    const registerBtn =
-      document.getElementById(
-        "registerBtn"
-      );
-
-    const messageBox =
-      document.getElementById(
-        "message"
-      );
-
-    const loading =
-      document.getElementById(
-        "loading"
-      );
+const SUPABASE_KEY =
+  "sb_publishable_H1N6DRzZ0t25MARQP5yaPQ_l6mRsrVGs";
 
 
-    // ==================================================
-    // SHOW MESSAGE
-    // ==================================================
-
-    function showMessage(
-      message,
-      type
-    ) {
-
-      messageBox.textContent =
-        message;
-
-      messageBox.className =
-        "message " + type;
-    }
+const supabase =
+  window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
 
 
-    // ==================================================
-    // NORMALIZE PHONE
-    // ==================================================
+/* =========================================
+   ELEMENTS
+========================================= */
 
-    function normalizePhone(
-      value
-    ) {
+const form =
+  document.getElementById("registerForm");
 
-      let phone =
-        value
-          .trim()
-          .replace(/\s+/g, "");
+const phoneInput =
+  document.getElementById("phone");
 
-      /*
-        Example:
+const passwordInput =
+  document.getElementById("password");
 
-        0781234567
+const confirmPasswordInput =
+  document.getElementById("confirmPassword");
 
-        becomes:
+const registerBtn =
+  document.getElementById("registerBtn");
 
-        250781234567
+const messageBox =
+  document.getElementById("message");
 
-        if the user is using a Rwandan
-        local number.
-
-        If the user already enters
-        +250..., we keep it.
-      */
-
-      if (
-        phone.startsWith("0")
-      ) {
-
-        phone =
-          "250" +
-          phone.substring(1);
-
-      }
-
-      if (
-        phone.startsWith("+")
-      ) {
-
-        phone =
-          phone.substring(1);
-
-      }
-
-      return phone;
-    }
+const loading =
+  document.getElementById("loading");
 
 
-    // ==================================================
-    // CREATE INTERNAL AUTH EMAIL
-    // ==================================================
+/* =========================================
+   MESSAGE
+========================================= */
 
-    /*
-      Phone Provider is OFF.
+function showMessage(text, type) {
 
-      Therefore Supabase Auth cannot directly
-      create a phone/password account.
+  messageBox.textContent = text;
 
-      We create an internal email identifier
-      from the phone number.
+  if (!text) {
+    messageBox.className = "message";
+    return;
+  }
 
-      The customer never sees this email.
-    */
-
-    function makeAuthEmail(
-      phone
-    ) {
-
-      return (
-        phone +
-        "@auth.betkigali.local"
-      );
-    }
+  messageBox.className =
+    "message " + type;
+}
 
 
-    // ==================================================
-    // REGISTER
-    // ==================================================
+/* =========================================
+   NORMALIZE PHONE
+========================================= */
 
-    form.addEventListener(
-      "submit",
-      async function(event) {
+function normalizePhone(value) {
 
-        event.preventDefault();
+  let phone =
+    value
+      .trim()
+      .replace(/\s+/g, "");
 
-        showMessage(
-          "",
-          ""
+
+  /*
+    0781234567
+    →
+    250781234567
+  */
+
+  if (phone.startsWith("0")) {
+
+    phone =
+      "250" +
+      phone.substring(1);
+
+  }
+
+
+  /*
+    +250781234567
+    →
+    250781234567
+  */
+
+  if (phone.startsWith("+")) {
+
+    phone =
+      phone.substring(1);
+
+  }
+
+
+  return phone;
+}
+
+
+/* =========================================
+   INTERNAL EMAIL
+========================================= */
+
+function makeAuthEmail(phone) {
+
+  return (
+    phone +
+    "@auth.betkigali.local"
+  );
+}
+
+
+/* =========================================
+   SAVE USER
+========================================= */
+
+function saveUser(user, profile) {
+
+  const userData = {
+
+    id: user.id,
+
+    user_id: user.id,
+
+    phone:
+      profile.phone,
+
+    balance:
+      Number(profile.balance || 0),
+
+    bonus_balance:
+      Number(profile.bonus_balance || 0),
+
+    role:
+      profile.role || "customer"
+
+  };
+
+
+  /*
+    This is the key used by index.html.
+  */
+
+  localStorage.setItem(
+    "betkigaliUser",
+    JSON.stringify(userData)
+  );
+
+
+  localStorage.setItem(
+    "betkigaliProfile",
+    JSON.stringify(userData)
+  );
+
+
+  localStorage.setItem(
+    "betkigaliLoggedIn",
+    "true"
+  );
+
+
+  return userData;
+}
+
+
+/* =========================================
+   REGISTER
+========================================= */
+
+form.addEventListener(
+  "submit",
+  async function(event) {
+
+    event.preventDefault();
+
+
+    showMessage("", "");
+
+
+    registerBtn.disabled =
+      true;
+
+    loading.style.display =
+      "block";
+
+
+    try {
+
+      /* -------------------------------
+         VALUES
+      ------------------------------- */
+
+      const rawPhone =
+        phoneInput.value;
+
+      const password =
+        passwordInput.value;
+
+      const confirmPassword =
+        confirmPasswordInput.value;
+
+
+      /* -------------------------------
+         PHONE
+      ------------------------------- */
+
+      const phone =
+        normalizePhone(
+          rawPhone
         );
 
-        registerBtn.disabled =
-          true;
 
-        loading.style.display =
-          "block";
+      if (!phone) {
 
-
-        try {
-
-          // --------------------------------------------
-          // GET VALUES
-          // --------------------------------------------
-
-          const rawPhone =
-            phoneInput.value;
-
-          const password =
-            passwordInput.value;
-
-          const confirmPassword =
-            confirmPasswordInput.value;
-
-
-          // --------------------------------------------
-          // NORMALIZE PHONE
-          // --------------------------------------------
-
-          const phone =
-            normalizePhone(
-              rawPhone
-            );
-
-
-          // --------------------------------------------
-          // VALIDATE PHONE
-          // --------------------------------------------
-
-          if (
-            !phone ||
-            phone.length < 9
-          ) {
-
-            throw new Error(
-              "Please enter a valid phone number."
-            );
-
-          }
-
-
-          // --------------------------------------------
-          // VALIDATE PASSWORD
-          // --------------------------------------------
-
-          if (
-            password.length < 6
-          ) {
-
-            throw new Error(
-              "Password must contain at least 6 characters."
-            );
-
-          }
-
-
-          // --------------------------------------------
-          // CONFIRM PASSWORD
-          // --------------------------------------------
-
-          if (
-            password !==
-            confirmPassword
-          ) {
-
-            throw new Error(
-              "Passwords do not match."
-            );
-
-          }
-
-
-          // --------------------------------------------
-          // INTERNAL AUTH EMAIL
-          // --------------------------------------------
-
-          const authEmail =
-            makeAuthEmail(
-              phone
-            );
-
-
-          // --------------------------------------------
-          // CREATE SUPABASE AUTH USER
-          // --------------------------------------------
-
-          const {
-            data,
-            error
-          } =
-            await supabase.auth.signUp({
-
-              email:
-                authEmail,
-
-              password:
-                password,
-
-              options: {
-
-                data: {
-
-                  phone:
-                    phone
-
-                }
-
-              }
-
-            });
-
-
-          if (error) {
-
-            throw error;
-
-          }
-
-
-          if (!data.user) {
-
-            throw new Error(
-              "Account could not be created."
-            );
-
-          }
-
-
-          // --------------------------------------------
-          // CREATE PROFILE
-          // --------------------------------------------
-
-          const {
-            error:
-              profileError
-          } =
-            await supabase
-              .from("profiles")
-              .insert({
-
-                id:
-                  data.user.id,
-
-                phone:
-                  phone,
-
-                profile_picture:
-                  "",
-
-                balance:
-                  0,
-
-                bonus_balance:
-                  0,
-
-                role:
-                  "customer"
-
-              });
-
-
-          if (profileError) {
-
-            /*
-              If profile creation fails,
-              remove the auth session so the
-              user does not remain half-created.
-            */
-
-            await supabase.auth.signOut();
-
-            throw profileError;
-
-          }
-
-
-          // --------------------------------------------
-          // SUCCESS
-          // --------------------------------------------
-
-          showMessage(
-            "Account created successfully. Redirecting...",
-            "success"
-          );
-
-
-          setTimeout(
-            function() {
-
-              window.location.href =
-                "index.html";
-
-            },
-            1000
-          );
-
-
-        } catch (error) {
-
-          console.error(
-            "Registration error:",
-            error
-          );
-
-          let errorMessage =
-            error.message ||
-            "Registration failed.";
-
-          /*
-            Make common Supabase errors
-            easier to understand.
-          */
-
-          if (
-            errorMessage
-              .toLowerCase()
-              .includes(
-                "already registered"
-              )
-          ) {
-
-            errorMessage =
-              "This phone number is already registered.";
-
-          }
-
-          if (
-            errorMessage
-              .toLowerCase()
-              .includes(
-                "invalid email"
-              )
-          ) {
-
-            errorMessage =
-              "There was a problem creating the account.";
-
-          }
-
-          showMessage(
-            errorMessage,
-            "error"
-          );
-
-        } finally {
-
-          registerBtn.disabled =
-            false;
-
-          loading.style.display =
-            "none";
-
-        }
+        throw new Error(
+          "Please enter your phone number."
+        );
 
       }
-    );
 
-  </script>
+
+      if (phone.length < 9) {
+
+        throw new Error(
+          "Please enter a valid Rwanda phone number."
+        );
+
+      }
+
+
+      /* -------------------------------
+         PASSWORD
+      ------------------------------- */
+
+      if (password.length < 6) {
+
+        throw new Error(
+          "Password must contain at least 6 characters."
+        );
+
+      }
+
+
+      if (
+        password !==
+        confirmPassword
+      ) {
+
+        throw new Error(
+          "Passwords do not match."
+        );
+
+      }
+
+
+      /* -------------------------------
+         INTERNAL EMAIL
+      ------------------------------- */
+
+      const authEmail =
+        makeAuthEmail(
+          phone
+        );
+
+
+      loading.textContent =
+        "Creating your account...";
+
+
+      /* -------------------------------
+         SUPABASE AUTH
+      ------------------------------- */
+
+      const result =
+        await supabase.auth.signUp({
+
+          email:
+            authEmail,
+
+          password:
+            password,
+
+          options: {
+
+            data: {
+
+              phone:
+                phone
+
+            }
+
+          }
+
+        });
+
+
+      const data =
+        result.data;
+
+      const error =
+        result.error;
+
+
+      if (error) {
+        throw error;
+      }
+
+
+      if (!data || !data.user) {
+
+        throw new Error(
+          "Account could not be created."
+        );
+
+      }
+
+
+      /* =================================
+         IMPORTANT
+      =================================
+
+         We need an active session before
+         inserting into profiles because
+         your profiles RLS requires:
+
+         auth.uid() = id
+      */
+
+
+      if (!data.session) {
+
+        throw new Error(
+          "Account was created, but Supabase has email confirmation enabled. Turn OFF email confirmation in Supabase Authentication settings, then try registering again."
+        );
+
+      }
+
+
+      /* -------------------------------
+         CREATE PROFILE
+      ------------------------------- */
+
+      loading.textContent =
+        "Creating your profile...";
+
+
+      const profileResult =
+        await supabase
+          .from("profiles")
+          .insert({
+
+            id:
+              data.user.id,
+
+            phone:
+              phone,
+
+            profile_picture:
+              "",
+
+            balance:
+              0,
+
+            bonus_balance:
+              0,
+
+            role:
+              "customer"
+
+          })
+          .select()
+          .single();
+
+
+      if (profileResult.error) {
+
+        console.error(
+          "PROFILE ERROR:",
+          profileResult.error
+        );
+
+
+        /*
+          If profile failed, sign out.
+        */
+
+        await supabase.auth.signOut();
+
+
+        throw profileResult.error;
+
+      }
+
+
+      const profile =
+        profileResult.data;
+
+
+      /* -------------------------------
+         SAVE LOGIN STATE
+      ------------------------------- */
+
+      saveUser(
+        data.user,
+        profile
+      );
+
+
+      /* -------------------------------
+         SUCCESS
+      ------------------------------- */
+
+      showMessage(
+        "Account created successfully. Opening BetKigali...",
+        "success"
+      );
+
+
+      loading.textContent =
+        "Opening BetKigali...";
+
+
+      /*
+        Go directly to index.html.
+      */
+
+      window.location.replace(
+        "index.html"
+      );
+
+
+    } catch (error) {
+
+      console.error(
+        "REGISTRATION ERROR:",
+        error
+      );
+
+
+      let errorMessage =
+        error?.message ||
+        "Registration failed. Please try again.";
+
+
+      const lower =
+        errorMessage.toLowerCase();
+
+
+      /* -------------------------------
+         FRIENDLY ERRORS
+      ------------------------------- */
+
+      if (
+        lower.includes(
+          "user already registered"
+        ) ||
+        lower.includes(
+          "already registered"
+        )
+      ) {
+
+        errorMessage =
+          "This phone number is already registered. Please login.";
+
+      }
+
+
+      if (
+        lower.includes(
+          "duplicate key"
+        )
+      ) {
+
+        errorMessage =
+          "This phone number already has a profile.";
+
+      }
+
+
+      if (
+        lower.includes(
+          "row-level security"
+        ) ||
+        lower.includes(
+          "violates row-level security"
+        )
+      ) {
+
+        errorMessage =
+          "Profile creation was blocked by Supabase security settings. Check the profiles INSERT policy.";
+
+      }
+
+
+      showMessage(
+        errorMessage,
+        "error"
+      );
+
+
+    } finally {
+
+      registerBtn.disabled =
+        false;
+
+      loading.style.display =
+        "none";
+
+    }
+
+  }
+);
+
+</script>
 
 </body>
 </html>
+```
