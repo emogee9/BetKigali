@@ -2,139 +2,285 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
   <title>BetKigali - Bet. Win. Enjoy.</title>
 
+  <!-- SUPABASE -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+
   <style>
+
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
 
+
     :root {
+
       --black: #07090d;
-      --black2: #090d12;
+      --black2: #0b0f14;
       --card: #11161d;
-      --border: #242c35;
+
+      --border: #252d37;
+
       --gold: #f5c542;
       --gold2: #ffd966;
+
       --white: #ffffff;
       --muted: #9ca7b3;
+
       --green: #16a34a;
       --red: #dc2626;
+
     }
+
 
     body {
-      font-family: Arial, Helvetica, sans-serif;
-      background: var(--black);
-      color: var(--white);
-      min-height: 100vh;
+
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+      background:
+        var(--black);
+
+      color:
+        var(--white);
+
+      min-height:
+        100vh;
+
     }
 
-    /* =========================
+
+    /* =========================================
        HEADER
-    ========================= */
+    ========================================= */
 
     header {
-      background: var(--black2);
-      border-bottom: 1px solid var(--border);
-      min-height: 86px;
-      padding: 10px 28px;
 
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      background:
+        #090d12;
 
-      position: sticky;
-      top: 0;
-      z-index: 1000;
+      border-bottom:
+        1px solid var(--border);
+
+      min-height:
+        82px;
+
+      padding:
+        8px 28px;
+
+      display:
+        flex;
+
+      align-items:
+        center;
+
+      justify-content:
+        space-between;
+
+      position:
+        sticky;
+
+      top:
+        0;
+
+      z-index:
+        1000;
+
     }
+
 
     .logo {
-      display: flex;
-      align-items: center;
-      text-decoration: none;
+
+      display:
+        flex;
+
+      align-items:
+        center;
+
+      text-decoration:
+        none;
+
+      flex-shrink:
+        0;
+
     }
+
 
     .logo img {
-      width: 125px;
-      max-height: 70px;
-      object-fit: contain;
-      display: block;
+
+      width:
+        125px;
+
+      max-height:
+        65px;
+
+      object-fit:
+        contain;
+
+      display:
+        block;
+
     }
 
-    /* =========================
+
+    /* =========================================
        NAVBAR
-    ========================= */
+    ========================================= */
 
     nav {
-      display: flex;
-      align-items: center;
-      gap: 20px;
+
+      display:
+        flex;
+
+      align-items:
+        center;
+
+      gap:
+        18px;
+
     }
+
 
     nav a {
-      color: #d8dee6;
-      text-decoration: none;
-      font-size: 14px;
-      font-weight: bold;
-      white-space: nowrap;
-      transition: .2s;
+
+      color:
+        #d8dee6;
+
+      text-decoration:
+        none;
+
+      font-size:
+        14px;
+
+      font-weight:
+        bold;
+
+      white-space:
+        nowrap;
+
+      transition:
+        .2s;
+
     }
+
 
     nav a:hover {
-      color: var(--gold);
+
+      color:
+        var(--gold);
+
     }
+
+
+    .nav-item {
+
+      padding:
+        9px 8px;
+
+    }
+
 
     .nav-btn {
-      padding: 9px 14px;
-      border-radius: 7px;
-      border: 1px solid var(--border);
+
+      padding:
+        9px 14px;
+
+      border-radius:
+        7px;
+
+      border:
+        1px solid var(--border);
+
     }
+
 
     .login-btn {
-      color: var(--white);
-      background: transparent;
+
+      color:
+        var(--white);
+
+      background:
+        transparent;
+
     }
+
 
     .register-btn {
-      background: var(--gold);
-      color: #111 !important;
-      border-color: var(--gold);
+
+      background:
+        var(--gold);
+
+      color:
+        #111 !important;
+
+      border-color:
+        var(--gold);
+
     }
+
 
     .register-btn:hover {
-      background: var(--gold2);
+
+      background:
+        var(--gold2);
+
+      color:
+        #111 !important;
+
     }
 
-    .profile-link {
-      color: var(--gold) !important;
+
+    .profile-nav {
+
+      border:
+        1px solid var(--border);
+
+      border-radius:
+        7px;
+
+      padding:
+        8px 12px;
+
     }
 
-    .balance-link {
-      color: var(--gold) !important;
-    }
 
-    /* =========================
-       MAIN
-    ========================= */
+    /* =========================================
+       MAIN CONTAINER
+    ========================================= */
 
     .container {
-      width: min(1100px, 94%);
-      margin: auto;
+
+      width:
+        min(1100px, 94%);
+
+      margin:
+        auto;
+
     }
 
-    /* =========================
+
+    /* =========================================
        PROMO
-    ========================= */
+    ========================================= */
 
     .promo {
-      margin-top: 22px;
+
+      margin-top:
+        22px;
 
       background:
         linear-gradient(
@@ -143,1126 +289,1940 @@
           #0e1116
         );
 
-      border: 1px solid #5e4b19;
-      border-radius: 12px;
+      border:
+        1px solid #5e4b19;
 
-      padding: 18px 22px;
+      border-radius:
+        12px;
 
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      padding:
+        18px 22px;
 
-      gap: 15px;
+      display:
+        flex;
+
+      align-items:
+        center;
+
+      justify-content:
+        space-between;
+
+      gap:
+        15px;
 
       box-shadow:
         0 5px 20px rgba(0,0,0,.25);
+
     }
+
 
     .promo-content {
-      display: flex;
-      align-items: center;
-      gap: 13px;
+
+      display:
+        flex;
+
+      align-items:
+        center;
+
+      gap:
+        13px;
+
     }
+
 
     .promo-icon {
-      width: 42px;
-      height: 42px;
 
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      width:
+        44px;
 
-      background: rgba(245,197,66,.12);
-      border: 1px solid rgba(245,197,66,.35);
+      height:
+        44px;
 
-      border-radius: 50%;
+      display:
+        flex;
 
-      font-size: 21px;
-      flex-shrink: 0;
+      align-items:
+        center;
+
+      justify-content:
+        center;
+
+      background:
+        rgba(245,197,66,.12);
+
+      border:
+        1px solid rgba(245,197,66,.35);
+
+      border-radius:
+        50%;
+
+      font-size:
+        21px;
+
+      flex-shrink:
+        0;
+
     }
+
 
     .promo h3 {
-      color: var(--gold);
-      font-size: 17px;
-      margin-bottom: 4px;
+
+      color:
+        var(--gold);
+
+      font-size:
+        17px;
+
+      margin-bottom:
+        4px;
+
     }
+
 
     .promo p {
-      color: var(--muted);
-      font-size: 13px;
+
+      color:
+        var(--muted);
+
+      font-size:
+        13px;
+
     }
+
 
     .promo-btn {
-      background: var(--gold);
-      color: #111;
 
-      border: none;
-      text-decoration: none;
+      background:
+        var(--gold);
 
-      padding: 10px 16px;
+      color:
+        #111;
 
-      border-radius: 7px;
+      border:
+        none;
 
-      font-size: 13px;
-      font-weight: bold;
+      text-decoration:
+        none;
 
-      white-space: nowrap;
+      padding:
+        10px 16px;
+
+      border-radius:
+        7px;
+
+      font-size:
+        13px;
+
+      font-weight:
+        bold;
+
+      white-space:
+        nowrap;
+
+      cursor:
+        pointer;
+
     }
+
 
     .promo-btn:hover {
-      background: var(--gold2);
+
+      background:
+        var(--gold2);
+
     }
 
-    /* =========================
+
+    /* =========================================
        HERO
-    ========================= */
+    ========================================= */
 
     .hero {
-      padding: 55px 0 35px;
-      text-align: center;
+
+      padding:
+        55px 0 35px;
+
+      text-align:
+        center;
+
     }
+
 
     .hero h1 {
-      font-size: 38px;
-      margin-bottom: 12px;
+
+      font-size:
+        38px;
+
+      margin-bottom:
+        12px;
+
     }
+
 
     .hero h1 span {
-      color: var(--gold);
+
+      color:
+        var(--gold);
+
     }
+
 
     .hero p {
-      color: var(--muted);
-      max-width: 650px;
-      margin: auto;
-      line-height: 1.6;
-      font-size: 15px;
+
+      color:
+        var(--muted);
+
+      max-width:
+        650px;
+
+      margin:
+        auto;
+
+      line-height:
+        1.6;
+
+      font-size:
+        15px;
+
     }
+
 
     .hero-buttons {
-      margin-top: 25px;
 
-      display: flex;
-      justify-content: center;
-      gap: 12px;
+      margin-top:
+        25px;
 
-      flex-wrap: wrap;
+      display:
+        flex;
+
+      justify-content:
+        center;
+
+      gap:
+        12px;
+
+      flex-wrap:
+        wrap;
+
     }
+
 
     .hero-btn {
-      padding: 12px 22px;
-      border-radius: 8px;
 
-      text-decoration: none;
-      font-weight: bold;
-      font-size: 14px;
+      padding:
+        12px 22px;
+
+      border-radius:
+        8px;
+
+      text-decoration:
+        none;
+
+      font-weight:
+        bold;
+
+      font-size:
+        14px;
+
     }
+
 
     .primary {
-      background: var(--gold);
-      color: #111;
+
+      background:
+        var(--gold);
+
+      color:
+        #111;
+
     }
+
 
     .secondary {
-      background: transparent;
-      color: white;
-      border: 1px solid var(--border);
+
+      background:
+        transparent;
+
+      color:
+        white;
+
+      border:
+        1px solid var(--border);
+
     }
+
 
     .primary:hover {
-      background: var(--gold2);
+
+      background:
+        var(--gold2);
+
     }
+
 
     .secondary:hover {
-      border-color: var(--gold);
-      color: var(--gold);
+
+      border-color:
+        var(--gold);
+
+      color:
+        var(--gold);
+
     }
 
-    /* =========================
+
+    /* =========================================
        ACCOUNT AREA
-    ========================= */
+    ========================================= */
 
     .account-box {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 35px;
+
+      background:
+        var(--card);
+
+      border:
+        1px solid var(--border);
+
+      border-radius:
+        12px;
+
+      padding:
+        20px;
+
+      margin-bottom:
+        35px;
+
     }
+
 
     .account-title {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 15px;
-      margin-bottom: 15px;
+
+      display:
+        flex;
+
+      align-items:
+        center;
+
+      justify-content:
+        space-between;
+
+      gap:
+        15px;
+
+      margin-bottom:
+        18px;
+
     }
+
 
     .account-title h2 {
-      font-size: 19px;
+
+      font-size:
+        19px;
+
     }
 
-    .balance {
-      color: var(--gold);
-      font-size: 22px;
-      font-weight: bold;
+
+    .balance-grid {
+
+      display:
+        grid;
+
+      grid-template-columns:
+        repeat(2, 1fr);
+
+      gap:
+        12px;
+
+      margin-bottom:
+        18px;
+
     }
 
-    .bonus {
-      color: #86efac;
-      font-size: 14px;
-      margin-top: 5px;
+
+    .balance-card {
+
+      background:
+        #0b1016;
+
+      border:
+        1px solid var(--border);
+
+      border-radius:
+        10px;
+
+      padding:
+        16px;
+
     }
+
+
+    .balance-label {
+
+      color:
+        var(--muted);
+
+      font-size:
+        12px;
+
+      margin-bottom:
+        7px;
+
+    }
+
+
+    .balance-value {
+
+      color:
+        var(--gold);
+
+      font-size:
+        21px;
+
+      font-weight:
+        bold;
+
+    }
+
+
+    .bonus-value {
+
+      color:
+        #8ee6a9;
+
+    }
+
 
     .account-actions {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
+
+      display:
+        flex;
+
+      gap:
+        10px;
+
+      flex-wrap:
+        wrap;
+
     }
+
 
     .account-actions a {
-      text-decoration: none;
-      padding: 10px 15px;
-      border-radius: 7px;
-      font-size: 13px;
-      font-weight: bold;
+
+      text-decoration:
+        none;
+
+      padding:
+        10px 15px;
+
+      border-radius:
+        7px;
+
+      font-size:
+        13px;
+
+      font-weight:
+        bold;
+
     }
+
 
     .deposit {
-      background: var(--green);
-      color: white;
+
+      background:
+        var(--green);
+
+      color:
+        white;
+
     }
+
 
     .withdraw {
-      background: var(--red);
-      color: white;
+
+      background:
+        var(--red);
+
+      color:
+        white;
+
     }
 
-    .view-balance {
-      background: transparent;
-      color: white;
-      border: 1px solid var(--border);
+
+    .balance-btn {
+
+      background:
+        transparent;
+
+      color:
+        white;
+
+      border:
+        1px solid var(--border);
+
     }
 
-    /* =========================
-       CARDS
-    ========================= */
+
+    .balance-btn:hover {
+
+      border-color:
+        var(--gold);
+
+      color:
+        var(--gold);
+
+    }
+
+
+    /* =========================================
+       SERVICES
+    ========================================= */
 
     .section-title {
-      margin: 25px 0 15px;
-      font-size: 21px;
+
+      margin:
+        25px 0 15px;
+
+      font-size:
+        21px;
+
     }
+
 
     .section-title span {
-      color: var(--gold);
+
+      color:
+        var(--gold);
+
     }
+
 
     .cards {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 15px;
-      padding-bottom: 35px;
+
+      display:
+        grid;
+
+      grid-template-columns:
+        repeat(3, 1fr);
+
+      gap:
+        15px;
+
+      padding-bottom:
+        35px;
+
     }
+
 
     .card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 22px;
-      transition: .2s;
+
+      background:
+        var(--card);
+
+      border:
+        1px solid var(--border);
+
+      border-radius:
+        12px;
+
+      padding:
+        22px;
+
+      transition:
+        .2s;
+
     }
+
 
     .card:hover {
-      border-color: #5d4b1d;
-      transform: translateY(-2px);
+
+      border-color:
+        #5d4b1d;
+
+      transform:
+        translateY(-2px);
+
     }
+
 
     .card-icon {
-      font-size: 30px;
-      margin-bottom: 13px;
+
+      font-size:
+        30px;
+
+      margin-bottom:
+        13px;
+
     }
+
 
     .card h3 {
-      font-size: 17px;
-      margin-bottom: 8px;
+
+      font-size:
+        17px;
+
+      margin-bottom:
+        8px;
+
     }
+
 
     .card p {
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.5;
+
+      color:
+        var(--muted);
+
+      font-size:
+        13px;
+
+      line-height:
+        1.5;
+
     }
+
 
     .card a {
-      display: inline-block;
-      margin-top: 15px;
 
-      color: var(--gold);
-      text-decoration: none;
+      display:
+        inline-block;
 
-      font-size: 13px;
-      font-weight: bold;
+      margin-top:
+        15px;
+
+      color:
+        var(--gold);
+
+      text-decoration:
+        none;
+
+      font-size:
+        13px;
+
+      font-weight:
+        bold;
+
     }
 
-    /* =========================
+
+    /* =========================================
        FOOTER
-    ========================= */
+    ========================================= */
 
     footer {
-      border-top: 1px solid var(--border);
-      background: var(--black2);
-      margin-top: 25px;
-      padding: 28px 0;
+
+      border-top:
+        1px solid var(--border);
+
+      background:
+        #090d12;
+
+      margin-top:
+        25px;
+
+      padding:
+        28px 0;
+
     }
+
 
     .footer-inner {
-      width: min(1100px, 94%);
-      margin: auto;
 
-      display: flex;
-      justify-content: space-between;
-      gap: 20px;
-      flex-wrap: wrap;
+      width:
+        min(1100px, 94%);
+
+      margin:
+        auto;
+
+      display:
+        flex;
+
+      justify-content:
+        space-between;
+
+      gap:
+        20px;
+
+      flex-wrap:
+        wrap;
+
     }
+
 
     .footer-logo {
-      color: var(--gold);
-      font-size: 18px;
-      font-weight: bold;
+
+      color:
+        var(--gold);
+
+      font-size:
+        18px;
+
+      font-weight:
+        bold;
+
     }
+
 
     .footer-text {
-      color: var(--muted);
-      font-size: 12px;
-      margin-top: 6px;
+
+      color:
+        var(--muted);
+
+      font-size:
+        12px;
+
+      margin-top:
+        6px;
+
     }
+
 
     .footer-links {
-      display: flex;
-      gap: 18px;
-      flex-wrap: wrap;
+
+      display:
+        flex;
+
+      gap:
+        18px;
+
+      flex-wrap:
+        wrap;
+
     }
+
 
     .footer-links a {
-      color: #aeb7c2;
-      text-decoration: none;
-      font-size: 12px;
+
+      color:
+        #aeb7c2;
+
+      text-decoration:
+        none;
+
+      font-size:
+        12px;
+
     }
+
 
     .footer-links a:hover {
-      color: var(--gold);
+
+      color:
+        var(--gold);
+
     }
 
-    /* =========================
-       MOBILE
-    ========================= */
 
-    @media (max-width: 750px) {
+    /* =========================================
+       MOBILE
+    ========================================= */
+
+    @media (max-width: 850px) {
 
       header {
-        padding: 10px 15px;
-        min-height: auto;
-        flex-wrap: wrap;
+
+        padding:
+          10px 15px;
+
+        min-height:
+          auto;
+
+        flex-direction:
+          column;
+
+        gap:
+          7px;
+
       }
+
 
       .logo img {
-        width: 105px;
-        max-height: 58px;
+
+        width:
+          110px;
+
+        max-height:
+          55px;
+
       }
+
 
       nav {
-        width: 100%;
-        justify-content: flex-start;
-        gap: 14px;
-        padding: 8px 0 4px;
-        overflow-x: auto;
+
+        width:
+          100%;
+
+        justify-content:
+          flex-start;
+
+        gap:
+          4px;
+
+        padding:
+          5px 0;
+
+        overflow-x:
+          auto;
+
       }
+
 
       nav a {
-        font-size: 12px;
+
+        font-size:
+          12px;
+
       }
+
+
+      .nav-item {
+
+        padding:
+          8px 7px;
+
+      }
+
+
+      .nav-btn {
+
+        padding:
+          8px 10px;
+
+      }
+
 
       .promo {
-        align-items: flex-start;
-        flex-direction: column;
+
+        align-items:
+          flex-start;
+
+        flex-direction:
+          column;
+
       }
+
 
       .promo-btn {
-        width: 100%;
-        text-align: center;
+
+        width:
+          100%;
+
+        text-align:
+          center;
+
       }
+
 
       .hero {
-        padding: 40px 0 25px;
+
+        padding:
+          40px 0 25px;
+
       }
 
+
       .hero h1 {
-        font-size: 29px;
+
+        font-size:
+          29px;
+
       }
+
 
       .cards {
-        grid-template-columns: 1fr;
+
+        grid-template-columns:
+          1fr;
+
       }
 
-      .account-title {
-        align-items: flex-start;
-        flex-direction: column;
-      }
     }
 
-    @media (max-width: 430px) {
+
+    @media (max-width: 500px) {
 
       .container {
-        width: 92%;
+
+        width:
+          92%;
+
       }
+
 
       .hero h1 {
-        font-size: 26px;
+
+        font-size:
+          26px;
+
       }
 
-      .promo h3 {
-        font-size: 15px;
+
+      .balance-grid {
+
+        grid-template-columns:
+          1fr;
+
       }
+
+
+      .account-title {
+
+        align-items:
+          flex-start;
+
+        flex-direction:
+          column;
+
+      }
+
+
+      .account-actions a {
+
+        width:
+          100%;
+
+        text-align:
+          center;
+
+      }
+
     }
+
   </style>
+
 </head>
+
 
 <body>
 
-  <!-- =========================
-       HEADER
-  ========================== -->
 
-  <header>
+<!-- =========================================
+     HEADER
+========================================= -->
 
-    <a href="index.html" class="logo">
-      <img
-        src="betkigali-logo.png"
-        alt="BetKigali"
+<header>
+
+  <a
+    href="index.html"
+    class="logo"
+  >
+
+    <img
+      src="betkigali-logo.png"
+      alt="BetKigali"
+    >
+
+  </a>
+
+
+  <nav id="navbar">
+
+    <!-- =====================================
+         LOGGED OUT NAV
+    ====================================== -->
+
+    <div
+      id="loggedOutNav"
+      style="display:flex;align-items:center;gap:8px;"
+    >
+
+      <a
+        href="index.html"
+        class="nav-item"
       >
-    </a>
-
-    <nav id="navbar">
-
-      <!-- LOGGED OUT -->
-
-      <div id="loggedOutNav">
-
-        <a href="index.html">
-          Home
-        </a>
-
-        <a href="casino.html">
-          Casino
-        </a>
-
-        <a
-          href="login.html"
-          class="nav-btn login-btn"
-        >
-          Login
-        </a>
-
-        <a
-          href="register.html"
-          class="nav-btn register-btn"
-        >
-          Register
-        </a>
-
-      </div>
+        Home
+      </a>
 
 
-      <!-- LOGGED IN -->
-
-      <div
-        id="loggedInNav"
-        style="display:none;"
+      <a
+        href="casino.html"
+        class="nav-item"
       >
-
-        <a
-          href="profile.html"
-          class="profile-link"
-        >
-          Profile
-        </a>
-
-        <a href="index.html">
-          Home
-        </a>
-
-        <a href="casino.html">
-          Casino
-        </a>
-
-        <a
-          href="balance.html"
-          class="balance-link"
-        >
-          Balance
-        </a>
-
-        <a href="bonus.html">
-          Bonus Balance
-        </a>
-
-        <a href="deposit.html">
-          Deposit
-        </a>
-
-        <a href="withdraw.html">
-          Withdraw
-        </a>
-
-      </div>
-
-    </nav>
-
-  </header>
+        Casino
+      </a>
 
 
-  <main class="container">
+      <a
+        href="login.html"
+        class="nav-btn login-btn"
+      >
+        Login
+      </a>
 
-    <!-- =========================
-         PROMOTION
-    ========================== -->
-
-    <section class="promo">
-
-      <div class="promo-content">
-
-        <div class="promo-icon">
-          🎁
-        </div>
-
-        <div>
-
-          <h3>
-            Deposit over 5,000 RWF and get 40%
-          </h3>
-
-          <p>
-            Get a 40% bonus when your deposit is 5,000 RWF or more.
-          </p>
-
-        </div>
-
-      </div>
-
-      <!--
-        IMPORTANT:
-        This link changes depending on login state.
-
-        Logged OUT  → register.html
-        Logged IN   → deposit.html
-      -->
 
       <a
         href="register.html"
-        class="promo-btn"
-        id="promoButton"
+        class="nav-btn register-btn"
       >
-        Get Started
+        Register
       </a>
 
-    </section>
+    </div>
 
 
-    <!-- =========================
-         HERO
-    ========================== -->
+    <!-- =====================================
+         LOGGED IN NAV
+    ====================================== -->
 
-    <section class="hero">
-
-      <h1>
-        Welcome to <span>BetKigali</span>
-      </h1>
-
-      <p>
-        Your entertainment platform for betting,
-        casino games and exciting rewards.
-        Bet. Win. Enjoy.
-      </p>
-
-      <div class="hero-buttons">
-
-        <a
-          href="register.html"
-          class="hero-btn primary"
-          id="registerHero"
-        >
-          Create Account
-        </a>
-
-        <a
-          href="casino.html"
-          class="hero-btn secondary"
-        >
-          Explore Casino
-        </a>
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         ACCOUNT AREA
-         LOGGED IN ONLY
-    ========================== -->
-
-    <section
-      id="accountArea"
-      class="account-box"
-      style="display:none;"
+    <div
+      id="loggedInNav"
+      style="display:none;align-items:center;gap:4px;"
     >
 
-      <div class="account-title">
+      <a
+        href="profile.html"
+        class="profile-nav"
+      >
+        Profile
+      </a>
 
-        <div>
 
-          <h2>
-            💰 Your Balance
-          </h2>
+      <a
+        href="casino.html"
+        class="nav-item"
+      >
+        Casino
+      </a>
 
-          <div
-            class="bonus"
-            id="userBonus"
-          >
-            Bonus Balance: 0 RWF
-          </div>
 
-        </div>
+      <a
+        href="balance.html"
+        class="nav-item"
+      >
+        Balance
+      </a>
 
-        <div
-          class="balance"
-          id="userBalance"
-        >
-          0 RWF
-        </div>
 
+      <a
+        href="bonus.html"
+        class="nav-item"
+      >
+        Bonus Balance
+      </a>
+
+
+      <a
+        href="deposit.html"
+        class="nav-item"
+      >
+        Deposit
+      </a>
+
+
+      <a
+        href="withdraw.html"
+        class="nav-item"
+      >
+        Withdraw
+      </a>
+
+    </div>
+
+  </nav>
+
+</header>
+
+
+
+<main class="container">
+
+
+  <!-- =========================================
+       PROMOTION
+  ========================================== -->
+
+  <section class="promo">
+
+    <div class="promo-content">
+
+      <div class="promo-icon">
+        🎁
       </div>
 
-
-      <div class="account-actions">
-
-        <a
-          href="deposit.html"
-          class="deposit"
-        >
-          + Deposit
-        </a>
-
-        <a
-          href="withdraw.html"
-          class="withdraw"
-        >
-          Withdraw
-        </a>
-
-        <a
-          href="balance.html"
-          class="view-balance"
-        >
-          View Balance
-        </a>
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         SERVICES
-    ========================== -->
-
-    <h2 class="section-title">
-      <span>BetKigali</span> Services
-    </h2>
-
-
-    <section class="cards">
-
-      <div class="card">
-
-        <div class="card-icon">
-          🎰
-        </div>
-
-        <h3>
-          Casino
-        </h3>
-
-        <p>
-          Enjoy exciting casino games
-          and discover new ways to play.
-        </p>
-
-        <a href="casino.html">
-          Enter Casino →
-        </a>
-
-      </div>
-
-
-      <div class="card">
-
-        <div class="card-icon">
-          💰
-        </div>
-
-        <h3>
-          Easy Deposits
-        </h3>
-
-        <p>
-          Deposit funds easily and securely
-          and start enjoying BetKigali.
-        </p>
-
-        <a
-          href="register.html"
-          id="depositCardLink"
-        >
-          Deposit Now →
-        </a>
-
-      </div>
-
-
-      <div class="card">
-
-        <div class="card-icon">
-          🎁
-        </div>
-
-        <h3>
-          Bonuses & Rewards
-        </h3>
-
-        <p>
-          Deposit 5,000 RWF or more
-          and get a 40% bonus.
-        </p>
-
-        <a
-          href="register.html"
-          id="bonusCardLink"
-        >
-          Get Bonus →
-        </a>
-
-      </div>
-
-    </section>
-
-  </main>
-
-
-  <!-- =========================
-       FOOTER
-  ========================== -->
-
-  <footer>
-
-    <div class="footer-inner">
 
       <div>
 
-        <div class="footer-logo">
-          BetKigali
-        </div>
+        <h3>
+          Deposit over 5,000 FRW and get 40% of your deposit
+        </h3>
 
-        <div class="footer-text">
-          Bet • Win • Enjoy
-        </div>
-
-      </div>
-
-
-      <div class="footer-links">
-
-        <a href="index.html">
-          Home
-        </a>
-
-        <a href="casino.html">
-          Casino
-        </a>
-
-        <a href="login.html">
-          Login
-        </a>
-
-        <a href="register.html">
-          Register
-        </a>
-
-        <a href="#">
-          Terms
-        </a>
-
-        <a href="#">
-          Privacy
-        </a>
+        <p>
+          Get more value from your deposit with BetKigali.
+        </p>
 
       </div>
 
     </div>
 
-  </footer>
+
+    <a
+      href="register.html"
+      id="promoButton"
+      class="promo-btn"
+    >
+      Register to Deposit
+    </a>
+
+  </section>
 
 
-  <script>
 
-    // ==================================================
-    // SUPABASE
-    // ==================================================
+  <!-- =========================================
+       HERO
+  ========================================== -->
 
-    const SUPABASE_URL =
-      "https://nezgaxfisytlgkhdgzvf.supabase.co";
+  <section class="hero">
 
-    /*
-      USE THE SAME PUBLISHABLE KEY
-      FROM register.html AND login.html.
-    */
-
-    const SUPABASE_KEY =
-      "PASTE_YOUR_PUBLISHABLE_KEY_HERE";
+    <h1>
+      Welcome to
+      <span>BetKigali</span>
+    </h1>
 
 
-    const {
-      createClient
-    } = window.supabase;
+    <p>
+      Your entertainment platform for casino,
+      deposits, rewards and more.
+      Bet. Win. Enjoy.
+    </p>
 
 
-    const supabase =
-      createClient(
-        SUPABASE_URL,
-        SUPABASE_KEY
-      );
+    <div class="hero-buttons">
+
+      <a
+        href="register.html"
+        id="heroRegister"
+        class="hero-btn primary"
+      >
+        Create Account
+      </a>
 
 
-    // ==================================================
-    // ELEMENTS
-    // ==================================================
+      <a
+        href="casino.html"
+        class="hero-btn secondary"
+      >
+        Explore Casino
+      </a>
 
-    const loggedOutNav =
-      document.getElementById(
-        "loggedOutNav"
-      );
+    </div>
 
-    const loggedInNav =
-      document.getElementById(
-        "loggedInNav"
-      );
-
-    const accountArea =
-      document.getElementById(
-        "accountArea"
-      );
-
-    const userBalance =
-      document.getElementById(
-        "userBalance"
-      );
-
-    const userBonus =
-      document.getElementById(
-        "userBonus"
-      );
-
-    const promoButton =
-      document.getElementById(
-        "promoButton"
-      );
-
-    const registerHero =
-      document.getElementById(
-        "registerHero"
-      );
-
-    const depositCardLink =
-      document.getElementById(
-        "depositCardLink"
-      );
-
-    const bonusCardLink =
-      document.getElementById(
-        "bonusCardLink"
-      );
+  </section>
 
 
-    // ==================================================
-    // LOAD USER
-    // ==================================================
 
-    async function loadUser() {
+  <!-- =========================================
+       ACCOUNT AREA
+       ONLY LOGGED IN
+  ========================================== -->
 
-      try {
+  <section
+    id="accountArea"
+    class="account-box"
+    style="display:none;"
+  >
 
-        const {
-          data,
-          error
-        } =
-          await supabase.auth.getUser();
+    <div class="account-title">
 
+      <h2>
+        💰 Your Account
+      </h2>
 
-        if (
-          error ||
-          !data ||
-          !data.user
-        ) {
-
-          showLoggedOut();
-
-          return;
-
-        }
+    </div>
 
 
-        const user =
-          data.user;
+    <div class="balance-grid">
 
 
-        // ----------------------------------------------
-        // LOAD PROFILE
-        // ----------------------------------------------
+      <div class="balance-card">
 
-        const {
-          data:
-            profile,
-          error:
-            profileError
-        } =
-          await supabase
-            .from("profiles")
-            .select(`
-              id,
-              phone,
-              profile_picture,
-              balance,
-              bonus_balance,
-              role,
-              created_at
-            `)
-            .eq(
-              "id",
-              user.id
-            )
-            .single();
+        <div class="balance-label">
+          Balance
+        </div>
+
+        <div
+          id="userBalance"
+          class="balance-value"
+        >
+          0 FRW
+        </div>
+
+      </div>
 
 
-        if (profileError) {
+      <div class="balance-card">
 
-          console.error(
-            "Profile loading error:",
-            profileError
-          );
+        <div class="balance-label">
+          Bonus Balance
+        </div>
 
-          showLoggedIn({
-            balance: 0,
-            bonus_balance: 0
-          });
+        <div
+          id="userBonusBalance"
+          class="balance-value bonus-value"
+        >
+          0 FRW
+        </div>
 
-          return;
-
-        }
+      </div>
 
 
-        showLoggedIn(
-          profile
-        );
+    </div>
 
-      } catch (error) {
 
-        console.error(
-          "Session error:",
-          error
-        );
+    <div class="account-actions">
 
-        showLoggedOut();
+      <a
+        href="deposit.html"
+        class="deposit"
+      >
+        + Deposit
+      </a>
 
+
+      <a
+        href="withdraw.html"
+        class="withdraw"
+      >
+        Withdraw
+      </a>
+
+
+      <a
+        href="balance.html"
+        class="balance-btn"
+      >
+        View Balance
+      </a>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- =========================================
+       SERVICES
+  ========================================== -->
+
+  <h2 class="section-title">
+
+    <span>BetKigali</span>
+    Services
+
+  </h2>
+
+
+  <section class="cards">
+
+
+    <!-- CASINO -->
+
+    <div class="card">
+
+      <div class="card-icon">
+        🎰
+      </div>
+
+      <h3>
+        Casino
+      </h3>
+
+      <p>
+        Enjoy exciting casino games
+        and discover new ways to play.
+      </p>
+
+      <a href="casino.html">
+        Enter Casino →
+      </a>
+
+    </div>
+
+
+    <!-- DEPOSIT -->
+
+    <div class="card">
+
+      <div class="card-icon">
+        💰
+      </div>
+
+      <h3>
+        Easy Deposits
+      </h3>
+
+      <p>
+        Deposit funds easily and securely
+        and start enjoying BetKigali.
+      </p>
+
+      <a
+        href="register.html"
+        id="depositCardLink"
+      >
+        Deposit Now →
+      </a>
+
+    </div>
+
+
+    <!-- BONUS -->
+
+    <div class="card">
+
+      <div class="card-icon">
+        🎁
+      </div>
+
+      <h3>
+        Bonuses & Rewards
+      </h3>
+
+      <p>
+        Deposit over 5,000 FRW and get
+        40% according to the promotion.
+      </p>
+
+      <a
+        href="register.html"
+        id="bonusCardLink"
+      >
+        Get Bonus →
+      </a>
+
+    </div>
+
+
+  </section>
+
+
+</main>
+
+
+
+<!-- =========================================
+     FOOTER
+========================================= -->
+
+<footer>
+
+  <div class="footer-inner">
+
+
+    <div>
+
+      <div class="footer-logo">
+        BetKigali
+      </div>
+
+      <div class="footer-text">
+        Bet • Win • Enjoy
+      </div>
+
+    </div>
+
+
+    <div class="footer-links">
+
+      <a href="index.html">
+        Home
+      </a>
+
+      <a href="casino.html">
+        Casino
+      </a>
+
+      <a href="login.html">
+        Login
+      </a>
+
+      <a href="register.html">
+        Register
+      </a>
+
+      <a href="#">
+        Terms
+      </a>
+
+      <a href="#">
+        Privacy
+      </a>
+
+    </div>
+
+  </div>
+
+</footer>
+
+
+
+<script>
+
+/* =====================================================
+   BETKIGALI SUPABASE CONFIG
+===================================================== */
+
+const SUPABASE_URL =
+  "https://nezgaxfisytlgkhdgzvf.supabase.co";
+
+const SUPABASE_KEY =
+  "sb_publishable_H1N6DRzZ0t25MARQP5yaPQ_l6mRsrVGs";
+
+
+const supabase =
+  window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
+
+/* =====================================================
+   ELEMENTS
+===================================================== */
+
+const loggedOutNav =
+  document.getElementById(
+    "loggedOutNav"
+  );
+
+
+const loggedInNav =
+  document.getElementById(
+    "loggedInNav"
+  );
+
+
+const accountArea =
+  document.getElementById(
+    "accountArea"
+  );
+
+
+const userBalance =
+  document.getElementById(
+    "userBalance"
+  );
+
+
+const userBonusBalance =
+  document.getElementById(
+    "userBonusBalance"
+  );
+
+
+const promoButton =
+  document.getElementById(
+    "promoButton"
+  );
+
+
+const heroRegister =
+  document.getElementById(
+    "heroRegister"
+  );
+
+
+const depositCardLink =
+  document.getElementById(
+    "depositCardLink"
+  );
+
+
+const bonusCardLink =
+  document.getElementById(
+    "bonusCardLink"
+  );
+
+
+/* =====================================================
+   FORMAT MONEY
+===================================================== */
+
+function formatFRW(value) {
+
+  const number =
+    Number(value || 0);
+
+  return (
+    number.toLocaleString(
+      "en-US",
+      {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 2
       }
+    ) +
+    " FRW"
+  );
 
-    }
-
-
-    // ==================================================
-    // LOGGED OUT
-    // ==================================================
-
-    function showLoggedOut() {
-
-      loggedOutNav.style.display =
-        "flex";
-
-      loggedInNav.style.display =
-        "none";
-
-      accountArea.style.display =
-        "none";
+}
 
 
-      /*
-        IMPORTANT:
+/* =====================================================
+   SAVE USER LOCALLY
+===================================================== */
 
-        When user is NOT logged in,
-        promotion goes to REGISTER.
+function saveLocalUser(
+  user,
+  profile
+) {
 
-        Therefore they cannot reach
-        deposit.html before creating
-        an account.
-      */
+  const userData = {
 
-      promoButton.href =
-        "register.html";
+    id:
+      user.id,
 
-      promoButton.textContent =
-        "Get Started";
+    user_id:
+      user.id,
 
+    phone:
+      profile?.phone || "",
 
-      depositCardLink.href =
-        "register.html";
+    profile_picture:
+      profile?.profile_picture || "",
 
-      bonusCardLink.href =
-        "register.html";
+    balance:
+      Number(profile?.balance || 0),
 
+    bonus_balance:
+      Number(profile?.bonus_balance || 0),
 
-      registerHero.style.display =
-        "inline-block";
+    role:
+      profile?.role || "customer"
 
-    }
-
-
-    // ==================================================
-    // LOGGED IN
-    // ==================================================
-
-    function showLoggedIn(
-      profile
-    ) {
-
-      loggedOutNav.style.display =
-        "none";
-
-      loggedInNav.style.display =
-        "flex";
-
-      accountArea.style.display =
-        "block";
+  };
 
 
-      /*
-        Logged-in user clicking
-        promotion goes to deposit.
-      */
-
-      promoButton.href =
-        "deposit.html";
-
-      promoButton.textContent =
-        "Deposit Now";
+  localStorage.setItem(
+    "betkigaliUser",
+    JSON.stringify(userData)
+  );
 
 
-      depositCardLink.href =
-        "deposit.html";
-
-      bonusCardLink.href =
-        "deposit.html";
-
-
-      registerHero.style.display =
-        "none";
+  localStorage.setItem(
+    "betkigaliProfile",
+    JSON.stringify(userData)
+  );
 
 
-      // ----------------------------------------------
-      // BALANCE
-      // ----------------------------------------------
+  localStorage.setItem(
+    "betkigaliLoggedIn",
+    "true"
+  );
 
-      const balance =
-        Number(
-          profile.balance || 0
-        );
+}
 
 
-      userBalance.textContent =
-        balance.toLocaleString() +
-        " RWF";
+/* =====================================================
+   CLEAR LOCAL USER
+===================================================== */
+
+function clearLocalUser() {
+
+  localStorage.removeItem(
+    "betkigaliUser"
+  );
+
+  localStorage.removeItem(
+    "betkigaliProfile"
+  );
+
+  localStorage.removeItem(
+    "betkigaliLoggedIn"
+  );
+
+}
 
 
-      // ----------------------------------------------
-      // BONUS BALANCE
-      // ----------------------------------------------
+/* =====================================================
+   SHOW LOGGED OUT
+===================================================== */
 
-      const bonus =
-        Number(
-          profile.bonus_balance || 0
-        );
+function showLoggedOut() {
 
+  loggedOutNav.style.display =
+    "flex";
 
-      userBonus.textContent =
-        "Bonus Balance: " +
-        bonus.toLocaleString() +
-        " RWF";
+  loggedInNav.style.display =
+    "none";
 
-
-      // ----------------------------------------------
-      // LOCAL PROFILE CACHE
-      // ----------------------------------------------
-
-      localStorage.setItem(
-        "betkigaliProfile",
-        JSON.stringify(profile)
-      );
-
-      localStorage.setItem(
-        "betkigaliLoggedIn",
-        "true"
-      );
-
-    }
+  accountArea.style.display =
+    "none";
 
 
-    // ==================================================
-    // AUTH STATE CHANGES
-    // ==================================================
+  /*
+    Promotion sends guest to register.
+  */
 
-    supabase.auth.onAuthStateChange(
-      function(
-        event,
-        session
-      ) {
+  promoButton.href =
+    "register.html";
 
-        if (
-          session &&
-          session.user
-        ) {
+  promoButton.textContent =
+    "Register to Deposit";
 
-          loadUser();
 
-        } else {
+  depositCardLink.href =
+    "register.html";
 
-          showLoggedOut();
+  bonusCardLink.href =
+    "register.html";
 
-        }
 
-      }
+  heroRegister.style.display =
+    "inline-block";
+
+}
+
+
+/* =====================================================
+   SHOW LOGGED IN
+===================================================== */
+
+function showLoggedIn(profile) {
+
+  loggedOutNav.style.display =
+    "none";
+
+  loggedInNav.style.display =
+    "flex";
+
+  accountArea.style.display =
+    "block";
+
+
+  /*
+    Promotion now goes directly
+    to deposit page.
+  */
+
+  promoButton.href =
+    "deposit.html";
+
+  promoButton.textContent =
+    "Deposit Now";
+
+
+  depositCardLink.href =
+    "deposit.html";
+
+  bonusCardLink.href =
+    "deposit.html";
+
+
+  /*
+    Hide Create Account button.
+  */
+
+  heroRegister.style.display =
+    "none";
+
+
+  /*
+    Display balances.
+  */
+
+  userBalance.textContent =
+    formatFRW(
+      profile?.balance
     );
 
 
-    // ==================================================
-    // START
-    // ==================================================
+  userBonusBalance.textContent =
+    formatFRW(
+      profile?.bonus_balance
+    );
 
-    loadUser();
+}
 
-  </script>
+
+/* =====================================================
+   LOAD PROFILE
+===================================================== */
+
+async function loadProfile(user) {
+
+  /*
+    Get the real profile from Supabase.
+  */
+
+  const result =
+    await supabase
+      .from("profiles")
+      .select(
+        "id, phone, profile_picture, balance, bonus_balance, role, created_at"
+      )
+      .eq(
+        "id",
+        user.id
+      )
+      .maybeSingle();
+
+
+  if (result.error) {
+
+    console.error(
+      "Profile loading error:",
+      result.error
+    );
+
+    /*
+      Authentication exists but profile
+      could not be loaded.
+
+      Keep account area visible with
+      zero values instead of pretending
+      the user is logged out.
+    */
+
+    const fallbackProfile = {
+
+      id:
+        user.id,
+
+      phone:
+        user.user_metadata?.phone || "",
+
+      balance:
+        0,
+
+      bonus_balance:
+        0,
+
+      role:
+        "customer"
+
+    };
+
+
+    saveLocalUser(
+      user,
+      fallbackProfile
+    );
+
+
+    showLoggedIn(
+      fallbackProfile
+    );
+
+    return;
+
+  }
+
+
+  let profile =
+    result.data;
+
+
+  /*
+    If profile doesn't exist,
+    create it automatically.
+  */
+
+  if (!profile) {
+
+    const insertResult =
+      await supabase
+        .from("profiles")
+        .insert({
+
+          id:
+            user.id,
+
+          phone:
+            user.user_metadata?.phone || "",
+
+          profile_picture:
+            "",
+
+          balance:
+            0,
+
+          bonus_balance:
+            0,
+
+          role:
+            "customer"
+
+        })
+        .select()
+        .single();
+
+
+    if (insertResult.error) {
+
+      console.error(
+        "Profile creation error:",
+        insertResult.error
+      );
+
+
+      profile = {
+
+        id:
+          user.id,
+
+        phone:
+          user.user_metadata?.phone || "",
+
+        balance:
+          0,
+
+        bonus_balance:
+          0,
+
+        role:
+          "customer"
+
+      };
+
+    } else {
+
+      profile =
+        insertResult.data;
+
+    }
+
+  }
+
+
+  /*
+    Save current profile locally.
+  */
+
+  saveLocalUser(
+    user,
+    profile
+  );
+
+
+  /*
+    Display logged-in UI.
+  */
+
+  showLoggedIn(
+    profile
+  );
+
+}
+
+
+/* =====================================================
+   INITIALIZE PAGE
+===================================================== */
+
+async function initializePage() {
+
+  try {
+
+    /*
+      IMPORTANT:
+
+      We check Supabase's REAL session,
+      not only localStorage.
+    */
+
+    const result =
+      await supabase.auth.getSession();
+
+
+    const session =
+      result.data?.session;
+
+
+    if (
+      !session ||
+      !session.user
+    ) {
+
+      clearLocalUser();
+
+      showLoggedOut();
+
+      return;
+
+    }
+
+
+    /*
+      User is authenticated.
+    */
+
+    await loadProfile(
+      session.user
+    );
+
+
+  } catch (error) {
+
+    console.error(
+      "Initialization error:",
+      error
+    );
+
+
+    /*
+      If session check fails,
+      do not assume fake login.
+    */
+
+    showLoggedOut();
+
+  }
+
+}
+
+
+/* =====================================================
+   LISTEN FOR AUTH CHANGES
+===================================================== */
+
+supabase.auth.onAuthStateChange(
+  async function(
+    event,
+    session
+  ) {
+
+    console.log(
+      "Auth event:",
+      event
+    );
+
+
+    if (
+      session &&
+      session.user
+    ) {
+
+      /*
+        User logged in / session restored.
+      */
+
+      await loadProfile(
+        session.user
+      );
+
+    } else {
+
+      /*
+        User logged out.
+      */
+
+      clearLocalUser();
+
+      showLoggedOut();
+
+    }
+
+  }
+);
+
+
+/* =====================================================
+   START
+===================================================== */
+
+initializePage();
+
+</script>
+
 
 </body>
 </html>
 ```
-
-**Icyo wahinduye cyane:** umuntu utarafungura account akanda kuri **“Get Started”**, **“Deposit Now”**, cyangwa **“Get Bonus”** → ajya kuri `register.html`. Umaze login, izo links zihinduka zijya kuri `deposit.html`.
-
-Muri iyi `index.html` usimbuze gusa `PASTE_YOUR_PUBLISHABLE_KEY_HERE` ukoreshe **Publishable key imwe** wakoresheje muri `register.html` na `login.html`.
