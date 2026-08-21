@@ -311,12 +311,10 @@
   </div>
 
 </div>
-
-
+```html
 <script>
-
 /* =========================================
-   SUPABASE
+   SUPABASE CONFIG
 ========================================= */
 
 const SUPABASE_URL =
@@ -324,7 +322,6 @@ const SUPABASE_URL =
 
 const SUPABASE_KEY =
   "sb_publishable_H1N6DRzZ0t25MARQP5yaPQ_l6mRsrVGs";
-
 
 const supabase =
   window.supabase.createClient(
@@ -388,42 +385,21 @@ function normalizePhone(value) {
       .trim()
       .replace(/\s+/g, "");
 
-
-  /*
-    0781234567
-    →
-    250781234567
-  */
+  if (phone.startsWith("+250")) {
+    phone = phone.substring(1);
+  }
 
   if (phone.startsWith("0")) {
-
     phone =
-      "250" +
-      phone.substring(1);
-
+      "250" + phone.substring(1);
   }
-
-
-  /*
-    +250781234567
-    →
-    250781234567
-  */
-
-  if (phone.startsWith("+")) {
-
-    phone =
-      phone.substring(1);
-
-  }
-
 
   return phone;
 }
 
 
 /* =========================================
-   INTERNAL EMAIL
+   INTERNAL AUTH EMAIL
 ========================================= */
 
 function makeAuthEmail(phone) {
@@ -448,41 +424,37 @@ function saveUser(user, profile) {
     user_id: user.id,
 
     phone:
-      profile.phone,
+      profile?.phone || "",
 
     balance:
-      Number(profile.balance || 0),
+      Number(profile?.balance || 0),
 
     bonus_balance:
-      Number(profile.bonus_balance || 0),
+      Number(profile?.bonus_balance || 0),
 
     role:
-      profile.role || "customer"
+      profile?.role || "customer",
+
+    profile_picture:
+      profile?.profile_picture || ""
 
   };
 
-
-  /*
-    This is the key used by index.html.
-  */
 
   localStorage.setItem(
     "betkigaliUser",
     JSON.stringify(userData)
   );
 
-
   localStorage.setItem(
     "betkigaliProfile",
     JSON.stringify(userData)
   );
 
-
   localStorage.setItem(
     "betkigaliLoggedIn",
     "true"
   );
-
 
   return userData;
 }
@@ -498,25 +470,26 @@ form.addEventListener(
 
     event.preventDefault();
 
-
     showMessage("", "");
 
+    registerBtn.disabled = true;
 
-    registerBtn.disabled =
-      true;
+    loading.style.display = "block";
 
-    loading.style.display =
-      "block";
+    loading.textContent =
+      "Creating your account...";
 
 
     try {
 
-      /* -------------------------------
+      /* -------------------------------------
          VALUES
-      ------------------------------- */
+      ------------------------------------- */
 
-      const rawPhone =
-        phoneInput.value;
+      const phone =
+        normalizePhone(
+          phoneInput.value
+        );
 
       const password =
         passwordInput.value;
@@ -525,15 +498,9 @@ form.addEventListener(
         confirmPasswordInput.value;
 
 
-      /* -------------------------------
-         PHONE
-      ------------------------------- */
-
-      const phone =
-        normalizePhone(
-          rawPhone
-        );
-
+      /* -------------------------------------
+         VALIDATION
+      ------------------------------------- */
 
       if (!phone) {
 
@@ -543,19 +510,16 @@ form.addEventListener(
 
       }
 
-
-      if (phone.length < 9) {
+      if (
+        phone.length !== 12 ||
+        !phone.startsWith("250")
+      ) {
 
         throw new Error(
           "Please enter a valid Rwanda phone number."
         );
 
       }
-
-
-      /* -------------------------------
-         PASSWORD
-      ------------------------------- */
 
       if (password.length < 6) {
 
@@ -565,10 +529,8 @@ form.addEventListener(
 
       }
 
-
       if (
-        password !==
-        confirmPassword
+        password !== confirmPassword
       ) {
 
         throw new Error(
@@ -578,40 +540,32 @@ form.addEventListener(
       }
 
 
-      /* -------------------------------
+      /* -------------------------------------
          INTERNAL EMAIL
-      ------------------------------- */
+      ------------------------------------- */
 
       const authEmail =
-        makeAuthEmail(
-          phone
-        );
+        makeAuthEmail(phone);
 
 
-      loading.textContent =
-        "Creating your account...";
+      /* -------------------------------------
+         CREATE AUTH ACCOUNT
+      ------------------------------------- */
 
-
-      /* -------------------------------
-         SUPABASE AUTH
-      ------------------------------- */
-
-      const result =
+      const {
+        data,
+        error
+      } =
         await supabase.auth.signUp({
 
-          email:
-            authEmail,
+          email: authEmail,
 
-          password:
-            password,
+          password: password,
 
           options: {
 
             data: {
-
-              phone:
-                phone
-
+              phone: phone
             }
 
           }
@@ -619,19 +573,15 @@ form.addEventListener(
         });
 
 
-      const data =
-        result.data;
-
-      const error =
-        result.error;
-
-
       if (error) {
         throw error;
       }
 
 
-      if (!data || !data.user) {
+      if (
+        !data ||
+        !data.user
+      ) {
 
         throw new Error(
           "Account could not be created."
@@ -640,117 +590,161 @@ form.addEventListener(
       }
 
 
-      /* =================================
-         IMPORTANT
-      =================================
+      /* -------------------------------------
+         CHECK SESSION
+      ------------------------------------- */
 
-         We need an active session before
-         inserting into profiles because
-         your profiles RLS requires:
+      let session =
+        data.session;
 
-         auth.uid() = id
+
+      /*
+        If Supabase did not return a session,
+        check again.
       */
 
+      if (!session) {
 
-      if (!data.session) {
+        const sessionResult =
+          await supabase.auth.getSession();
+
+        session =
+          sessionResult.data?.session;
+
+      }
+
+
+      /*
+        Without a session, the INSERT policy
+        on profiles cannot authorize the user.
+      */
+
+      if (!session) {
 
         throw new Error(
-          "Account was created, but Supabase has email confirmation enabled. Turn OFF email confirmation in Supabase Authentication settings, then try registering again."
+          "Account was created, but automatic login is disabled. Please turn OFF Email Confirmation in Supabase Authentication → Sign In / Providers → Email, then try again."
         );
 
       }
 
 
-      /* -------------------------------
+      /* -------------------------------------
          CREATE PROFILE
-      ------------------------------- */
+      ------------------------------------- */
 
       loading.textContent =
         "Creating your profile...";
 
 
-      const profileResult =
+      const {
+        data: profile,
+        error: profileError
+      } =
         await supabase
           .from("profiles")
           .insert({
 
-            id:
-              data.user.id,
+            id: data.user.id,
 
-            phone:
-              phone,
+            phone: phone,
 
-            profile_picture:
-              "",
+            profile_picture: "",
 
-            balance:
-              0,
+            balance: 0,
 
-            bonus_balance:
-              0,
+            bonus_balance: 0,
 
-            role:
-              "customer"
+            role: "customer"
 
           })
           .select()
           .single();
 
 
-      if (profileResult.error) {
+      /*
+        If profile already exists,
+        retrieve it instead.
+      */
+
+      if (
+        profileError
+      ) {
 
         console.error(
           "PROFILE ERROR:",
-          profileResult.error
+          profileError
         );
 
 
         /*
-          If profile failed, sign out.
+          Try to retrieve existing profile.
         */
 
-        await supabase.auth.signOut();
+        const existing =
+          await supabase
+            .from("profiles")
+            .select(
+              "id,phone,profile_picture,balance,bonus_balance,role,created_at"
+            )
+            .eq(
+              "id",
+              data.user.id
+            )
+            .maybeSingle();
 
 
-        throw profileResult.error;
+        if (
+          existing.data
+        ) {
+
+          saveUser(
+            data.user,
+            existing.data
+          );
+
+        } else {
+
+          throw profileError;
+
+        }
+
+      } else {
+
+        saveUser(
+          data.user,
+          profile
+        );
 
       }
 
 
-      const profile =
-        profileResult.data;
-
-
-      /* -------------------------------
-         SAVE LOGIN STATE
-      ------------------------------- */
-
-      saveUser(
-        data.user,
-        profile
-      );
-
-
-      /* -------------------------------
+      /* -------------------------------------
          SUCCESS
-      ------------------------------- */
+      ------------------------------------- */
 
       showMessage(
-        "Account created successfully. Opening BetKigali...",
+        "Account created successfully!",
         "success"
       );
-
 
       loading.textContent =
         "Opening BetKigali...";
 
 
       /*
-        Go directly to index.html.
+        Give the browser a tiny moment
+        to save the Supabase session.
       */
 
-      window.location.replace(
-        "index.html"
+      setTimeout(
+        function() {
+
+          window.location.replace(
+            "index.html"
+          );
+
+        },
+        500
       );
 
 
@@ -762,18 +756,14 @@ form.addEventListener(
       );
 
 
-      let errorMessage =
+      let message =
         error?.message ||
         "Registration failed. Please try again.";
 
 
       const lower =
-        errorMessage.toLowerCase();
+        message.toLowerCase();
 
-
-      /* -------------------------------
-         FRIENDLY ERRORS
-      ------------------------------- */
 
       if (
         lower.includes(
@@ -784,7 +774,7 @@ form.addEventListener(
         )
       ) {
 
-        errorMessage =
+        message =
           "This phone number is already registered. Please login.";
 
       }
@@ -796,7 +786,7 @@ form.addEventListener(
         )
       ) {
 
-        errorMessage =
+        message =
           "This phone number already has a profile.";
 
       }
@@ -805,20 +795,17 @@ form.addEventListener(
       if (
         lower.includes(
           "row-level security"
-        ) ||
-        lower.includes(
-          "violates row-level security"
         )
       ) {
 
-        errorMessage =
-          "Profile creation was blocked by Supabase security settings. Check the profiles INSERT policy.";
+        message =
+          "Supabase blocked profile creation. Check the profiles INSERT policy.";
 
       }
 
 
       showMessage(
-        errorMessage,
+        message,
         "error"
       );
 
@@ -835,9 +822,7 @@ form.addEventListener(
 
   }
 );
-
 </script>
-
-</body>
-</html>
 ```
+
+
