@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>BetKigali - Login</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #080b0f;
+      color: white;
+      font-family: Arial, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .login-box {
+      width: 100%;
+      max-width: 420px;
+      background: #11171e;
+      border: 1px solid #242d37;
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, .35);
+    }
+
+    .logo {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .logo img {
+      width: 160px;
+      max-width: 80%;
+      height: auto;
+      display: inline-block;
+    }
+
+    h1 {
+      text-align: center;
+      color: #f5c542;
+      margin-bottom: 8px;
+      font-size: 25px;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #9ca7b3;
+      margin-bottom: 25px;
+      font-size: 14px;
+    }
+
+    .field {
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 7px;
+      color: #cbd5e1;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px;
+      background: #080b0f;
+      color: white;
+      border: 1px solid #303a46;
+      border-radius: 9px;
+      outline: none;
+      font-size: 15px;
+    }
+
+    input:focus {
+      border-color: #f5c542;
+    }
+
+    .login-btn {
+      width: 100%;
+      padding: 14px;
+      background: #f5c542;
+      color: #080b0f;
+      border: none;
+      border-radius: 9px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .login-btn:hover {
+      background: #ffd75c;
+    }
+
+    .login-btn:disabled {
+      opacity: .6;
+      cursor: not-allowed;
+    }
+
+    .message {
+      display: none;
+      margin-bottom: 18px;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .message.error {
+      display: block;
+      background: #3b1111;
+      border: 1px solid #7f1d1d;
+      color: #fecaca;
+    }
+
+    .message.success {
+      display: block;
+      background: #0d2b1a;
+      border: 1px solid #166534;
+      color: #bbf7d0;
+    }
+
+    .loading {
+      display: none;
+      text-align: center;
+      color: #f5c542;
+      margin-top: 12px;
+      font-size: 13px;
+    }
+
+    .register-link {
+      text-align: center;
+      margin-top: 20px;
+      color: #9ca7b3;
+      font-size: 14px;
+    }
+
+    .register-link a {
+      color: #f5c542;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .register-link a:hover {
+      text-decoration: underline;
+    }
+
+    .back-home {
+      text-align: center;
+      margin-top: 15px;
+    }
+
+    .back-home a {
+      color: #64748b;
+      text-decoration: none;
+      font-size: 13px;
+    }
+
+    .back-home a:hover {
+      color: #f5c542;
+    }
+
+    .note {
+      margin-top: 18px;
+      color: #64748b;
+      text-align: center;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="login-box">
+
+    <div class="logo">
+      <a href="index.html">
+        <img
+          src="betkigali-logo.png"
+          alt="BetKigali"
+        >
+      </a>
+    </div>
+
+    <h1>Welcome Back</h1>
+
+    <p class="subtitle">
+      Login to your BetKigali account
+    </p>
+
+    <div id="message" class="message"></div>
+
+    <form id="loginForm">
+
+      <div class="field">
+
+        <label for="phone">
+          Phone Number
+        </label>
+
+        <input
+          type="tel"
+          id="phone"
+          placeholder="e.g. 0781234567"
+          autocomplete="tel"
+          required
+        >
+
+      </div>
+
+      <div class="field">
+
+        <label for="password">
+          Password
+        </label>
+
+        <input
+          type="password"
+          id="password"
+          placeholder="Enter your password"
+          autocomplete="current-password"
+          required
+        >
+
+      </div>
+
+      <button
+        type="submit"
+        id="loginBtn"
+        class="login-btn"
+      >
+        Login
+      </button>
+
+      <div id="loading" class="loading">
+        Logging you in...
+      </div>
+
+    </form>
+
+    <div class="register-link">
+      Don't have an account?
+      <a href="register.html">Create Account</a>
+    </div>
+
+    <div class="back-home">
+      <a href="index.html">
+        ← Back to Home
+      </a>
+    </div>
+
+    <div class="note">
+      Your BetKigali account is protected by Supabase Authentication.
+    </div>
+
+  </div>
+
+
+  <script>
+
+    // ==================================================
+    // SUPABASE CONFIGURATION
+    // ==================================================
+
+    const SUPABASE_URL =
+      "https://nezgaxfisytlgkhdgzvf.supabase.co";
+
+    /*
+      IMPORTANT:
+      Put the SAME Publishable key you used
+      in register.html here.
+
+      Do NOT use the service_role key.
+    */
+
+    const SUPABASE_KEY =
+      "PASTE_YOUR_PUBLISHABLE_KEY_HERE";
+
+
+    // ==================================================
+    // CREATE SUPABASE CLIENT
+    // ==================================================
+
+    const {
+      createClient
+    } = window.supabase;
+
+    const supabase =
+      createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+      );
+
+
+    // ==================================================
+    // ELEMENTS
+    // ==================================================
+
+    const form =
+      document.getElementById(
+        "loginForm"
+      );
+
+    const phoneInput =
+      document.getElementById(
+        "phone"
+      );
+
+    const passwordInput =
+      document.getElementById(
+        "password"
+      );
+
+    const loginBtn =
+      document.getElementById(
+        "loginBtn"
+      );
+
+    const messageBox =
+      document.getElementById(
+        "message"
+      );
+
+    const loading =
+      document.getElementById(
+        "loading"
+      );
+
+
+    // ==================================================
+    // SHOW MESSAGE
+    // ==================================================
+
+    function showMessage(
+      message,
+      type
+    ) {
+
+      messageBox.textContent =
+        message;
+
+      messageBox.className =
+        "message " + type;
+
+    }
+
+
+    // ==================================================
+    // NORMALIZE PHONE
+    // ==================================================
+
+    function normalizePhone(
+      value
+    ) {
+
+      let phone =
+        value
+          .trim()
+          .replace(/\s+/g, "");
+
+
+      /*
+        Rwanda local format:
+
+        0781234567
+
+        becomes:
+
+        250781234567
+      */
+
+      if (
+        phone.startsWith("0")
+      ) {
+
+        phone =
+          "250" +
+          phone.substring(1);
+
+      }
+
+
+      /*
+        +250781234567
+
+        becomes:
+
+        250781234567
+      */
+
+      if (
+        phone.startsWith("+")
+      ) {
+
+        phone =
+          phone.substring(1);
+
+      }
+
+
+      return phone;
+
+    }
+
+
+    // ==================================================
+    // CREATE SAME INTERNAL AUTH EMAIL
+    // ==================================================
+
+    function makeAuthEmail(
+      phone
+    ) {
+
+      return (
+        phone +
+        "@auth.betkigali.local"
+      );
+
+    }
+
+
+    // ==================================================
+    // LOGIN
+    // ==================================================
+
+    form.addEventListener(
+      "submit",
+      async function(event) {
+
+        event.preventDefault();
+
+
+        showMessage(
+          "",
+          ""
+        );
+
+
+        loginBtn.disabled =
+          true;
+
+        loading.style.display =
+          "block";
+
+
+        try {
+
+          // --------------------------------------------
+          // GET VALUES
+          // --------------------------------------------
+
+          const rawPhone =
+            phoneInput.value;
+
+          const password =
+            passwordInput.value;
+
+
+          // --------------------------------------------
+          // NORMALIZE PHONE
+          // --------------------------------------------
+
+          const phone =
+            normalizePhone(
+              rawPhone
+            );
+
+
+          // --------------------------------------------
+          // VALIDATE
+          // --------------------------------------------
+
+          if (
+            !phone ||
+            phone.length < 9
+          ) {
+
+            throw new Error(
+              "Please enter a valid phone number."
+            );
+
+          }
+
+
+          if (
+            !password
+          ) {
+
+            throw new Error(
+              "Please enter your password."
+            );
+
+          }
+
+
+          // --------------------------------------------
+          // CREATE INTERNAL EMAIL
+          // --------------------------------------------
+
+          const authEmail =
+            makeAuthEmail(
+              phone
+            );
+
+
+          // --------------------------------------------
+          // SIGN IN
+          // --------------------------------------------
+
+          const {
+            data,
+            error
+          } =
+            await supabase.auth.signInWithPassword({
+
+              email:
+                authEmail,
+
+              password:
+                password
+
+            });
+
+
+          if (error) {
+
+            throw error;
+
+          }
+
+
+          if (
+            !data.user
+          ) {
+
+            throw new Error(
+              "Login failed. Please try again."
+            );
+
+          }
+
+
+          // --------------------------------------------
+          // GET PROFILE
+          // --------------------------------------------
+
+          const {
+            data:
+              profile,
+            error:
+              profileError
+          } =
+            await supabase
+              .from("profiles")
+              .select(`
+                id,
+                phone,
+                profile_picture,
+                balance,
+                bonus_balance,
+                role,
+                created_at
+              `)
+              .eq(
+                "id",
+                data.user.id
+              )
+              .single();
+
+
+          if (profileError) {
+
+            console.error(
+              "Profile error:",
+              profileError
+            );
+
+            /*
+              The authentication succeeded,
+              so don't log the user out here.
+            */
+
+            showMessage(
+              "Login successful. Opening BetKigali...",
+              "success"
+            );
+
+          } else {
+
+            /*
+              Store only convenient profile
+              information locally.
+
+              The real data remains in Supabase.
+            */
+
+            localStorage.setItem(
+              "betkigaliProfile",
+              JSON.stringify(profile)
+            );
+
+
+            /*
+              Save logged-in state.
+            */
+
+            localStorage.setItem(
+              "betkigaliLoggedIn",
+              "true"
+            );
+
+
+            showMessage(
+              "Login successful. Opening BetKigali...",
+              "success"
+            );
+
+          }
+
+
+          // --------------------------------------------
+          // REDIRECT
+          // --------------------------------------------
+
+          setTimeout(
+            function() {
+
+              window.location.href =
+                "index.html";
+
+            },
+            700
+          );
+
+
+        } catch (error) {
+
+          console.error(
+            "Login error:",
+            error
+          );
+
+
+          let errorMessage =
+            error.message ||
+            "Login failed.";
+
+
+          // --------------------------------------------
+          // FRIENDLY ERRORS
+          // --------------------------------------------
+
+          const lower =
+            errorMessage.toLowerCase();
+
+
+          if (
+            lower.includes(
+              "invalid login credentials"
+            )
+          ) {
+
+            errorMessage =
+              "Incorrect phone number or password.";
+
+          }
+
+
+          if (
+            lower.includes(
+              "email not confirmed"
+            )
+          ) {
+
+            errorMessage =
+              "Your account is not confirmed yet. Please check the Supabase email confirmation setting.";
+
+          }
+
+
+          showMessage(
+            errorMessage,
+            "error"
+          );
+
+
+        } finally {
+
+          loginBtn.disabled =
+            false;
+
+          loading.style.display =
+            "none";
+
+        }
+
+      }
+    );
+
+
+    // ==================================================
+    // CHECK EXISTING SESSION
+    // ==================================================
+
+    async function checkExistingSession() {
+
+      try {
+
+        const {
+          data
+        } =
+          await supabase.auth.getSession();
+
+
+        if (
+          data &&
+          data.session &&
+          data.session.user
+        ) {
+
+          /*
+            User is already logged in.
+            No need to show login page again.
+          */
+
+          window.location.href =
+            "index.html";
+
+        }
+
+      } catch (error) {
+
+        console.error(
+          "Session check error:",
+          error
+        );
+
+      }
+
+    }
+
+
+    checkExistingSession();
+
+  </script>
+
+</body>
+</html>
