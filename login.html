@@ -1,10 +1,11 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>BetKigali - Login</title>
+  <title>BetKigali - Bet. Win. Enjoy.</title>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -15,531 +16,1326 @@
       padding: 0;
     }
 
-    body {
-      min-height: 100vh;
-      background: #080b0f;
-      color: white;
-      font-family: Arial, sans-serif;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
+    :root {
+      --black: #07090d;
+      --black2: #090d12;
+      --card: #11161d;
+      --border: #242c35;
+      --gold: #f5c542;
+      --gold2: #ffd966;
+      --white: #ffffff;
+      --muted: #9ca7b3;
+      --green: #16a34a;
+      --red: #dc2626;
     }
 
-    .login-box {
-      width: 100%;
-      max-width: 420px;
-      background: #11171e;
-      border: 1px solid #242d37;
-      border-radius: 16px;
-      padding: 30px;
-      box-shadow: 0 10px 30px rgba(0,0,0,.35);
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--black);
+      color: var(--white);
+      min-height: 100vh;
+    }
+
+    /* =========================
+       HEADER
+    ========================= */
+
+    header {
+      background: var(--black2);
+      border-bottom: 1px solid var(--border);
+
+      min-height: 86px;
+      padding: 10px 28px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      position: sticky;
+      top: 0;
+      z-index: 1000;
     }
 
     .logo {
-      text-align: center;
-      margin-bottom: 25px;
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      flex-shrink: 0;
     }
 
     .logo img {
-      width: 160px;
-      max-width: 80%;
-      height: auto;
-      display: inline-block;
-    }
-
-    h1 {
-      text-align: center;
-      color: #f5c542;
-      margin-bottom: 8px;
-      font-size: 25px;
-    }
-
-    .subtitle {
-      text-align: center;
-      color: #9ca7b3;
-      margin-bottom: 25px;
-      font-size: 14px;
-    }
-
-    .field {
-      margin-bottom: 18px;
-    }
-
-    label {
+      width: 125px;
+      max-height: 70px;
+      object-fit: contain;
       display: block;
-      margin-bottom: 7px;
-      color: #cbd5e1;
+    }
+
+    /* =========================
+       NAVBAR
+    ========================= */
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    nav a {
+      color: #d8dee6;
+      text-decoration: none;
+
       font-size: 14px;
       font-weight: bold;
+
+      white-space: nowrap;
+      transition: .2s;
     }
 
-    input {
-      width: 100%;
-      padding: 14px;
-      background: #080b0f;
-      color: white;
-      border: 1px solid #303a46;
-      border-radius: 9px;
-      outline: none;
-      font-size: 15px;
+    nav a:hover {
+      color: var(--gold);
     }
 
-    input:focus {
-      border-color: #f5c542;
+    .nav-profile {
+      color: var(--gold) !important;
+    }
+
+    .nav-btn {
+      padding: 9px 14px;
+      border-radius: 7px;
+      border: 1px solid var(--border);
     }
 
     .login-btn {
-      width: 100%;
-      padding: 14px;
-      background: #f5c542;
-      color: #080b0f;
+      color: var(--white);
+      background: transparent;
+    }
+
+    .register-btn {
+      background: var(--gold);
+      color: #111 !important;
+      border-color: var(--gold);
+    }
+
+    .register-btn:hover {
+      background: var(--gold2);
+    }
+
+    /* =========================
+       CONTAINER
+    ========================= */
+
+    .container {
+      width: min(1100px, 94%);
+      margin: auto;
+    }
+
+    /* =========================
+       PROMOTION
+    ========================= */
+
+    .promo {
+      margin-top: 22px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #17130a,
+          #0e1116
+        );
+
+      border: 1px solid #5e4b19;
+      border-radius: 12px;
+
+      padding: 18px 22px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 15px;
+
+      box-shadow:
+        0 5px 20px rgba(0,0,0,.25);
+    }
+
+    .promo-content {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+    }
+
+    .promo-icon {
+      width: 42px;
+      height: 42px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      background: rgba(245,197,66,.12);
+      border: 1px solid rgba(245,197,66,.35);
+
+      border-radius: 50%;
+
+      font-size: 21px;
+      flex-shrink: 0;
+    }
+
+    .promo h3 {
+      color: var(--gold);
+      font-size: 17px;
+      margin-bottom: 4px;
+    }
+
+    .promo p {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .promo-btn {
+      background: var(--gold);
+      color: #111;
+
       border: none;
-      border-radius: 9px;
-      font-size: 16px;
+      text-decoration: none;
+
+      padding: 10px 16px;
+
+      border-radius: 7px;
+
+      font-size: 13px;
       font-weight: bold;
-      cursor: pointer;
+
+      white-space: nowrap;
     }
 
-    .login-btn:hover {
-      background: #ffd75c;
+    .promo-btn:hover {
+      background: var(--gold2);
     }
 
-    .login-btn:disabled {
-      opacity: .6;
-      cursor: not-allowed;
+    /* =========================
+       HERO
+    ========================= */
+
+    .hero {
+      padding: 55px 0 35px;
+      text-align: center;
     }
 
-    .message {
-      display: none;
-      margin-bottom: 18px;
-      padding: 12px;
+    .hero h1 {
+      font-size: 38px;
+      margin-bottom: 12px;
+    }
+
+    .hero h1 span {
+      color: var(--gold);
+    }
+
+    .hero p {
+      color: var(--muted);
+      max-width: 650px;
+      margin: auto;
+
+      line-height: 1.6;
+      font-size: 15px;
+    }
+
+    .hero-buttons {
+      margin-top: 25px;
+
+      display: flex;
+      justify-content: center;
+
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .hero-btn {
+      padding: 12px 22px;
       border-radius: 8px;
-      font-size: 14px;
-      line-height: 1.4;
-    }
 
-    .message.error {
-      display: block;
-      background: #3b1111;
-      border: 1px solid #7f1d1d;
-      color: #fecaca;
-    }
-
-    .message.success {
-      display: block;
-      background: #0d2b1a;
-      border: 1px solid #166534;
-      color: #bbf7d0;
-    }
-
-    .loading {
-      display: none;
-      text-align: center;
-      color: #f5c542;
-      margin-top: 12px;
-      font-size: 13px;
-    }
-
-    .register-link {
-      text-align: center;
-      margin-top: 20px;
-      color: #9ca7b3;
-      font-size: 14px;
-    }
-
-    .register-link a {
-      color: #f5c542;
       text-decoration: none;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .primary {
+      background: var(--gold);
+      color: #111;
+    }
+
+    .secondary {
+      background: transparent;
+      color: white;
+      border: 1px solid var(--border);
+    }
+
+    .primary:hover {
+      background: var(--gold2);
+    }
+
+    .secondary:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    /* =========================
+       ACCOUNT AREA
+    ========================= */
+
+    .account-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+
+      padding: 20px;
+      margin-bottom: 35px;
+    }
+
+    .account-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+
+    .account-title h2 {
+      font-size: 19px;
+    }
+
+    .account-balances {
+      display: flex;
+      gap: 25px;
+      flex-wrap: wrap;
+    }
+
+    .balance-item {
+      min-width: 150px;
+    }
+
+    .balance-label {
+      color: var(--muted);
+      font-size: 12px;
+      margin-bottom: 5px;
+    }
+
+    .balance {
+      color: var(--gold);
+      font-size: 22px;
       font-weight: bold;
     }
 
-    .back-home {
-      text-align: center;
-      margin-top: 15px;
+    .bonus {
+      color: #60d394;
     }
 
-    .back-home a {
-      color: #64748b;
+    .account-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+
+    .account-actions a {
       text-decoration: none;
+      padding: 10px 15px;
+      border-radius: 7px;
+
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    .deposit {
+      background: var(--green);
+      color: white;
+    }
+
+    .withdraw {
+      background: var(--red);
+      color: white;
+    }
+
+    .bonus-btn {
+      background: #312a12;
+      color: var(--gold);
+      border: 1px solid #5e4b19;
+    }
+
+    .view-profile {
+      background: transparent;
+      color: white;
+      border: 1px solid var(--border);
+    }
+
+    /* =========================
+       SERVICES
+    ========================= */
+
+    .section-title {
+      margin: 25px 0 15px;
+      font-size: 21px;
+    }
+
+    .section-title span {
+      color: var(--gold);
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      padding-bottom: 35px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+
+      padding: 22px;
+
+      transition: .2s;
+    }
+
+    .card:hover {
+      border-color: #5d4b1d;
+      transform: translateY(-2px);
+    }
+
+    .card-icon {
+      font-size: 30px;
+      margin-bottom: 13px;
+    }
+
+    .card h3 {
+      font-size: 17px;
+      margin-bottom: 8px;
+    }
+
+    .card p {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .card a {
+      display: inline-block;
+      margin-top: 15px;
+
+      color: var(--gold);
+      text-decoration: none;
+
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    /* =========================
+       LOADING
+    ========================= */
+
+    #pageLoading {
+      text-align: center;
+      color: var(--gold);
+      padding: 30px 0;
       font-size: 13px;
     }
 
-    .note {
-      margin-top: 18px;
-      color: #64748b;
-      text-align: center;
+    /* =========================
+       FOOTER
+    ========================= */
+
+    footer {
+      border-top: 1px solid var(--border);
+      background: var(--black2);
+
+      margin-top: 25px;
+      padding: 28px 0;
+    }
+
+    .footer-inner {
+      width: min(1100px, 94%);
+      margin: auto;
+
+      display: flex;
+      justify-content: space-between;
+
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .footer-logo {
+      color: var(--gold);
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .footer-text {
+      color: var(--muted);
       font-size: 12px;
-      line-height: 1.5;
+      margin-top: 6px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: #aeb7c2;
+      text-decoration: none;
+      font-size: 12px;
+    }
+
+    .footer-links a:hover {
+      color: var(--gold);
+    }
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media (max-width: 850px) {
+
+      header {
+        padding: 10px 15px;
+        min-height: auto;
+        flex-wrap: wrap;
+      }
+
+      .logo {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .logo img {
+        width: 105px;
+        max-height: 58px;
+      }
+
+      nav {
+        width: 100%;
+        justify-content: flex-start;
+
+        gap: 13px;
+        padding: 10px 0 4px;
+
+        overflow-x: auto;
+      }
+
+      nav a {
+        font-size: 12px;
+      }
+
+      .promo {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .promo-btn {
+        width: 100%;
+        text-align: center;
+      }
+
+      .hero {
+        padding: 40px 0 25px;
+      }
+
+      .hero h1 {
+        font-size: 29px;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .account-title {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 430px) {
+
+      .container {
+        width: 92%;
+      }
+
+      .hero h1 {
+        font-size: 26px;
+      }
+
+      .promo h3 {
+        font-size: 15px;
+      }
+
+      .account-balances {
+        flex-direction: column;
+        gap: 15px;
+      }
     }
   </style>
 </head>
 
 <body>
 
-<div class="login-box">
+  <!-- =========================
+       HEADER
+  ========================== -->
 
-  <div class="logo">
-    <a href="index.html">
+  <header>
+
+    <a href="index.html" class="logo">
       <img
         src="betkigali-logo.png"
         alt="BetKigali"
       >
     </a>
-  </div>
 
-  <h1>Welcome Back</h1>
 
-  <p class="subtitle">
-    Login to your BetKigali account
-  </p>
+    <nav id="navbar">
 
-  <div id="message" class="message"></div>
+      <!-- FIRST -->
+      <span id="profileNav" style="display:none;">
+        <a
+          href="profile.html"
+          class="nav-profile"
+        >
+          Profile
+        </a>
+      </span>
 
-  <form id="loginForm">
 
-    <div class="field">
+      <!-- HOME -->
+      <a href="index.html">
+        Home
+      </a>
 
-      <label for="phone">
-        Phone Number
-      </label>
 
-      <input
-        type="tel"
-        id="phone"
-        placeholder="e.g. 0781234567"
-        autocomplete="tel"
-        required
+      <!-- CASINO -->
+      <a href="casino.html">
+        Casino
+      </a>
+
+
+      <!-- LOGGED IN -->
+      <span
+        id="loggedInNav"
+        style="display:none;"
       >
 
-    </div>
+        <a href="balance.html">
+          Balance
+        </a>
 
-    <div class="field">
+        <a href="bonus.html">
+          Bonus Balance
+        </a>
 
-      <label for="password">
-        Password
-      </label>
+        <a href="deposit.html">
+          Deposit
+        </a>
 
-      <input
-        type="password"
-        id="password"
-        placeholder="Enter your password"
-        autocomplete="current-password"
-        required
+        <a href="withdraw.html">
+          Withdraw
+        </a>
+
+      </span>
+
+
+      <!-- LOGGED OUT -->
+      <span
+        id="loggedOutNav"
+        style="display:inline-flex; align-items:center; gap:10px;"
       >
 
+        <a
+          href="login.html"
+          class="nav-btn login-btn"
+        >
+          Login
+        </a>
+
+        <a
+          href="register.html"
+          class="nav-btn register-btn"
+        >
+          Register
+        </a>
+
+      </span>
+
+    </nav>
+
+  </header>
+
+
+  <main class="container">
+
+
+    <!-- =========================
+         PROMOTION
+    ========================== -->
+
+    <section class="promo">
+
+      <div class="promo-content">
+
+        <div class="promo-icon">
+          🎁
+        </div>
+
+        <div>
+
+          <h3>
+            Deposit over 5,000 RWF and get 40% bonus
+          </h3>
+
+          <p>
+            Boost your balance and enjoy more with BetKigali.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <!--
+        This link is changed by JavaScript.
+
+        Logged OUT  → register.html
+        Logged IN   → deposit.html
+      -->
+
+      <a
+        href="register.html"
+        id="promoButton"
+        class="promo-btn"
+      >
+        Claim Bonus
+      </a>
+
+    </section>
+
+
+    <!-- =========================
+         HERO
+    ========================== -->
+
+    <section class="hero">
+
+      <h1>
+        Welcome to <span>BetKigali</span>
+      </h1>
+
+      <p>
+        Your entertainment platform for casino games
+        and exciting rewards.
+        Bet. Win. Enjoy.
+      </p>
+
+
+      <div class="hero-buttons">
+
+        <!-- Logged OUT -->
+        <a
+          href="register.html"
+          class="hero-btn primary"
+          id="registerHero"
+        >
+          Create Account
+        </a>
+
+
+        <a
+          href="casino.html"
+          class="hero-btn secondary"
+        >
+          Explore Casino
+        </a>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         LOADING
+    ========================== -->
+
+    <div id="pageLoading">
+      Checking your account...
     </div>
 
-    <button
-      type="submit"
-      id="loginBtn"
-      class="login-btn"
+
+    <!-- =========================
+         ACCOUNT AREA
+    ========================== -->
+
+    <section
+      id="accountArea"
+      class="account-box"
+      style="display:none;"
     >
-      Login
-    </button>
 
-    <div id="loading" class="loading">
-      Logging you in...
+      <div class="account-title">
+
+        <h2>
+          💰 Your Account
+        </h2>
+
+      </div>
+
+
+      <div class="account-balances">
+
+
+        <div class="balance-item">
+
+          <div class="balance-label">
+            Balance
+          </div>
+
+          <div
+            class="balance"
+            id="userBalance"
+          >
+            0 RWF
+          </div>
+
+        </div>
+
+
+        <div class="balance-item">
+
+          <div class="balance-label">
+            Bonus Balance
+          </div>
+
+          <div
+            class="balance bonus"
+            id="userBonusBalance"
+          >
+            0 RWF
+          </div>
+
+        </div>
+
+
+      </div>
+
+
+      <div class="account-actions">
+
+        <a
+          href="deposit.html"
+          class="deposit"
+        >
+          + Deposit
+        </a>
+
+
+        <a
+          href="withdraw.html"
+          class="withdraw"
+        >
+          Withdraw
+        </a>
+
+
+        <a
+          href="bonus.html"
+          class="bonus-btn"
+        >
+          Bonus Balance
+        </a>
+
+
+        <a
+          href="profile.html"
+          class="view-profile"
+        >
+          Profile
+        </a>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         SERVICES
+    ========================== -->
+
+    <h2 class="section-title">
+      <span>BetKigali</span> Services
+    </h2>
+
+
+    <section class="cards">
+
+
+      <!-- CASINO -->
+
+      <div class="card">
+
+        <div class="card-icon">
+          🎰
+        </div>
+
+        <h3>
+          Casino
+        </h3>
+
+        <p>
+          Enjoy exciting casino games
+          and discover new ways to play.
+        </p>
+
+        <a href="casino.html">
+          Enter Casino →
+        </a>
+
+      </div>
+
+
+      <!-- DEPOSIT -->
+
+      <div class="card">
+
+        <div class="card-icon">
+          💰
+        </div>
+
+        <h3>
+          Easy Deposits
+        </h3>
+
+        <p>
+          Deposit funds easily and securely
+          and start enjoying BetKigali.
+        </p>
+
+        <a
+          href="register.html"
+          id="depositCardLink"
+        >
+          Deposit Now →
+        </a>
+
+      </div>
+
+
+      <!-- BONUS -->
+
+      <div class="card">
+
+        <div class="card-icon">
+          🎁
+        </div>
+
+        <h3>
+          Bonuses & Rewards
+        </h3>
+
+        <p>
+          Deposit over 5,000 RWF and get
+          a 40% bonus according to the promotion.
+        </p>
+
+        <a
+          href="register.html"
+          id="bonusCardLink"
+        >
+          Get Bonus →
+        </a>
+
+      </div>
+
+
+    </section>
+
+  </main>
+
+
+  <!-- =========================
+       FOOTER
+  ========================== -->
+
+  <footer>
+
+    <div class="footer-inner">
+
+      <div>
+
+        <div class="footer-logo">
+          BetKigali
+        </div>
+
+        <div class="footer-text">
+          Bet • Win • Enjoy
+        </div>
+
+      </div>
+
+
+      <div class="footer-links">
+
+        <a href="index.html">
+          Home
+        </a>
+
+        <a href="casino.html">
+          Casino
+        </a>
+
+        <a href="login.html">
+          Login
+        </a>
+
+        <a href="register.html">
+          Register
+        </a>
+
+        <a href="#">
+          Terms
+        </a>
+
+        <a href="#">
+          Privacy
+        </a>
+
+      </div>
+
     </div>
 
-  </form>
-
-  <div class="register-link">
-    Don't have an account?
-    <a href="register.html">
-      Create Account
-    </a>
-  </div>
-
-  <div class="back-home">
-    <a href="index.html">
-      ← Back to Home
-    </a>
-  </div>
-
-  <div class="note">
-    Your BetKigali account is protected by Supabase Authentication.
-  </div>
-
-</div>
+  </footer>
 
 
-<script>
+  <script>
 
-  /* =========================================
-     SUPABASE CONFIG
-  ========================================= */
+    /* =========================================
+       SUPABASE CONFIGURATION
+    ========================================= */
 
-  const SUPABASE_URL =
-    "https://nezgaxfisytlgkhdgzvf.supabase.co";
+    const SUPABASE_URL =
+      "https://nezgaxfisytlgkhdgzvf.supabase.co";
 
-  const SUPABASE_KEY =
-    "sb_publishable_H1N6DRzZ0t25MARQP5yaPQ_l6mRsrVGs";
-
-
-  const supabase =
-    window.supabase.createClient(
-      SUPABASE_URL,
-      SUPABASE_KEY
-    );
+    const SUPABASE_KEY =
+      "sb_publishable_H1N6DRzZ0t25MARQP5yaPQ_l6mRsrVGs";
 
 
-  /* =========================================
-     ELEMENTS
-  ========================================= */
-
-  const form =
-    document.getElementById("loginForm");
-
-  const phoneInput =
-    document.getElementById("phone");
-
-  const passwordInput =
-    document.getElementById("password");
-
-  const loginBtn =
-    document.getElementById("loginBtn");
-
-  const messageBox =
-    document.getElementById("message");
-
-  const loading =
-    document.getElementById("loading");
+    const supabase =
+      window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+      );
 
 
-  /* =========================================
-     MESSAGE
-  ========================================= */
+    /* =========================================
+       ELEMENTS
+    ========================================= */
 
-  function showMessage(text, type) {
+    const profileNav =
+      document.getElementById(
+        "profileNav"
+      );
 
-    messageBox.textContent = text;
+    const loggedInNav =
+      document.getElementById(
+        "loggedInNav"
+      );
 
-    if (!text) {
-      messageBox.className = "message";
-      return;
+    const loggedOutNav =
+      document.getElementById(
+        "loggedOutNav"
+      );
+
+    const accountArea =
+      document.getElementById(
+        "accountArea"
+      );
+
+    const userBalance =
+      document.getElementById(
+        "userBalance"
+      );
+
+    const userBonusBalance =
+      document.getElementById(
+        "userBonusBalance"
+      );
+
+    const pageLoading =
+      document.getElementById(
+        "pageLoading"
+      );
+
+    const promoButton =
+      document.getElementById(
+        "promoButton"
+      );
+
+    const registerHero =
+      document.getElementById(
+        "registerHero"
+      );
+
+    const depositCardLink =
+      document.getElementById(
+        "depositCardLink"
+      );
+
+    const bonusCardLink =
+      document.getElementById(
+        "bonusCardLink"
+      );
+
+
+    /* =========================================
+       FORMAT MONEY
+    ========================================= */
+
+    function formatRWF(amount) {
+
+      const number =
+        Number(amount || 0);
+
+      return (
+        number.toLocaleString(
+          "en-US"
+        ) +
+        " RWF"
+      );
+
     }
 
-    messageBox.className =
-      "message " + type;
-  }
+
+    /* =========================================
+       SHOW LOGGED OUT
+    ========================================= */
+
+    function showLoggedOut() {
+
+      profileNav.style.display =
+        "none";
+
+      loggedInNav.style.display =
+        "none";
+
+      loggedOutNav.style.display =
+        "inline-flex";
+
+      accountArea.style.display =
+        "none";
 
 
-  /* =========================================
-     PHONE FORMAT
-  ========================================= */
+      /*
+        Promotion sends visitor
+        to registration.
+      */
 
-  function normalizePhone(value) {
+      promoButton.href =
+        "register.html";
 
-    let phone =
-      value
-        .trim()
-        .replace(/\s+/g, "");
+      promoButton.textContent =
+        "Create Account";
 
-    if (phone.startsWith("+250")) {
-      phone = phone.substring(1);
+
+      /*
+        Hero.
+      */
+
+      registerHero.style.display =
+        "inline-block";
+
+
+      /*
+        Deposit/Bonus cards.
+      */
+
+      depositCardLink.href =
+        "register.html";
+
+      depositCardLink.textContent =
+        "Create Account →";
+
+
+      bonusCardLink.href =
+        "register.html";
+
+      bonusCardLink.textContent =
+        "Create Account →";
+
+
+      pageLoading.style.display =
+        "none";
+
     }
 
-    if (phone.startsWith("0")) {
-      phone =
-        "250" + phone.substring(1);
+
+    /* =========================================
+       SHOW LOGGED IN
+    ========================================= */
+
+    function showLoggedIn(
+      profile
+    ) {
+
+      profileNav.style.display =
+        "inline-flex";
+
+
+      loggedInNav.style.display =
+        "inline-flex";
+
+
+      loggedOutNav.style.display =
+        "none";
+
+
+      accountArea.style.display =
+        "block";
+
+
+      /*
+        BALANCE
+      */
+
+      userBalance.textContent =
+        formatRWF(
+          profile.balance
+        );
+
+
+      /*
+        BONUS BALANCE
+      */
+
+      userBonusBalance.textContent =
+        formatRWF(
+          profile.bonus_balance
+        );
+
+
+      /*
+        Promotion now goes
+        directly to deposit.
+      */
+
+      promoButton.href =
+        "deposit.html";
+
+      promoButton.textContent =
+        "Deposit Now";
+
+
+      /*
+        Hide create account
+        button because user is
+        already logged in.
+      */
+
+      registerHero.style.display =
+        "none";
+
+
+      /*
+        Deposit card.
+      */
+
+      depositCardLink.href =
+        "deposit.html";
+
+      depositCardLink.textContent =
+        "Deposit Now →";
+
+
+      /*
+        Bonus card.
+      */
+
+      bonusCardLink.href =
+        "deposit.html";
+
+      bonusCardLink.textContent =
+        "Get Bonus →";
+
+
+      pageLoading.style.display =
+        "none";
+
     }
 
-    return phone;
-  }
 
+    /* =========================================
+       LOAD CURRENT USER
+    ========================================= */
 
-  /* =========================================
-     INTERNAL EMAIL
-  ========================================= */
-
-  function makeAuthEmail(phone) {
-
-    return (
-      phone +
-      "@auth.betkigali.local"
-    );
-  }
-
-
-  /* =========================================
-     SAVE LOGIN
-  ========================================= */
-
-  function saveUser(user, profile) {
-
-    /*
-      IMPORTANT:
-      index.html uses betkigaliUser.
-    */
-
-    const userData = {
-
-      id: user.id,
-
-      user_id: user.id,
-
-      phone:
-        profile?.phone || "",
-
-      balance:
-        Number(profile?.balance || 0),
-
-      bonus_balance:
-        Number(profile?.bonus_balance || 0),
-
-      role:
-        profile?.role || "customer"
-
-    };
-
-
-    localStorage.setItem(
-      "betkigaliUser",
-      JSON.stringify(userData)
-    );
-
-
-    localStorage.setItem(
-      "betkigaliProfile",
-      JSON.stringify(userData)
-    );
-
-
-    localStorage.setItem(
-      "betkigaliLoggedIn",
-      "true"
-    );
-
-
-    /*
-      Keep Supabase session in browser.
-    */
-
-    return userData;
-  }
-
-
-  /* =========================================
-     LOGIN
-  ========================================= */
-
-  form.addEventListener(
-    "submit",
-    async function(event) {
-
-      event.preventDefault();
-
-      showMessage("", "");
-
-      loginBtn.disabled = true;
-
-      loading.style.display = "block";
-
+    async function loadCurrentUser() {
 
       try {
 
-        /* -----------------------------
-           GET VALUES
-        ----------------------------- */
+        /*
+          Ask Supabase for the
+          REAL current session.
+        */
 
-        const rawPhone =
-          phoneInput.value;
-
-        const password =
-          passwordInput.value;
-
-
-        /* -----------------------------
-           NORMALIZE PHONE
-        ----------------------------- */
-
-        const phone =
-          normalizePhone(rawPhone);
+        const {
+          data: sessionData,
+          error: sessionError
+        } =
+          await supabase.auth.getSession();
 
 
-        /* -----------------------------
-           VALIDATE
-        ----------------------------- */
+        if (sessionError) {
 
-        if (!phone) {
-
-          throw new Error(
-            "Please enter your phone number."
+          console.error(
+            "Session error:",
+            sessionError
           );
 
-        }
+          showLoggedOut();
 
-
-        if (phone.length < 9) {
-
-          throw new Error(
-            "Please enter a valid Rwanda phone number."
-          );
+          return;
 
         }
 
 
-        if (!password) {
-
-          throw new Error(
-            "Please enter your password."
-          );
-
-        }
+        const session =
+          sessionData?.session;
 
 
-        /* -----------------------------
-           INTERNAL EMAIL
-        ----------------------------- */
+        /*
+          No session.
+        */
 
-        const authEmail =
-          makeAuthEmail(phone);
+        if (
+          !session ||
+          !session.user
+        ) {
 
+          showLoggedOut();
 
-        /* -----------------------------
-           SUPABASE LOGIN
-        ----------------------------- */
-
-        const result =
-          await supabase.auth.signInWithPassword({
-
-            email: authEmail,
-
-            password: password
-
-          });
-
-
-        const data =
-          result.data;
-
-        const error =
-          result.error;
-
-
-        if (error) {
-          throw error;
-        }
-
-
-        if (!data || !data.user) {
-
-          throw new Error(
-            "Login failed. User was not found."
-          );
+          return;
 
         }
 
 
-        /* -----------------------------
-           GET PROFILE
-        ----------------------------- */
-
-        let profile = null;
+        const user =
+          session.user;
 
 
-        const profileResult =
+        /*
+          Get profile from Supabase.
+        */
+
+        const {
+          data: profile,
+          error: profileError
+        } =
           await supabase
             .from("profiles")
             .select(
@@ -547,202 +1343,259 @@
             )
             .eq(
               "id",
-              data.user.id
+              user.id
             )
             .maybeSingle();
 
 
-        if (profileResult.error) {
+        if (profileError) {
 
           console.error(
-            "Profile error:",
-            profileResult.error
+            "Profile loading error:",
+            profileError
           );
 
+
           /*
-            Authentication succeeded,
-            so we can still continue.
+            Authentication exists,
+            but profile could not be loaded.
+
+            Keep the user logged in and
+            use zero balances temporarily.
           */
 
-          profile = {
+          const fallbackProfile = {
 
-            id: data.user.id,
+            id: user.id,
 
-            phone: phone,
+            phone:
+              user.user_metadata?.phone || "",
 
-            balance: 0,
+            profile_picture:
+              "",
 
-            bonus_balance: 0,
+            balance:
+              0,
 
-            role: "customer"
+            bonus_balance:
+              0,
+
+            role:
+              "customer"
 
           };
 
-        } else {
 
-          profile =
-            profileResult.data;
+          localStorage.setItem(
+            "betkigaliUser",
+            JSON.stringify(
+              fallbackProfile
+            )
+          );
 
 
-          if (!profile) {
+          localStorage.setItem(
+            "betkigaliProfile",
+            JSON.stringify(
+              fallbackProfile
+            )
+          );
 
-            profile = {
 
-              id: data.user.id,
+          localStorage.setItem(
+            "betkigaliLoggedIn",
+            "true"
+          );
 
-              phone: phone,
 
-              balance: 0,
+          showLoggedIn(
+            fallbackProfile
+          );
 
-              bonus_balance: 0,
-
-              role: "customer"
-
-            };
-
-          }
+          return;
 
         }
 
 
-        /* -----------------------------
-           SAVE USER LOCALLY
-        ----------------------------- */
+        /*
+          If profile doesn't exist.
+        */
 
-        saveUser(
-          data.user,
-          profile
-        );
+        if (!profile) {
+
+          const fallbackProfile = {
+
+            id: user.id,
+
+            phone:
+              user.user_metadata?.phone || "",
+
+            profile_picture:
+              "",
+
+            balance:
+              0,
+
+            bonus_balance:
+              0,
+
+            role:
+              "customer"
+
+          };
 
 
-        /* -----------------------------
-           SUCCESS
-        ----------------------------- */
-
-        showMessage(
-          "Login successful. Opening BetKigali...",
-          "success"
-        );
+          localStorage.setItem(
+            "betkigaliUser",
+            JSON.stringify(
+              fallbackProfile
+            )
+          );
 
 
-        loading.textContent =
-          "Opening BetKigali...";
+          localStorage.setItem(
+            "betkigaliProfile",
+            JSON.stringify(
+              fallbackProfile
+            )
+          );
+
+
+          localStorage.setItem(
+            "betkigaliLoggedIn",
+            "true"
+          );
+
+
+          showLoggedIn(
+            fallbackProfile
+          );
+
+          return;
+
+        }
 
 
         /*
-          Redirect immediately.
+          Save the newest profile locally
+          so other pages can use it.
         */
 
-        window.location.replace(
-          "index.html"
+        const userData = {
+
+          id:
+            profile.id,
+
+          user_id:
+            profile.id,
+
+          phone:
+            profile.phone || "",
+
+          profile_picture:
+            profile.profile_picture || "",
+
+          balance:
+            Number(
+              profile.balance || 0
+            ),
+
+          bonus_balance:
+            Number(
+              profile.bonus_balance || 0
+            ),
+
+          role:
+            profile.role || "customer",
+
+          created_at:
+            profile.created_at || ""
+
+        };
+
+
+        localStorage.setItem(
+          "betkigaliUser",
+          JSON.stringify(
+            userData
+          )
         );
 
+
+        localStorage.setItem(
+          "betkigaliProfile",
+          JSON.stringify(
+            userData
+          )
+        );
+
+
+        localStorage.setItem(
+          "betkigaliLoggedIn",
+          "true"
+        );
+
+
+        /*
+          Finally show logged-in page.
+        */
+
+        showLoggedIn(
+          userData
+        );
 
       } catch (error) {
 
         console.error(
-          "LOGIN ERROR:",
+          "Account loading error:",
           error
         );
 
-
-        let errorMessage =
-          error?.message ||
-          "Login failed. Please try again.";
-
-
-        const lower =
-          errorMessage.toLowerCase();
-
-
-        if (
-          lower.includes(
-            "invalid login credentials"
-          )
-        ) {
-
-          errorMessage =
-            "Incorrect phone number or password.";
-
-        }
-
-
-        if (
-          lower.includes(
-            "email not confirmed"
-          )
-        ) {
-
-          errorMessage =
-            "Your account has not been confirmed yet.";
-
-        }
-
-
-        showMessage(
-          errorMessage,
-          "error"
-        );
-
-
-      } finally {
-
-        loginBtn.disabled = false;
-
-        loading.style.display =
-          "none";
+        showLoggedOut();
 
       }
 
     }
-  );
 
 
-  /* =========================================
-     CHECK EXISTING SESSION
-  ========================================= */
+    /* =========================================
+       AUTH STATE LISTENER
+    ========================================= */
 
-  async function checkSession() {
-
-    try {
-
-      const result =
-        await supabase.auth.getSession();
-
-      const session =
-        result.data?.session;
-
-
-      if (
-        session &&
-        session.user
-      ) {
+    supabase.auth.onAuthStateChange(
+      function(event, session) {
 
         /*
-          Already logged in.
+          When login/register succeeds,
+          Supabase changes the session.
+
+          This makes index update automatically.
         */
 
-        window.location.replace(
-          "index.html"
-        );
+        if (
+          session &&
+          session.user
+        ) {
+
+          loadCurrentUser();
+
+        } else {
+
+          showLoggedOut();
+
+        }
 
       }
-
-    } catch (error) {
-
-      console.error(
-        "SESSION ERROR:",
-        error
-      );
-
-    }
-
-  }
+    );
 
 
-  checkSession();
+    /* =========================================
+       START
+    ========================================= */
 
-</script>
+    loadCurrentUser();
+
+  </script>
 
 </body>
 </html>
