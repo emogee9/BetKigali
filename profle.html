@@ -1,0 +1,716 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>BetKigali - Profile</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --black: #07090d;
+      --black2: #0d1117;
+      --card: #11161d;
+      --border: #242c35;
+      --gold: #f5c542;
+      --gold2: #ffd966;
+      --white: #ffffff;
+      --muted: #9ca7b3;
+      --red: #dc2626;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--black);
+      color: var(--white);
+      min-height: 100vh;
+    }
+
+    /* =========================
+       HEADER
+    ========================= */
+
+    header {
+      background: #090d12;
+      border-bottom: 1px solid var(--border);
+      min-height: 86px;
+      padding: 10px 28px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    .logo img {
+      width: 125px;
+      max-height: 70px;
+      object-fit: contain;
+      display: block;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+    }
+
+    nav a {
+      color: #d8dee6;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: bold;
+      white-space: nowrap;
+      transition: .2s;
+    }
+
+    nav a:hover {
+      color: var(--gold);
+    }
+
+    .active {
+      color: var(--gold) !important;
+    }
+
+    /* =========================
+       PAGE
+    ========================= */
+
+    .container {
+      width: min(700px, 94%);
+      margin: auto;
+      padding: 35px 0 50px;
+    }
+
+    .page-title {
+      margin-bottom: 22px;
+    }
+
+    .page-title h1 {
+      color: var(--gold);
+      font-size: 28px;
+      margin-bottom: 7px;
+    }
+
+    .page-title p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* =========================
+       PROFILE CARD
+    ========================= */
+
+    .profile-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+    }
+
+    .profile-header {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 20px;
+      margin-bottom: 20px;
+    }
+
+    .profile-header h2 {
+      font-size: 20px;
+      margin-bottom: 6px;
+    }
+
+    .profile-header p {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* =========================
+       INFORMATION
+    ========================= */
+
+    .info-box {
+      background: #0c1015;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 12px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+    }
+
+    .info-label {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .info-value {
+      font-size: 15px;
+      font-weight: bold;
+      text-align: right;
+      word-break: break-word;
+    }
+
+    .gold {
+      color: var(--gold);
+    }
+
+    /* =========================
+       ACTIONS
+    ========================= */
+
+    .actions {
+      margin-top: 25px;
+
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .action-btn {
+      display: block;
+      text-align: center;
+      text-decoration: none;
+
+      padding: 12px;
+      border-radius: 8px;
+
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .deposit-btn {
+      background: var(--gold);
+      color: #111;
+    }
+
+    .deposit-btn:hover {
+      background: var(--gold2);
+    }
+
+    .logout-btn {
+      background: var(--red);
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    .logout-btn:hover {
+      opacity: .9;
+    }
+
+    /* =========================
+       STATUS
+    ========================= */
+
+    #status {
+      margin-top: 15px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media (max-width: 750px) {
+
+      header {
+        padding: 10px 15px;
+        flex-wrap: wrap;
+      }
+
+      .logo img {
+        width: 105px;
+        max-height: 58px;
+      }
+
+      nav {
+        width: 100%;
+        justify-content: flex-start;
+        gap: 15px;
+        padding-top: 8px;
+        overflow-x: auto;
+      }
+
+      nav a {
+        font-size: 12px;
+      }
+
+      .container {
+        padding-top: 25px;
+      }
+    }
+
+    @media (max-width: 500px) {
+
+      .actions {
+        grid-template-columns: 1fr;
+      }
+
+      .info-box {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .info-value {
+        text-align: left;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+
+  <a href="index.html" class="logo">
+    <img src="betkigali-logo.png" alt="BetKigali">
+  </a>
+
+  <nav>
+
+    <a href="profile.html" class="active">
+      Profile
+    </a>
+
+    <a href="index.html">
+      Home
+    </a>
+
+    <a href="casino.html">
+      Casino
+    </a>
+
+    <a href="balance.html">
+      Balance
+    </a>
+
+    <a href="bonus.html">
+      Bonus Balance
+    </a>
+
+    <a href="deposit.html">
+      Deposit
+    </a>
+
+    <a href="withdraw.html">
+      Withdraw
+    </a>
+
+  </nav>
+
+</header>
+
+
+<main class="container">
+
+  <div class="page-title">
+
+    <h1>
+      My Profile
+    </h1>
+
+    <p>
+      Manage your BetKigali account.
+    </p>
+
+  </div>
+
+
+  <section class="profile-card">
+
+    <div class="profile-header">
+
+      <h2>
+        Account Information
+      </h2>
+
+      <p>
+        Your account details and balances.
+      </p>
+
+    </div>
+
+
+    <!-- PHONE -->
+
+    <div class="info-box">
+
+      <div class="info-label">
+        Phone Number
+      </div>
+
+      <div
+        class="info-value"
+        id="phone"
+      >
+        Loading...
+      </div>
+
+    </div>
+
+
+    <!-- BALANCE -->
+
+    <div class="info-box">
+
+      <div class="info-label">
+        Balance
+      </div>
+
+      <div
+        class="info-value gold"
+        id="balance"
+      >
+        0 RWF
+      </div>
+
+    </div>
+
+
+    <!-- BONUS BALANCE -->
+
+    <div class="info-box">
+
+      <div class="info-label">
+        Bonus Balance
+      </div>
+
+      <div
+        class="info-value gold"
+        id="bonusBalance"
+      >
+        0 RWF
+      </div>
+
+    </div>
+
+
+    <div class="actions">
+
+      <a
+        href="deposit.html"
+        class="action-btn deposit-btn"
+      >
+        + Deposit
+      </a>
+
+      <button
+        type="button"
+        class="action-btn logout-btn"
+        id="logoutButton"
+      >
+        Logout
+      </button>
+
+    </div>
+
+
+    <div id="status"></div>
+
+  </section>
+
+</main>
+
+
+<script>
+
+  /*
+  ==========================================
+    BETKIGALI SUPABASE
+  ==========================================
+  */
+
+  const SUPABASE_URL =
+    "https://nezgaxfisytlgkhdgzvf.supabase.co";
+
+  /*
+    IMPORTANT:
+    Replace the value below with your
+    Supabase Publishable key.
+  */
+
+  const SUPABASE_KEY =
+    "YOUR_SUPABASE_PUBLISHABLE_KEY";
+
+
+  /*
+  ==========================================
+    GET USER FROM LOCAL STORAGE
+  ==========================================
+  */
+
+  function getLoggedInUser() {
+
+    const possibleKeys = [
+      "betkigaliUser",
+      "currentUser",
+      "loggedInUser",
+      "user"
+    ];
+
+    for (const key of possibleKeys) {
+
+      const value =
+        localStorage.getItem(key);
+
+      if (!value) {
+        continue;
+      }
+
+      try {
+
+        const user =
+          JSON.parse(value);
+
+        if (
+          user &&
+          (
+            user.id ||
+            user.user_id ||
+            user.phone
+          )
+        ) {
+          return user;
+        }
+
+      } catch (error) {
+        console.log(error);
+      }
+
+    }
+
+    return null;
+  }
+
+
+  /*
+  ==========================================
+    LOAD PROFILE
+  ==========================================
+  */
+
+  async function loadProfile() {
+
+    const user =
+      getLoggedInUser();
+
+    /*
+      If not logged in,
+      go to login page.
+    */
+
+    if (!user) {
+
+      window.location.href =
+        "login.html";
+
+      return;
+
+    }
+
+
+    /*
+      Get Supabase Auth user ID.
+    */
+
+    const userId =
+      user.id ||
+      user.user_id;
+
+
+    if (!userId) {
+
+      document.getElementById(
+        "status"
+      ).textContent =
+        "Your account session is incomplete.";
+
+      return;
+
+    }
+
+
+    /*
+      Load profile from Supabase.
+    */
+
+    try {
+
+      const response =
+        await fetch(
+          `${SUPABASE_URL}/rest/v1/profiles?id=eq.${encodeURIComponent(userId)}&select=id,phone,balance,bonus_balance`,
+          {
+            method: "GET",
+
+            headers: {
+              "apikey": SUPABASE_KEY,
+              "Authorization":
+                `Bearer ${SUPABASE_KEY}`,
+              "Content-Type":
+                "application/json"
+            }
+          }
+        );
+
+
+      if (!response.ok) {
+
+        throw new Error(
+          "Could not load profile."
+        );
+
+      }
+
+
+      const profiles =
+        await response.json();
+
+
+      if (
+        !Array.isArray(profiles) ||
+        profiles.length === 0
+      ) {
+
+        document.getElementById(
+          "status"
+        ).textContent =
+          "Profile information was not found.";
+
+        return;
+
+      }
+
+
+      const profile =
+        profiles[0];
+
+
+      /*
+        PHONE
+      */
+
+      document.getElementById(
+        "phone"
+      ).textContent =
+        profile.phone || "Not available";
+
+
+      /*
+        BALANCE
+      */
+
+      document.getElementById(
+        "balance"
+      ).textContent =
+        Number(
+          profile.balance || 0
+        ).toLocaleString() +
+        " RWF";
+
+
+      /*
+        BONUS BALANCE
+      */
+
+      document.getElementById(
+        "bonusBalance"
+      ).textContent =
+        Number(
+          profile.bonus_balance || 0
+        ).toLocaleString() +
+        " RWF";
+
+
+    } catch (error) {
+
+      console.error(error);
+
+      document.getElementById(
+        "status"
+      ).textContent =
+        "Unable to load your profile. Please try again.";
+
+    }
+
+  }
+
+
+  /*
+  ==========================================
+    LOGOUT
+  ==========================================
+  */
+
+  document.getElementById(
+    "logoutButton"
+  ).addEventListener(
+    "click",
+    function () {
+
+      /*
+        Remove all possible login
+        storage keys.
+      */
+
+      localStorage.removeItem(
+        "betkigaliUser"
+      );
+
+      localStorage.removeItem(
+        "currentUser"
+      );
+
+      localStorage.removeItem(
+        "loggedInUser"
+      );
+
+      localStorage.removeItem(
+        "user"
+      );
+
+
+      /*
+        Return to login.
+      */
+
+      window.location.href =
+        "login.html";
+
+    }
+  );
+
+
+  /*
+  ==========================================
+    START
+  ==========================================
+  */
+
+  loadProfile();
+
+</script>
+
+</body>
+</html>
+```
