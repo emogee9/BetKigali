@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,24 +21,19 @@
       background: #080b0f;
       color: white;
       font-family: Arial, sans-serif;
-
       display: flex;
       align-items: center;
       justify-content: center;
-
       padding: 20px;
     }
 
     .register-box {
       width: 100%;
       max-width: 420px;
-
       background: #11171e;
       border: 1px solid #242d37;
       border-radius: 16px;
-
       padding: 30px;
-
       box-shadow: 0 10px 30px rgba(0,0,0,.35);
     }
 
@@ -81,13 +77,10 @@
     input {
       width: 100%;
       padding: 14px;
-
       background: #080b0f;
       color: white;
-
       border: 1px solid #303a46;
       border-radius: 9px;
-
       outline: none;
       font-size: 15px;
     }
@@ -98,18 +91,13 @@
 
     .register-btn {
       width: 100%;
-
       padding: 14px;
-
       background: #f5c542;
       color: #080b0f;
-
       border: none;
       border-radius: 9px;
-
       font-size: 16px;
       font-weight: bold;
-
       cursor: pointer;
     }
 
@@ -124,12 +112,9 @@
 
     .message {
       display: none;
-
       margin-bottom: 18px;
       padding: 12px;
-
       border-radius: 8px;
-
       font-size: 14px;
       line-height: 1.4;
     }
@@ -222,7 +207,6 @@
   <form id="registerForm">
 
     <div class="field">
-
       <label for="phone">
         Phone Number
       </label>
@@ -234,12 +218,9 @@
         autocomplete="tel"
         required
       >
-
     </div>
 
-
     <div class="field">
-
       <label for="password">
         Password
       </label>
@@ -252,12 +233,9 @@
         minlength="6"
         required
       >
-
     </div>
 
-
     <div class="field">
-
       <label for="confirmPassword">
         Confirm Password
       </label>
@@ -270,9 +248,7 @@
         minlength="6"
         required
       >
-
     </div>
-
 
     <button
       type="submit"
@@ -282,13 +258,11 @@
       Create Account
     </button>
 
-
     <div id="loading" class="loading">
       Creating your account...
     </div>
 
   </form>
-
 
   <div class="login-link">
     Already have an account?
@@ -297,13 +271,11 @@
     </a>
   </div>
 
-
   <div class="back-home">
     <a href="index.html">
       ← Back to Home
     </a>
   </div>
-
 
   <div class="note">
     Your account starts with 0 FRW balance
@@ -311,8 +283,10 @@
   </div>
 
 </div>
-```html
+
+
 <script>
+
 /* =========================================
    SUPABASE CONFIG
 ========================================= */
@@ -375,7 +349,7 @@ function showMessage(text, type) {
 
 
 /* =========================================
-   NORMALIZE PHONE
+   PHONE
 ========================================= */
 
 function normalizePhone(value) {
@@ -399,7 +373,7 @@ function normalizePhone(value) {
 
 
 /* =========================================
-   INTERNAL AUTH EMAIL
+   INTERNAL EMAIL
 ========================================= */
 
 function makeAuthEmail(phone) {
@@ -419,9 +393,11 @@ function saveUser(user, profile) {
 
   const userData = {
 
-    id: user.id,
+    id:
+      user.id,
 
-    user_id: user.id,
+    user_id:
+      user.id,
 
     phone:
       profile?.phone || "",
@@ -446,15 +422,18 @@ function saveUser(user, profile) {
     JSON.stringify(userData)
   );
 
+
   localStorage.setItem(
     "betkigaliProfile",
     JSON.stringify(userData)
   );
 
+
   localStorage.setItem(
     "betkigaliLoggedIn",
     "true"
   );
+
 
   return userData;
 }
@@ -470,11 +449,15 @@ form.addEventListener(
 
     event.preventDefault();
 
+
     showMessage("", "");
 
-    registerBtn.disabled = true;
 
-    loading.style.display = "block";
+    registerBtn.disabled =
+      true;
+
+    loading.style.display =
+      "block";
 
     loading.textContent =
       "Creating your account...";
@@ -499,16 +482,8 @@ form.addEventListener(
 
 
       /* -------------------------------------
-         VALIDATION
+         VALIDATE PHONE
       ------------------------------------- */
-
-      if (!phone) {
-
-        throw new Error(
-          "Please enter your phone number."
-        );
-
-      }
 
       if (
         phone.length !== 12 ||
@@ -521,7 +496,14 @@ form.addEventListener(
 
       }
 
-      if (password.length < 6) {
+
+      /* -------------------------------------
+         VALIDATE PASSWORD
+      ------------------------------------- */
+
+      if (
+        password.length < 6
+      ) {
 
         throw new Error(
           "Password must contain at least 6 characters."
@@ -529,8 +511,10 @@ form.addEventListener(
 
       }
 
+
       if (
-        password !== confirmPassword
+        password !==
+        confirmPassword
       ) {
 
         throw new Error(
@@ -541,16 +525,22 @@ form.addEventListener(
 
 
       /* -------------------------------------
-         INTERNAL EMAIL
+         AUTH EMAIL
       ------------------------------------- */
 
       const authEmail =
-        makeAuthEmail(phone);
+        makeAuthEmail(
+          phone
+        );
 
 
       /* -------------------------------------
-         CREATE AUTH ACCOUNT
+         CREATE AUTH USER
       ------------------------------------- */
+
+      loading.textContent =
+        "Creating your account...";
+
 
       const {
         data,
@@ -558,14 +548,19 @@ form.addEventListener(
       } =
         await supabase.auth.signUp({
 
-          email: authEmail,
+          email:
+            authEmail,
 
-          password: password,
+          password:
+            password,
 
           options: {
 
             data: {
-              phone: phone
+
+              phone:
+                phone
+
             }
 
           }
@@ -591,17 +586,12 @@ form.addEventListener(
 
 
       /* -------------------------------------
-         CHECK SESSION
+         SESSION
       ------------------------------------- */
 
       let session =
         data.session;
 
-
-      /*
-        If Supabase did not return a session,
-        check again.
-      */
 
       if (!session) {
 
@@ -615,14 +605,14 @@ form.addEventListener(
 
 
       /*
-        Without a session, the INSERT policy
-        on profiles cannot authorize the user.
+        We need an active session because
+        profiles INSERT uses auth.uid().
       */
 
       if (!session) {
 
         throw new Error(
-          "Account was created, but automatic login is disabled. Please turn OFF Email Confirmation in Supabase Authentication → Sign In / Providers → Email, then try again."
+          "Account was created, but automatic login is disabled. Turn OFF Email Confirmation in Supabase Authentication settings, then try again."
         );
 
       }
@@ -636,48 +626,53 @@ form.addEventListener(
         "Creating your profile...";
 
 
-      const {
-        data: profile,
-        error: profileError
-      } =
+      const profileResult =
         await supabase
           .from("profiles")
           .insert({
 
-            id: data.user.id,
+            id:
+              data.user.id,
 
-            phone: phone,
+            phone:
+              phone,
 
-            profile_picture: "",
+            profile_picture:
+              "",
 
-            balance: 0,
+            balance:
+              0,
 
-            bonus_balance: 0,
+            bonus_balance:
+              0,
 
-            role: "customer"
+            role:
+              "customer"
 
           })
           .select()
           .single();
 
 
-      /*
-        If profile already exists,
-        retrieve it instead.
-      */
+      let profile;
+
+
+      /* -------------------------------------
+         PROFILE RESULT
+      ------------------------------------- */
 
       if (
-        profileError
+        profileResult.error
       ) {
 
         console.error(
           "PROFILE ERROR:",
-          profileError
+          profileResult.error
         );
 
 
         /*
-          Try to retrieve existing profile.
+          Maybe profile already exists.
         */
 
         const existing =
@@ -697,25 +692,31 @@ form.addEventListener(
           existing.data
         ) {
 
-          saveUser(
-            data.user,
-            existing.data
-          );
+          profile =
+            existing.data;
 
         } else {
 
-          throw profileError;
+          throw profileResult.error;
 
         }
 
       } else {
 
-        saveUser(
-          data.user,
-          profile
-        );
+        profile =
+          profileResult.data;
 
       }
+
+
+      /* -------------------------------------
+         SAVE USER
+      ------------------------------------- */
+
+      saveUser(
+        data.user,
+        profile
+      );
 
 
       /* -------------------------------------
@@ -727,26 +728,26 @@ form.addEventListener(
         "success"
       );
 
+
+      loading.style.display =
+        "block";
+
       loading.textContent =
         "Opening BetKigali...";
 
 
       /*
-        Give the browser a tiny moment
-        to save the Supabase session.
+        IMPORTANT:
+
+        Do NOT reload register.html.
+        Do NOT use href to register.html.
+
+        Go directly to index.html.
       */
 
-      setTimeout(
-        function() {
-
-          window.location.replace(
-            "index.html"
-          );
-
-        },
-        500
+      window.location.replace(
+        "index.html"
       );
-
 
     } catch (error) {
 
@@ -756,13 +757,13 @@ form.addEventListener(
       );
 
 
-      let message =
+      let errorMessage =
         error?.message ||
         "Registration failed. Please try again.";
 
 
       const lower =
-        message.toLowerCase();
+        errorMessage.toLowerCase();
 
 
       if (
@@ -774,7 +775,7 @@ form.addEventListener(
         )
       ) {
 
-        message =
+        errorMessage =
           "This phone number is already registered. Please login.";
 
       }
@@ -786,7 +787,7 @@ form.addEventListener(
         )
       ) {
 
-        message =
+        errorMessage =
           "This phone number already has a profile.";
 
       }
@@ -798,16 +799,20 @@ form.addEventListener(
         )
       ) {
 
-        message =
+        errorMessage =
           "Supabase blocked profile creation. Check the profiles INSERT policy.";
 
       }
 
 
       showMessage(
-        message,
+        errorMessage,
         "error"
       );
+
+
+      loading.style.display =
+        "none";
 
 
     } finally {
@@ -815,14 +820,13 @@ form.addEventListener(
       registerBtn.disabled =
         false;
 
-      loading.style.display =
-        "none";
-
     }
 
   }
 );
+
 </script>
+
+</body>
+</html>
 ```
-
-
